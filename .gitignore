@@ -1,0 +1,62 @@
+# Öffentliches Repository: hierher gehören nur die fertigen Seiten.
+# Der Inhalt wird vom Erzeugungslauf in dynasty-tool geschrieben
+# (veroeffentlichen/ablegen.py), nicht von Hand.
+
+# macOS legt diese Dateien beim Blättern im Finder selbst an.
+.DS_Store
+._*
+.AppleDouble
+.LSOverride
+.Spotlight-V100
+.Trashes
+.fseventsd
+Icon?
+
+# Editoren und Werkzeuge
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+__pycache__/
+*.pyc
+.claude/
+
+# Zugangsdaten — gehören nirgendwohin, in ein öffentliches Repository erst recht nicht.
+.env
+.env.*
+*.pem
+*.key
+*_token*
+*token*.json
+*cookie*
+*secret*
+*credential*
+*.local
+*.local.*
+.netrc
+
+# Daten. Falls je ein ganzer Ausgabeordner statt der einzelnen Seite hierher
+# kopiert wird, bleibt alles ausser der Seite selbst liegen. liga_in_zahlen.json
+# ist der Hauptgrund: es steht als Datenblock ohnehin schon in der Seite und
+# trägt zusätzlich den lokalen Pfad des Bündels.
+raw/
+processed/
+reference/
+reports/
+payload/
+*.csv
+*.tsv
+*.parquet
+*.json
+*.sqlite
+*.db
+MANIFEST.sha256
+SOURCE.json
+SOURCES.csv
+
+# Archive und Grosses
+*.zip
+*.gz
+*.tar
+*.7z
