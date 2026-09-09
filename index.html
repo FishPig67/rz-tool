@@ -14,6 +14,7 @@
 .rz-nav a{color:var(--rz-accent);text-decoration:none;font-weight:600}
 .rz-nav a:hover{text-decoration:underline}
 .rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
+.rz-nav a.rz-hier{color:var(--rz-ink2)}
 
 *{box-sizing:border-box}
 body{margin:0;background:var(--rz-bg);color:var(--rz-ink);
@@ -38,11 +39,23 @@ ul.rz-liste p{margin:6px 0 0;color:var(--rz-ink2);max-width:62ch}
   color:var(--rz-mute);font-size:13px;max-width:70ch}
 </style>
 </head>
-<body>
+<body><!--rz-rahmen--><style>
+:root{--rz-bg:#f6f5f1;--rz-bg2:#ecebe5;--rz-ink:#191c20;--rz-ink2:#4c5259;--rz-mute:#7d838b;--rz-line:#d9d7cf;--rz-accent:#b3261e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}}
+:root[data-theme="dark"]{--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}
+.rz-nav{display:flex;flex-wrap:wrap;gap:6px 20px;align-items:baseline;
+  padding:10px 20px;background:var(--rz-bg2);border-bottom:1px solid var(--rz-line);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+  font-size:14px;color:var(--rz-mute)}
+.rz-nav a{color:var(--rz-accent);text-decoration:none;font-weight:600}
+.rz-nav a:hover{text-decoration:underline}
+.rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
+.rz-nav a.rz-hier{color:var(--rz-ink2)}
+</style><nav class="rz-nav"><a href="index.html" class="rz-hier" aria-current="page">Home</a><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a></nav><!--/rz-rahmen-->
 <main>
 <header><div class="rz-eyebrow">FishPig RedZone · Dynasty</div><h1>Die Liga in Zahlen und was daraus folgt</h1><p>Werkzeuge zu meiner Dynasty-Liga, gerechnet nach den Regeln dieser Liga. Jede Seite trägt ihre Herkunft: aus welchem Datenbündel sie stammt und wann sie erzeugt wurde.</p></header>
 <ul class="rz-liste"><li><h2><a href="liga-in-zahlen.html">Die Liga in Zahlen</a></h2><p>Bilanz je Manager, Playoff-Schwelle, Glück gegen Können, Kaderlücken gegen das Roster und Altersprofil der Kader — aus den Yahoo-Daten der Liga, ohne Prognose und ohne Bewertungsmodell.</p></li><li><h2><a href="benotung.html">Benotung</a></h2><p>Leistung und Wert je Spieler, getrennt nach Position: Punkte pro Saisonwoche aus den NFL-Statistiken nach den Regeln der Liga, Zahl der Spiele, Abstand zum besten freien Spieler. Beschreibt, prognostiziert nicht — keine Note, kein zusammengesetzter Wert.</p></li><li><h2><a href="waiver-markt.html">Der Waiver-Markt</a></h2><p>Gezahlte Waiver-Preise 2022 bis 2025 gegen die Gegengebote aus dem Ligakanal: welche Preise umkämpft waren und welche gegen ein leeres Feld geboten wurden. Preise je Position, Wettbewerb je Saison, knappste und deutlichste Siege, die Manager. Beschreibt, empfiehlt nicht.</p></li><li><h2><a href="handel.html">Die Handel</a></h2><p>Alle 24 Handelsgeschäfte der Liga seit 2019: wer was für was gab, mit Datum, Spielern und Draft-Picks als Runde. Dazu, wie sie ausgingen: die Punkte beider Seiten nach den Ligaregeln, einmal über die ganze Zeit und einmal nur, solange der Spieler im Kader stand. Nach Belastbarkeit getrennt. Einzelne Geschäfte, keine Rangliste über Manager.</p></li><li><h2><a href="griffe-fehlgriffe.html">Griffe und Fehlgriffe</a></h2><p>Wer wen abgab und wen dafür holte, und wer von beiden danach mehr brachte: je Position die drei grössten Fehlgriffe und die drei besten Griffe der Saisons 2020 bis 2025, dieselbe Aufteilung noch einmal für 2025. Nur Paare gleicher Position, gerechnet nach den Ligaregeln. Einzelne Fälle, keine Wertung über Manager.</p></li></ul>
-<p class="rz-fuss">Erzeugt 2026-09-09 21:05 UTC aus dem Erzeugungslauf; von Hand wird hier nichts geändert.</p>
+<p class="rz-fuss">Erzeugt 2026-09-09 21:20 UTC aus dem Erzeugungslauf; von Hand wird hier nichts geändert.</p>
 </main>
 </body>
 </html>
