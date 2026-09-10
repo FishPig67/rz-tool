@@ -124,10 +124,20 @@
   "einheit": "Waiver-Preise",
   "datei": "waiver_markt.json",
   "pfad": "kern.n_preise",
-  "erzeugt_utc": "2026-09-10T14:06:03Z",
+  "erzeugt_utc": "2026-09-10T21:05:32Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260907-1731-yahoo-chat-15123c"
-  ]
+  ],
+  "stand": {
+   "text": "Saisons 2022 bis 2025",
+   "wert": [
+    2022,
+    2025
+   ],
+   "datei": "waiver_markt.json",
+   "pfad": "zeitraum",
+   "vorwort": "Saisons"
+  }
  }
 }
