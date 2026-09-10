@@ -57,14 +57,19 @@
   "einheit": "Begriffe im Glossar",
   "datei": "grundlagen.json",
   "pfad": "kenn.n_begriffe",
-  "erzeugt_utc": "2026-09-10T21:06:28Z",
+  "erzeugt_utc": "2026-09-10T22:03:04Z",
   "buendel": [],
   "stand": {
    "text": "Ligaregeln 2026",
-   "wert": 2026,
-   "datei": "grundlagen.json",
-   "pfad": "regeln.season",
-   "vorwort": "Ligaregeln"
+   "teile": [
+    {
+     "text": "Ligaregeln 2026",
+     "wert": 2026,
+     "datei": "grundlagen.json",
+     "pfad": "regeln.season",
+     "vorwort": "Ligaregeln"
+    }
+   ]
   }
  },
  "handel": {
