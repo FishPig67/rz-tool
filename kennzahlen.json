@@ -63,6 +63,17 @@
    "20260904-1721-yahoo-voll-227e9b"
   ]
  },
+ "nfl-teams": {
+  "wert": 2189,
+  "einheit": "Depth-Chart-Zeilen",
+  "datei": "nfl_teams.json",
+  "pfad": "kenn.n_depth_zeilen",
+  "erzeugt_utc": "2026-09-10T01:50:16Z",
+  "buendel": [
+   "20260905-0122-nflverse-parquet-5b1a0a",
+   "20260909-1015-nflverse-schedules-frueh-w01-ddc931"
+  ]
+ },
  "waiver-markt": {
   "wert": 408,
   "einheit": "Waiver-Preise",
