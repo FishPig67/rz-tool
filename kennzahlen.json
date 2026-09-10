@@ -77,7 +77,7 @@
   "einheit": "Depth-Chart-Zeilen",
   "datei": "nfl_teams.json",
   "pfad": "kenn.n_depth_zeilen",
-  "erzeugt_utc": "2026-09-10T14:07:40Z",
+  "erzeugt_utc": "2026-09-10T15:46:29Z",
   "buendel": [
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260909-1015-nflverse-schedules-frueh-w01-ddc931"
