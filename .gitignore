@@ -54,6 +54,11 @@ payload/
 MANIFEST.sha256
 SOURCE.json
 SOURCES.csv
+# Ausnahme: die Kennzahlen der Startseite. Sie werden beim Veröffentlichen einer
+# Seite aus deren JSON gemessen (veroeffentlichen/kennzahlen.py) und tragen nur,
+# was in index.html ohnehin steht: Wert, Dateiname, Pfad, Erzeugungszeit, Bündel.
+# Die Privatheitsprüfung läuft auch über diese Datei.
+!kennzahlen.json
 
 # Archive und Grosses
 *.zip
