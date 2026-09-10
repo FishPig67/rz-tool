@@ -25,13 +25,27 @@
   "einheit": "Paare gleicher Position",
   "datei": "griffe-fehlgriffe.json",
   "pfad": "kenn.n_positionsgleich",
-  "erzeugt_utc": "2026-09-10T14:07:07Z",
+  "erzeugt_utc": "2026-09-10T21:06:17Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-0636-nflverse-schedules-05d152",
    "20260907-2042-player-ids-zweifach-93d97c"
-  ]
+  ],
+  "stand": {
+   "text": "Saisons 2020 bis 2025",
+   "wert": [
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "datei": "griffe-fehlgriffe.json",
+   "pfad": "saisons",
+   "vorwort": "Saisons"
+  }
  },
  "grundlagen": {
   "wert": 43,
