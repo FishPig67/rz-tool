@@ -40,6 +40,19 @@
    "20260908-2102-rookie-drafts-bild-korr-53dafe"
   ]
  },
+ "kader": {
+  "wert": 210,
+  "einheit": "Plätze in Woche 1",
+  "datei": "kader.json",
+  "pfad": "kenn.n_kaderplaetze",
+  "erzeugt_utc": "2026-09-10T00:57:33Z",
+  "buendel": [
+   "20260904-1721-yahoo-voll-227e9b",
+   "20260905-0122-nflverse-parquet-5b1a0a",
+   "20260907-2042-player-ids-zweifach-93d97c",
+   "20260909-1041-yahoo-anpfiff-w01-0093dd"
+  ]
+ },
  "liga-in-zahlen": {
   "wert": 204,
   "einheit": "Kaderplätze",
