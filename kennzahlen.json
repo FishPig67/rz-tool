@@ -84,11 +84,18 @@
   "einheit": "Depth-Chart-Zeilen",
   "datei": "nfl_teams.json",
   "pfad": "kenn.n_depth_zeilen",
-  "erzeugt_utc": "2026-09-10T15:46:29Z",
+  "erzeugt_utc": "2026-09-10T21:05:03Z",
   "buendel": [
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260909-1015-nflverse-schedules-frueh-w01-ddc931"
-  ]
+  ],
+  "stand": {
+   "text": "Saison 2025",
+   "wert": 2025,
+   "datei": "nfl_teams.json",
+   "pfad": "fenster.0.saison",
+   "vorwort": "Saison"
+  }
  },
  "waiver-markt": {
   "wert": 408,
