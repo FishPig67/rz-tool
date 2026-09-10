@@ -149,17 +149,31 @@ body.fenster-offen .feld{display:none}
 
 .kopfbild{position:relative;z-index:1;background:#05070d;border-bottom:1px solid var(--line)}
 .kopfbild img{display:block;width:100%;height:clamp(200px,33.34vw,724px);object-fit:cover;object-position:78% 50%}
-/* Der Kopftext liegt im Bild, links, wo es gemessen am dunkelsten ist (Quellspalten 0 bis
-   1020: Anteil Pixel heller als 140 unter 1,4 %). Keine Fläche dahinter, keine Abdunklung
-   des Bildes — die Lesbarkeit kommt aus dem Schatten an der Schrift, weil der Handy-
-   Beschnitt genau diesen dunklen Bildteil wegnimmt (gemessen: bei 390 px beginnt das
-   Sichtbare erst bei Quellspalte 593). */
-.kopftext{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
-  padding:0 clamp(16px,3vw,40px);max-width:min(620px,58%);pointer-events:none;
+/* Der Kopftext klebt am Bild, nicht am Fenster. Die Zone stammt aus Simons Bildausschnitt
+   vom 2026-09-10, per Template-Matching dem Original zugeordnet (Korrelation 0,939):
+   links 27,8 %, rechts 59,6 %, oben 47,2 %, unten 89,6 % der Bildmasse. Rechts daneben
+   beginnt bei 60,6 % das Wappen. Alle Masse sind Anteile der DARGESTELLTEN Bildbreite
+   --dw, die bei object-fit:cover grösser als das Fenster sein kann: dw = max(Fenster,
+   3 × Bildhöhe). Der Beschnitt (object-position 78 %) schiebt das Bild um 0,78 × (dw −
+   Fenster) nach links; darum steht die Zonenkante bei 0,278·dw − 0,78·(dw − 100 %).
+   Auf schmalen Bildschirmen fällt die Zonenkante links aus dem Bild (gemessen: ab 380 px
+   Fensterbreite); max(16px, …) hält den Text dann am linken Rand. Keine Fläche dahinter,
+   keine Abdunklung; die Lesbarkeit kommt aus dem Schatten an der Schrift. */
+.kopfbild{--dw:max(100%,calc(3*clamp(200px,33.34vw,724px)))}
+.kopftext{position:absolute;top:68.4%;transform:translateY(-50%);
+  left:max(16px,calc(.278*var(--dw) - .78*(var(--dw) - 100%)));
+  width:max(calc(.318*var(--dw)),210px);
+  display:flex;flex-direction:column;pointer-events:none;
   text-shadow:0 1px 2px rgba(0,0,0,.8),0 2px 14px rgba(0,0,0,.65)}
-.kopftext .eyebrow{color:#fff;font-size:clamp(10px,1vw,13px)}
-.kopftext h1{color:#fff;font-size:clamp(24px,4.4vw,60px);line-height:.98;margin:6px 0 0}
-.kopftext h1 span{display:block}
+/* Eyebrow im Blau des Wortes „RedZone“ der Kopfzeile (gestalt --accent2), „Playbook“ im Rot
+   des Logo-Schriftzugs (Mittel der grössten Farbgruppe, 53 % der roten Pixel, gemessen). */
+.kopftext .eyebrow{color:var(--accent2);font-size:clamp(10px,1vw,13px)}
+/* 3,5vw statt 4,4vw: der Titel ist 9,0-mal so breit wie sein Schriftgrad (gemessen 540 px
+   bei 60 px), die Zone ist 31,8 % der Bildbreite; 0,318 / 9 = 3,53 %. Mit 4,4vw hätte
+   „FISHPIG REDZONE“ bei jeder Fensterbreite unter 1364 px bis ins Wappen gereicht. */
+.kopftext h1{color:#fff;font-size:clamp(24px,3.5vw,60px);line-height:.98;margin:6px 0 0}
+.kopftext h1 span{display:block;white-space:nowrap}
+.kopftext h1 span.rot{color:#ef193a}
 .kopftext p{color:#fff;margin:10px 0 0;font-size:clamp(12.5px,1.25vw,17px);line-height:1.35;max-width:46ch}
 ol.karten{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
 ol.karten li{min-width:0}
@@ -175,9 +189,24 @@ ol.karten .fuss .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow"
 @media (max-width:760px){
   ol.karten h2{font-size:22px}
 }
-@media (max-width:600px){ol.karten{grid-template-columns:1fr}}
+@media (max-width:600px){
+  ol.karten{grid-template-columns:1fr}
+  /* Unter 600 px ist das Bild nur 200 px hoch; die Zone (47 bis 90 % der Höhe) fasst die vier
+     Zeilen dort nicht mehr. Der Text sitzt deshalb senkrecht in der Bildmitte, waagrecht
+     weiter an der Zonenkante (mit dem 16-px-Halt). */
+  .kopftext{top:50%;left:16px;width:min(210px,calc(.606*var(--dw) - .5*(var(--dw) - 100%) - 24px))}
+  /* Die Zonenkante läge bei 390 px bei 62 CSS-Pixeln; dort bliebe bis zum Wappen kein Platz
+     für den Titel (194 px bei 24 px Schrift). Deshalb 16 px vom Rand, und die Breite endet
+     8 px vor der Wappenkante (0,606 der Quellbreite, mit dem 50-%-Anker umgerechnet).
+     Mit dem Wappen als Ankerpunkt (78 %) beginnt das Sichtbare bei 390 px erst bei
+     Quellspalte 593 und das Wappen schon 200 CSS-Pixel weiter rechts: der Text (210 px
+     ab 16 px) läge auf dem Wappen (gemessen: rechte Textkante bei 65,0 % der Quellbreite,
+     Wappen ab 60,6 %). Anker 50 % zeigt Quelle 380 bis 1980: das Wappen beginnt erst bei
+     258 CSS-Pixeln, der Text endet bei 226; vom Wappen fehlen rechts 20 %. */
+  .kopfbild img{object-position:50% 50%}
+}
 /* Ohne Kopfbild (Aufruf ohne --kopfbild) steht derselbe Text über den Karten, ohne Schatten. */
-.ohne-bild .kopftext{position:static;max-width:min(620px,100%);padding:26px 20px 0;text-shadow:none}
+.ohne-bild .kopftext{position:static;transform:none;width:auto;max-width:620px;padding:26px 20px 0;text-shadow:none}
 </style>
 </head>
 <body><!--rz-rahmen--><style>
@@ -200,11 +229,11 @@ ol.karten .fuss .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow"
   <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · Übersicht</div></span></a>
   <nav class="haupt" aria-label="Seiten"><a href="index.html" class="hier" aria-current="page">Home</a><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><span class="mit-unter"><a href="kader.html">Kader</a><button class="pfeil" type="button" aria-expanded="false" aria-controls="um-kader" aria-label="Untermenü Kader">&#9662;</button><div class="unter" id="um-kader" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span></nav>
 </div></div>
-<div class="kopfbild"><img src="bilder/kopfbild.webp" alt="FishPig RedZone: Stadion, Spielfeld und Wappen" width="2172" height="724" decoding="async"><div class="kopftext"><div class="eyebrow">Dynasty is King</div><h1><span>FishPig Redzone</span><span>Playbook</span></h1><p>Dein datenbasiertes Playbook für die Now it goes around the sausage League. Wer diese Seite nicht nutzt, ist selber schuld.</p></div></div>
+<div class="kopfbild"><img src="bilder/kopfbild.webp" alt="FishPig RedZone: Stadion, Spielfeld und Wappen" width="2172" height="724" decoding="async"><div class="kopftext"><div class="eyebrow">Dynasty is King</div><h1><span>FishPig Redzone</span><span class="rot">Playbook</span></h1><p>Dein datenbasiertes Playbook für die Now it goes around the sausage League. Wer diese Seite nicht nutzt, ist selber schuld.</p></div></div>
 <main>
 <ol class="karten"><li><a href="liga-in-zahlen.html"><span class="nr">01</span><h2>Die Liga in Zahlen</h2><p>Bilanz je Manager, Playoff-Schwelle, Glück gegen Können, Kaderlücken gegen das Roster und Altersprofil der Kader — aus den Yahoo-Daten der Liga, ohne Prognose und ohne Bewertungsmodell.</p><div class="fuss"><span class="z">204</span><span class="lab">Kaderplätze</span></div></a></li><li><a href="benotung.html"><span class="nr">02</span><h2>Benotung</h2><p>Leistung und Wert je Spieler, getrennt nach Position: Punkte pro Saisonwoche aus den NFL-Statistiken nach den Regeln der Liga, Zahl der Spiele, Abstand zum besten freien Spieler. Beschreibt, prognostiziert nicht — keine Note, kein zusammengesetzter Wert.</p><div class="fuss"><span class="z">1'163</span><span class="lab">Spieler</span></div></a></li><li><a href="waiver-markt.html"><span class="nr">03</span><h2>Der Waiver-Markt</h2><p>Gezahlte Waiver-Preise 2022 bis 2025 gegen die Gegengebote aus dem Ligakanal: welche Preise umkämpft waren und welche gegen ein leeres Feld geboten wurden. Preise je Position, Wettbewerb je Saison, knappste und deutlichste Siege, die Manager. Beschreibt, empfiehlt nicht.</p><div class="fuss"><span class="z">408</span><span class="lab">Waiver-Preise</span></div></a></li><li><a href="handel.html"><span class="nr">04</span><h2>Die Handel</h2><p>Alle 24 Handelsgeschäfte der Liga seit 2019: wer was für was gab, mit Datum, Spielern und Draft-Picks als Runde. Dazu, wie sie ausgingen: die Punkte beider Seiten nach den Ligaregeln, einmal über die ganze Zeit und einmal nur, solange der Spieler im Kader stand. Nach Belastbarkeit getrennt. Einzelne Geschäfte, keine Rangliste über Manager.</p><div class="fuss"><span class="z">24</span><span class="lab">Geschäfte</span></div></a></li><li><a href="griffe-fehlgriffe.html"><span class="nr">05</span><h2>Griffe und Fehlgriffe</h2><p>Wer wen abgab und wen dafür holte, und wer von beiden danach mehr brachte: je Position die drei grössten Fehlgriffe und die drei besten Griffe der Saisons 2020 bis 2025, dieselbe Aufteilung noch einmal für 2025. Nur Paare gleicher Position, gerechnet nach den Ligaregeln. Einzelne Fälle, keine Wertung über Manager.</p><div class="fuss"><span class="z">448</span><span class="lab">Paare gleicher Position</span></div></a></li><li><a href="kader.html"><span class="nr">06</span><h2>Die Kader</h2><p>Die zwölf Teams der Liga mit ihren Kadern, Saison 2026, Woche 1: je Team Manager, Teamname und Positionsverteilung, darunter die Spieler nach Position mit Bild, NFL-Team und der Leistung der Vorsaison nach den Regeln der Liga. Beschreibt, empfiehlt nichts.</p><div class="fuss"><span class="z">210</span><span class="lab">Plätze in Woche 1</span></div></a></li></ol>
 <details class="prov"><summary>Herkunft der Kennzahlen</summary><p class="hint">Jede Seite trägt ihre Herkunft: aus welchem Datenbündel sie stammt und wann sie erzeugt wurde.</p><div class="prov"><b>Die Liga in Zahlen</b>: 204 Kaderplätze aus liga_in_zahlen.json › block5.n_kaderplaetze, erzeugt 2026-09-10T01:57:13Z UTC, Bündel 20260904-1721-yahoo-voll-227e9b<br><b>Benotung</b>: 1'163 Spieler aus benotung.json › n_zeilen, erzeugt 2026-09-10T01:57:59Z UTC, Bündel 20260904-1721-yahoo-voll-227e9b, 20260905-0122-nflverse-parquet-5b1a0a, 20260906-2011-player-ids-667979, 20260909-1015-nflverse-schedules-frueh-w01-ddc931, 20260909-1041-yahoo-anpfiff-w01-0093dd<br><b>Der Waiver-Markt</b>: 408 Waiver-Preise aus waiver_markt.json › kern.n_preise, erzeugt 2026-09-10T01:57:17Z UTC, Bündel 20260904-1721-yahoo-voll-227e9b, 20260907-1731-yahoo-chat-15123c<br><b>Die Handel</b>: 24 Geschäfte aus handel.json › kenn.n_geschaefte, erzeugt 2026-09-10T01:57:26Z UTC, Bündel 20260904-1721-yahoo-voll-227e9b, 20260905-0122-nflverse-parquet-5b1a0a, 20260907-0636-nflverse-schedules-05d152, 20260907-2042-player-ids-zweifach-93d97c, 20260908-2102-rookie-drafts-bild-korr-53dafe<br><b>Griffe und Fehlgriffe</b>: 448 Paare gleicher Position aus griffe-fehlgriffe.json › kenn.n_positionsgleich, erzeugt 2026-09-10T01:57:51Z UTC, Bündel 20260904-1721-yahoo-voll-227e9b, 20260905-0122-nflverse-parquet-5b1a0a, 20260907-0636-nflverse-schedules-05d152, 20260907-2042-player-ids-zweifach-93d97c<br><b>Die Kader</b>: 210 Plätze in Woche 1 aus kader.json › kenn.n_kaderplaetze, erzeugt 2026-09-10T02:57:32Z UTC, Bündel 20260904-1721-yahoo-voll-227e9b, 20260905-0122-nflverse-parquet-5b1a0a, 20260907-2042-player-ids-zweifach-93d97c, 20260909-1015-nflverse-schedules-frueh-w01-ddc931, 20260909-1041-yahoo-anpfiff-w01-0093dd<br><b>Die NFL-Teams</b>: 2'189 Depth-Chart-Zeilen aus nfl_teams.json › kenn.n_depth_zeilen, erzeugt 2026-09-10T02:17:26Z UTC, Bündel 20260905-0122-nflverse-parquet-5b1a0a, 20260909-1015-nflverse-schedules-frueh-w01-ddc931</div></details>
-<p class="foot">Erzeugt 2026-09-10 03:33 UTC aus dem Erzeugungslauf; von Hand wird hier nichts geändert.</p>
+<p class="foot">Erzeugt 2026-09-10 04:11 UTC aus dem Erzeugungslauf; von Hand wird hier nichts geändert.</p>
 </main>
 <script>
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
