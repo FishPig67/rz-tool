@@ -45,11 +45,12 @@
   "einheit": "Plätze in Woche 1",
   "datei": "kader.json",
   "pfad": "kenn.n_kaderplaetze",
-  "erzeugt_utc": "2026-09-10T01:58:09Z",
+  "erzeugt_utc": "2026-09-10T02:57:32Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-2042-player-ids-zweifach-93d97c",
+   "20260909-1015-nflverse-schedules-frueh-w01-ddc931",
    "20260909-1041-yahoo-anpfiff-w01-0093dd"
   ]
  },
