@@ -101,7 +101,7 @@
   "einheit": "Plätze in Woche 1",
   "datei": "kader.json",
   "pfad": "kenn.n_kaderplaetze",
-  "erzeugt_utc": "2026-09-10T21:18:22Z",
+  "erzeugt_utc": "2026-09-10T22:02:58Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
@@ -111,10 +111,15 @@
   ],
   "stand": {
    "text": "Kaderstand 2026-09-09",
-   "wert": "2026-09-09T11:15:23Z",
-   "datei": "kader.json",
-   "pfad": "stand_utc",
-   "vorwort": "Kaderstand"
+   "teile": [
+    {
+     "text": "Kaderstand 2026-09-09",
+     "wert": "2026-09-09T11:15:23Z",
+     "datei": "kader.json",
+     "pfad": "stand_utc",
+     "vorwort": "Kaderstand"
+    }
+   ]
   }
  },
  "liga-in-zahlen": {
