@@ -113,28 +113,41 @@
   }
  },
  "liga-in-zahlen": {
-  "wert": 204,
+  "wert": 210,
   "einheit": "Kaderplätze",
   "datei": "liga_in_zahlen.json",
   "pfad": "block5.n_kaderplaetze",
-  "erzeugt_utc": "2026-09-10T21:23:26Z",
+  "erzeugt_utc": "2026-09-10T21:44:36Z",
   "buendel": [
-   "20260904-1721-yahoo-voll-227e9b"
+   "20260904-1721-yahoo-voll-227e9b",
+   "20260909-1041-yahoo-anpfiff-w01-0093dd"
   ],
   "stand": {
-   "text": "Saisons 2019 bis 2025",
-   "wert": [
-    2019,
-    2020,
-    2021,
-    2022,
-    2023,
-    2024,
-    2025
-   ],
-   "datei": "liga_in_zahlen.json",
-   "pfad": "schema.saisons_bilanz",
-   "vorwort": "Saisons"
+   "text": "Saisons 2019 bis 2025 · Kaderstand 2026-09-09",
+   "teile": [
+    {
+     "text": "Saisons 2019 bis 2025",
+     "wert": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "datei": "liga_in_zahlen.json",
+     "pfad": "schema.saisons_bilanz",
+     "vorwort": "Saisons"
+    },
+    {
+     "text": "Kaderstand 2026-09-09",
+     "wert": "2026-09-09",
+     "datei": "liga_in_zahlen.json",
+     "pfad": "schema.stichtag_kader",
+     "vorwort": "Kaderstand"
+    }
+   ]
   }
  },
  "nfl-teams": {
