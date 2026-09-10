@@ -26,6 +26,14 @@
    "20260907-2042-player-ids-zweifach-93d97c"
   ]
  },
+ "grundlagen": {
+  "wert": 43,
+  "einheit": "Begriffe im Glossar",
+  "datei": "grundlagen.json",
+  "pfad": "kenn.n_begriffe",
+  "erzeugt_utc": "2026-09-10T14:04:08Z",
+  "buendel": []
+ },
  "handel": {
   "wert": 24,
   "einheit": "Geschäfte",
