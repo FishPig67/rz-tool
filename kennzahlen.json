@@ -74,10 +74,25 @@
   "einheit": "Kaderplätze",
   "datei": "liga_in_zahlen.json",
   "pfad": "block5.n_kaderplaetze",
-  "erzeugt_utc": "2026-09-10T14:05:29Z",
+  "erzeugt_utc": "2026-09-10T21:05:11Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b"
-  ]
+  ],
+  "stand": {
+   "text": "Saisons 2019 bis 2025",
+   "wert": [
+    2019,
+    2020,
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+   ],
+   "datei": "liga_in_zahlen.json",
+   "pfad": "schema.saisons_bilanz",
+   "vorwort": "Saisons"
+  }
  },
  "nfl-teams": {
   "wert": 2189,
