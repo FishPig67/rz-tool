@@ -4,14 +4,15 @@
   "einheit": "Spieler",
   "datei": "benotung.json",
   "pfad": "n_zeilen",
-  "erzeugt_utc": "2026-09-11T07:36:13Z",
+  "erzeugt_utc": "2026-09-11T09:51:03Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-2042-player-ids-zweifach-93d97c",
    "20260909-1015-nflverse-schedules-frueh-w01-ddc931",
    "20260909-1041-yahoo-anpfiff-w01-0093dd",
-   "20260911-0553-bruecke-korrektur-9d6d24"
+   "20260911-0553-bruecke-korrektur-9d6d24",
+   "20260911-0927-bruecke-ergaenzung-01392e"
   ],
   "stand": {
    "text": "Saison 2025",
