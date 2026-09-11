@@ -83,13 +83,14 @@
   "einheit": "Geschäfte",
   "datei": "handel.json",
   "pfad": "kenn.n_geschaefte",
-  "erzeugt_utc": "2026-09-11T04:19:48Z",
+  "erzeugt_utc": "2026-09-11T06:43:16Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-0636-nflverse-schedules-05d152",
    "20260907-2042-player-ids-zweifach-93d97c",
-   "20260908-2102-rookie-drafts-bild-korr-53dafe"
+   "20260908-2102-rookie-drafts-bild-korr-53dafe",
+   "20260911-0553-bruecke-korrektur-9d6d24"
   ],
   "stand": {
    "text": "Saisons 2019 bis 2025",
