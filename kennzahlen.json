@@ -148,11 +148,12 @@
   "einheit": "Kaderplätze",
   "datei": "liga_in_zahlen.json",
   "pfad": "block5.n_kaderplaetze",
-  "erzeugt_utc": "2026-09-11T07:36:23Z",
+  "erzeugt_utc": "2026-09-11T09:51:21Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260909-1041-yahoo-anpfiff-w01-0093dd",
-   "20260911-0553-bruecke-korrektur-9d6d24"
+   "20260911-0553-bruecke-korrektur-9d6d24",
+   "20260911-0927-bruecke-ergaenzung-01392e"
   ],
   "stand": {
    "text": "Saisons 2019 bis 2025 · Kaderstand 2026-09-09",
