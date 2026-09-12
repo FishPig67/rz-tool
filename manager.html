@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="de">
 <head>
-<title>Die Kader</title>
+<title>Die Manager</title>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta property="og:type" content="website"><meta property="og:site_name" content="FishPig RedZone"><meta property="og:locale" content="de_CH"><meta property="og:title" content="Die Kader"><meta property="og:description" content="Die zwölf Teams der Liga mit ihren Kadern, Saison 2026, Woche 1: je Team Manager, Teamname und Positionsverteilung, darunter die Spieler nach Position mit Bild, NFL-Team und der Leistung der Vorsaison nach den Regeln der Liga. Beschreibt, empfiehlt nichts."><meta property="og:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg"><meta property="og:url" content="https://fishpig67.github.io/rz-tool/kader.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Die Kader"><meta name="twitter:description" content="Die zwölf Teams der Liga mit ihren Kadern, Saison 2026, Woche 1: je Team Manager, Teamname und Positionsverteilung, darunter die Spieler nach Position mit Bild, NFL-Team und der Leistung der Vorsaison nach den Regeln der Liga. Beschreibt, empfiehlt nichts."><meta name="twitter:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg">
+<meta property="og:type" content="website"><meta property="og:site_name" content="FishPig RedZone"><meta property="og:locale" content="de_CH"><meta property="og:title" content="Die Manager"><meta property="og:description" content="Zwölf Manager, je eine Seite mit neun Blöcken: Bilanz und Erfolge, ewige Kennzahlen, Rekorde, Kopf an Kopf, Waiver, Handel, Drops, der Kader heute und die Teamnamen. Zusammengeführt aus den anderen Seiten, jeder Block mit seinem Zeitraum, nichts gedeutet."><meta property="og:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg"><meta property="og:url" content="https://fishpig67.github.io/rz-tool/manager.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Die Manager"><meta name="twitter:description" content="Zwölf Manager, je eine Seite mit neun Blöcken: Bilanz und Erfolge, ewige Kennzahlen, Rekorde, Kopf an Kopf, Waiver, Handel, Drops, der Kader heute und die Teamnamen. Zusammengeführt aus den anderen Seiten, jeder Block mit seinem Zeitraum, nichts gedeutet."><meta name="twitter:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg">
 <style>
 @font-face{font-family:"Anton";font-style:normal;font-weight:400;font-display:swap;src:url("schriften/anton.woff2") format("woff2")}
 @font-face{font-family:"Oswald";font-style:normal;font-weight:600;font-display:swap;src:url("schriften/oswald-600.woff2") format("woff2")}
@@ -183,82 +183,21 @@ td.name .sp .nm{font-weight:600}
   .tablewrap table th.l:first-child{background:var(--bg3)}
 }
 
-ol.teamkarten{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:12px}
-ol.teamkarten li{min-width:0}
-a.teamkarte{display:flex;flex-direction:column;gap:6px;height:100%;background:var(--bg3);border:1px solid var(--line);border-radius:10px;padding:12px 14px;text-decoration:none;color:inherit}
-a.teamkarte:hover{border-color:var(--accent2);background:var(--bg2)}
-a.teamkarte .mgr{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent2)}
-a.teamkarte h3{font-size:19px;color:var(--ink);letter-spacing:.06em}
-a.teamkarte .vert{font-variant-numeric:tabular-nums;color:var(--ink2);font-size:13px;white-space:nowrap}
-a.teamkarte .vert b{color:var(--ink)}
-a.teamkarte .n{font-size:12.5px;color:var(--mute)}
-.teamkopf{margin-bottom:8px}
-.teamkopf .mgr{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2)}
-.teamkopf h1{font-size:38px}
-.knoepfe{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 18px}
-.knopf-gruppe{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
-.knopf-gruppe .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
-a.knopf{display:inline-flex;align-items:center;gap:6px;background:var(--bg3);border:1px solid var(--line);border-radius:7px;padding:7px 13px;color:var(--ink2);text-decoration:none;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
-a.knopf:hover{border-color:var(--accent2);color:var(--ink);background:var(--bg2)}
-a.knopf:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
-a.knopf.zurueck{border-color:var(--accent2);color:var(--accent2)}
-a.knopf.zurueck:hover{background:var(--accent);border-color:var(--accent);color:#fff}
-.saisonwahl{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:0 0 12px}
-.saisonwahl button{background:var(--bg3);color:var(--ink2);border:1px solid var(--line);border-radius:6px;padding:6px 14px;font:inherit;cursor:pointer}
-.saisonwahl button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
-/* Zwei Tabellen nebeneinander: links die Grundspalten (stehen), rechts die Statistik
-   (scrollt waagrecht). Die feste Zeilenhöhe hält beide ohne Skript auf gleicher Höhe. */
-.aufstellung{display:flex;align-items:flex-start;border:1px solid var(--line);border-radius:10px;background:var(--bg2);overflow-x:auto}
-.grund{flex:none;position:sticky;left:0;z-index:2;background:var(--bg2);border-right:2px solid var(--line)}
-.stats{flex:none}
-.aufstellung table{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:14px;width:100%}
-.aufstellung th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);white-space:nowrap;padding:0 8px}
-.aufstellung thead tr{height:46px}
-.aufstellung tbody tr{height:46px;border-top:1px solid var(--line)}
-.aufstellung td{padding:0 8px;white-space:nowrap;text-align:right}
-.aufstellung td.l,.aufstellung th.l{text-align:left}
-.aufstellung tr.auf td{background:var(--start)}
-.aufstellung tr.trenner td{background:var(--bg3);height:30px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700;text-align:left}
-.grund td.slot{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.08em;color:var(--mute);width:44px}
-.grund tr.auf td.slot{color:var(--pos)}
-.grund .sp{display:flex;align-items:center;gap:9px;min-width:0}
-.grund .av{width:30px;height:30px;border-radius:50%;flex:none;background:var(--bg3);border:1px solid var(--line);object-fit:cover}
-.grund .av.wappen{border-radius:6px;object-fit:contain;background:#fff;padding:2px}
-.grund .nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px;display:block}
-.grund .sub{display:none;font-size:11.5px;color:var(--mute);font-weight:400}
-.grund td.kd{color:var(--mute);font-style:italic;text-align:left}
-.aufstellung thead tr.b th{color:var(--accent2);letter-spacing:.14em}
-.stats thead tr.b th{border-left:1px solid var(--line)}
-.stats th.g{border-left:1px solid var(--line)}
-.stats td.g{border-left:1px solid var(--line)}
-.stats td.leer{color:var(--mute);font-style:italic;text-align:left;white-space:normal}
-.statkopf{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:baseline;margin:0 0 8px;font-size:12.5px;color:var(--mute)}
-.statkopf b{color:var(--ink2)}
-.gruppekopf{margin:18px 0 8px}
-@media (max-width:760px){
-  ol.teamkarten{grid-template-columns:1fr}
-  .teamkopf h1{font-size:28px}
-  .aufstellung tbody tr:not(.trenner){height:56px}
-  .aufstellung thead tr{height:56px}
-  .aufstellung table{font-size:13px}
-  .aufstellung td,.aufstellung th{padding:0 5px}
-  .grund .sub{display:block}
-  .grund .av{width:26px;height:26px}
-  .m1{display:none}
-  /* Auf dem Handy bekommt die Grundtabelle feste Spaltenbreiten und rund drei Viertel der
-     Breite: so bleibt sie ganz sichtbar (sie klebt links), und rechts steht ein Streifen
-     des Statistikblocks, der geschoben wird. Ohne feste Breiten zog sie sich auf 423 px
-     und hätte den Statistikblock vollständig verdeckt (gemessen bei 390 px). */
-  .grund{width:74%;max-width:272px}
-  .grund table{table-layout:fixed;width:100%}
-  .grund td,.grund th{overflow:hidden}
-  .grund th:first-child,.grund td.slot{width:30px;font-size:10.5px}
-  .grund th:nth-child(5),.grund th:nth-child(6){width:54px}
-  .grund .nm{max-width:none}
-  .aufstellung thead th{font-size:10px;letter-spacing:.05em}
-  .aufstellung thead tr.b th{white-space:normal}
-  .grund td.kd{white-space:normal;font-size:10.5px;line-height:1.12}
-}
+tr.me td.name{color:var(--accent2)}
+.num{font-variant-numeric:tabular-nums}
+.kenn-raster .z small{font-size:12px}
+.leer{color:var(--ink2);font-style:italic;margin:6px 0 0}
+.zeit{color:var(--mute);font-size:12.5px;margin:0 0 8px}
+ul.punkte{margin:8px 0 0;padding-left:0;list-style:none;display:grid;gap:6px;color:var(--ink2)}
+ul.punkte li b{color:var(--ink)}
+.kz{color:var(--mute);font-size:12px;letter-spacing:.06em}
+td.rek{text-align:left;white-space:normal}
+.reihe{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;margin:6px 0 0;color:var(--ink2)}
+.reihe b{color:var(--ink)}
+a.weiter{color:var(--accent2);font-weight:600;text-decoration:none}a.weiter:hover{text-decoration:underline}
+.marke-nr{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;color:var(--mute);font-size:18px;letter-spacing:.08em;margin-right:8px}
+table.saisons td.pod{font-weight:600}
+@media (max-width:760px){.kenn-raster{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
 <body><!--rz-rahmen--><style>
@@ -276,27 +215,24 @@ a.knopf.zurueck:hover{background:var(--accent);border-color:var(--accent);color:
 .rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
 .rz-nav a.rz-hier{color:var(--rz-ink2)}
 .rz-nav a.rz-unter{font-weight:400;font-size:13px;opacity:.85}
-</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich rz-hier">Playbook</span><a href="kader.html" class="rz-hier rz-unter" aria-current="page">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="grundlagen.html">Wissen</a></nav><!--/rz-rahmen-->
+</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich rz-hier">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-hier rz-unter" aria-current="page">Manager</a><a href="grundlagen.html">Wissen</a></nav><!--/rz-rahmen-->
 <div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
 <div class="kopfzeile"><div class="kopf">
-  <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · Saison 2026 · Woche 1</div></span></a>
-  <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html" class="hier" aria-current="page">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a></div></span><a href="grundlagen.html">Wissen</a></nav>
+  <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · Now it goes around the sausage · 12 Manager</div></span></a>
+  <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html" class="hier" aria-current="page">Manager</a></div></span><a href="grundlagen.html">Wissen</a></nav>
 </div></div>
 <main>
 
-<div class="titel"><h1>Die Kader</h1><button class="info" type="button" data-fenster="f-seite" aria-label="Was diese Seiten zeigen" title="Was diese Seiten zeigen">i</button></div>
-<p class="lead">Die zwölf Teams der Liga mit ihren Kadern, <b>Saison 2026, Woche 1</b>.
-Kaderstand vom 2026-09-09 11:15 UTC, Bündel 20260909-1041-yahoo-anpfiff-w01-0093dd; er ändert sich mit jeder Waiver-Runde.
-Jede Karte führt auf die Aufstellung des Teams. Leistung ist die der <b>Vorsaison 2025</b>, nicht der laufenden.</p>
-<div class="kenn-raster"><div><div class="lab">Teams</div><div class="z">12</div><p>je eine eigene Seite</p></div><div><div class="lab">Kaderplätze</div><div class="z">210</div><p>105 aufgestellt, 99 Bank, 6 IR</p></div><div><div class="lab">Ohne Vorsaisondaten</div><div class="z">30</div><p>von 198 Spielern; Rookies und Spieler ohne Statistikzeile 2025</p></div><div><div class="lab">Team-Defenses</div><div class="z">12</div><p>ohne Punkte: Wertungsregeln nicht gebaut</p></div></div>
-<section><div class="sec-head"><div class="titel"><h2>Die zwölf Teams</h2><button class="info" type="button" data-fenster="f-verteilung" aria-label="Positionsverteilung und Plätze" title="Positionsverteilung und Plätze">i</button></div>
-<p>Manager, Teamname, Positionsverteilung. Der Klick führt auf die Aufstellung.</p></div>
-<ol class="teamkarten"><li><a class="teamkarte" href="kader-01.html"><div class="mgr">Tobias</div><h3>Raging Unicorns</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-02.html"><div class="mgr">Cyril</div><h3>CrapTree Luckers</h3><div class="vert">QB <b>1</b> · RB <b>8</b> · WR <b>7</b> · TE <b>1</b></div><div class="n">7 aufgestellt · 10 Bank · 4 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-03.html"><div class="mgr">Dominik</div><h3>Dom's hand-picked AP</h3><div class="vert">QB <b>1</b> · RB <b>5</b> · WR <b>8</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-04.html"><div class="mgr">Simon</div><h3>FishPig Tackles</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>6</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-05.html"><div class="mgr">Jarno</div><h3>Fumble Fiesta Zürich</h3><div class="vert">QB <b>1</b> · RB <b>8</b> · WR <b>5</b> · TE <b>1</b> · K <b>1</b> · DEF <b>2</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 4 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-06.html"><div class="mgr">Matthias</div><h3>Minnesota youngsters</h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>8</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-07.html"><div class="mgr">Michael</div><h3>Pietätlosi Pinguin</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-08.html"><div class="mgr">Dominique</div><h3>Stettlers</h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>9</b> · TE <b>1</b> · DEF <b>1</b></div><div class="n">8 aufgestellt · 9 Bank · 5 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-09.html"><div class="mgr">Samuel</div><h3>Säm Frän</h3><div class="vert">QB <b>1</b> · RB <b>6</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-10.html"><div class="mgr">Mutzi</div><h3>Team Sgt. Hartman</h3><div class="vert">QB <b>1</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-11.html"><div class="mgr">Jake</div><h3>Wakanda Meerkats</h3><div class="vert">QB <b>1</b> · RB <b>6</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-12.html"><div class="mgr">Tanju</div><h3>Wehntal Cows</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>8</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 5 ohne Vorsaisondaten</div></a></li></ol></section>
-<details class="prov"><summary>Herkunft</summary><div class="prov">20260909-1041-yahoo-anpfiff-w01-0093dd / payload/rosters_2026_week01.csv · b7ecfe1eedd743d35b6a540a262a497cf06ebb3390fde3a5a9b78f02e8bde570<br>20260909-1041-yahoo-anpfiff-w01-0093dd / payload/free_agents_2026_week01.csv · d8e93f13e9e9b38fc36941e93bf77383e4293611e92f3008c773d743b28c63db<br>20260904-1721-yahoo-voll-227e9b / payload/league_settings_2026.json · 4b07a6671a5b7dee3019f9fce470b418dc6e7634084ce67a933f771809ac88af<br>20260904-1721-yahoo-voll-227e9b / payload/teams_2019_2026.csv · d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105<br>20260905-0122-nflverse-parquet-5b1a0a / payload/stats_player_week_2025.parquet · 2a461becaa9adb3c93a3074a3a31f1e960162a50163371a2d34e28393b5fff10<br>20260907-2042-player-ids-zweifach-93d97c / payload/spieler_ids.csv · d1475e5a795e1ab5891232ed83242a03bf1c129d814f7a309e8a2f032aadc999<br>20260907-2042-player-ids-zweifach-93d97c / payload/freie_ids.csv · 1ddfcc5594d1dd9dbb9d7a54c7bf13b3456d7e62f4bf596a8612e672df025718<br>20260907-2042-player-ids-zweifach-93d97c / payload/nicht_aufgeloest.csv · a5341861288d7d01b96eeef302daa848c37c14ec9c1af1f0ea3d3d5e2d3be3bc<br>20260909-1015-nflverse-schedules-frueh-w01-ddc931 / payload/games.parquet · 74fb9dc04dc1c6ed99db4f532d173e543e0c0c7c36548b2ce3a7d64121bb2c32<br>20260911-0553-bruecke-korrektur-9d6d24 / payload/bruecke_korrektur.csv · 9d6d2443f6696b60a54e3f76082b0efdf952d6bc8fcb6e48d1c4c497680d5d36<br>20260911-0927-bruecke-ergaenzung-01392e / payload/bruecke_ergaenzung.csv · fcde2161f99ddd5033cf8e6e0c216048aa718eec9bd3e350f0a61db136a99c9c</div></details>
-<p class="foot">Erzeugt 2026-09-12T00:24:08Z UTC. Manifeste aller fünf Bündel geprüft; Herkunft je Zeile auf der Teamseite.</p>
-
+<div class="titel"><h1>Die Manager</h1><button class="info" type="button" data-fenster="f-seite" aria-label="Was diese Seiten zeigen" title="Was diese Seiten zeigen">i</button></div>
+<p class="lead">Zwölf Manager, je eine Seite mit neun Blöcken: Bilanz und Erfolge, ewige Kennzahlen, Rekorde, Kopf an Kopf, Waiver, Handel, Drops, der Kader heute und die Teamnamen. <b>Zusammengeführt aus den anderen Seiten, nichts gedeutet.</b> Zeiträume: Bilanzen 2019 bis 2025, Titel und Podest bis 2025, Waiver 2022 bis 2025, Handel 2019 bis 2025, Drops 2020 bis 2025, Kaderstand 2026-09-09. Die Nummer ist die Yahoo-Teamnummer, dieselbe wie auf den Kaderseiten.</p>
+<section id="b1">
+  <div class="sec-head"><div class="eyebrow">Übersicht · in Nummernreihenfolge, keine Rangliste</div><h2>Alle Manager</h2></div>
+  <div class="tablewrap"><table><thead><tr><th class="l">Nr</th><th class="l">Manager</th><th class="l">Team 2026</th><th>Titel</th><th>Podest</th><th>Playoffs</th><th>Ewige Bilanz</th><th>PF je Spiel</th><th>PA je Spiel</th><th>Vergleiche gewonnen</th><th>Waiver-Käufe</th><th>Handel</th><th>Drops</th></tr></thead><tbody><tr><td class="l"><span class="marke-nr">01</span></td><td class="l name"><a class="weiter" href="manager-01.html">Tobias</a></td><td class="l">Raging Unicorns</td><td>1</td><td>1</td><td>5</td><td>47-50-1</td><td class="num">91,21</td><td class="num">92,30</td><td class="num">46,9 %</td><td>70</td><td>5</td><td>52</td></tr><tr><td class="l"><span class="marke-nr">02</span></td><td class="l name"><a class="weiter" href="manager-02.html">Cyril</a></td><td class="l">CrapTree Luckers</td><td>0</td><td>2</td><td>7</td><td>55-43-0</td><td class="num">91,42</td><td class="num">88,09</td><td class="num">49,0 %</td><td>46</td><td>3</td><td>51</td></tr><tr><td class="l"><span class="marke-nr">03</span></td><td class="l name"><a class="weiter" href="manager-03.html">Dominik</a></td><td class="l">Dom's hand-picked AP</td><td>0</td><td>2</td><td>5</td><td>51-47-0</td><td class="num">93,52</td><td class="num">90,24</td><td class="num">51,0 %</td><td>52</td><td>1</td><td>37</td></tr><tr class=me><td class="l"><span class="marke-nr">04</span></td><td class="l name"><a class="weiter" href="manager-04.html">Simon</a></td><td class="l">FishPig Tackles</td><td>0</td><td>1</td><td>3</td><td>40-58-0</td><td class="num">88,53</td><td class="num">95,00</td><td class="num">45,2 %</td><td>33</td><td>11</td><td>47</td></tr><tr><td class="l"><span class="marke-nr">05</span></td><td class="l name"><a class="weiter" href="manager-05.html">Jarno</a></td><td class="l">Fumble Fiesta Zürich</td><td>0</td><td>0</td><td>5</td><td>45-53-0</td><td class="num">89,37</td><td class="num">90,62</td><td class="num">46,2 %</td><td>19</td><td>2</td><td>41</td></tr><tr><td class="l"><span class="marke-nr">06</span></td><td class="l name"><a class="weiter" href="manager-06.html">Matthias</a></td><td class="l">Minnesota youngsters</td><td>1</td><td>1</td><td>4</td><td>44-54-0</td><td class="num">88,87</td><td class="num">96,45</td><td class="num">45,0 %</td><td>27</td><td>2</td><td>44</td></tr><tr><td class="l"><span class="marke-nr">07</span></td><td class="l name"><a class="weiter" href="manager-07.html">Michael</a></td><td class="l">Pietätlosi Pinguin</td><td>1</td><td>5</td><td>7</td><td>56-41-1</td><td class="num">100,14</td><td class="num">92,38</td><td class="num">60,4 %</td><td>37</td><td>6</td><td>35</td></tr><tr><td class="l"><span class="marke-nr">08</span></td><td class="l name"><a class="weiter" href="manager-08.html">Dominique</a></td><td class="l">Stettlers</td><td>0</td><td>2</td><td>4</td><td>53-45-0</td><td class="num">97,15</td><td class="num">92,04</td><td class="num">57,0 %</td><td>27</td><td>5</td><td>29</td></tr><tr><td class="l"><span class="marke-nr">09</span></td><td class="l name"><a class="weiter" href="manager-09.html">Samuel</a></td><td class="l">Säm Frän</td><td>1</td><td>2</td><td>4</td><td>54-43-1</td><td class="num">95,15</td><td class="num">92,23</td><td class="num">55,4 %</td><td>19</td><td>1</td><td>26</td></tr><tr><td class="l"><span class="marke-nr">10</span></td><td class="l name"><a class="weiter" href="manager-10.html">Mutzi</a></td><td class="l">Team Sgt. Hartman</td><td>0</td><td>0</td><td>2</td><td>36-61-1</td><td class="num">81,98</td><td class="num">90,03</td><td class="num">34,8 %</td><td>15</td><td>2</td><td>13</td></tr><tr><td class="l"><span class="marke-nr">11</span></td><td class="l name"><a class="weiter" href="manager-11.html">Jake</a></td><td class="l">Wakanda Meerkats</td><td>2</td><td>2</td><td>5</td><td>60-38-0</td><td class="num">97,53</td><td class="num">93,03</td><td class="num">58,3 %</td><td>20</td><td>7</td><td>40</td></tr><tr><td class="l"><span class="marke-nr">12</span></td><td class="l name"><a class="weiter" href="manager-12.html">Tanju</a></td><td class="l">Wehntal Cows</td><td>1</td><td>3</td><td>5</td><td>45-53-0</td><td class="num">92,85</td><td class="num">95,32</td><td class="num">50,8 %</td><td>43</td><td>3</td><td>33</td></tr></tbody></table></div>
+  <p class="n" style="margin:8px 0 0">Titel und Podest 2019 bis 2025; Playoffs von 7 Saisons; Bilanz, Punkte für (PF) und gegen (PA) je Spiel und Anteil gewonnener Wochenvergleiche aus 98 Spielen je Manager; Waiver-Käufe 2022 bis 2025; Handel 2019 bis 2025; Drops 2020 bis 2025 (Wechsel gleicher Position).</p>
+</section>
+<div class="foot">Quelle: die Ergebnisse der Seiten Die ewige Tabelle, Die Liga in Zahlen, Der Waiver-Markt, Die Handelsgeschäfte, Griffe und Fehlgriffe und Die Kader. Seite erzeugt 2026-09-12 02:02 UTC.</div>
 </main>
-<dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seiten zeigen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Die zwölf Fantasy-Teams der Liga, Saison 2026, Woche 1: eine Übersicht und je Team eine Seite mit der Aufstellung.</p><h4>Kaderstand</h4><p>Der Kaderstand gilt für Woche 1 und ändert sich mit jeder Waiver-Runde. Datum und Bündel stehen im Kopf der Seite; eine spätere Woche ist ein neuer Abgriff und ein neuer Lauf. Stand 2026-09-09 11:15 UTC, Bündel 20260909-1041-yahoo-anpfiff-w01-0093dd, Datei payload/rosters_2026_week01.csv.</p><h4>Leistung</h4><p>Die Leistung ist die der Vorsaison 2025 (Regular Season, Woche 1 bis 18), nicht der laufenden: stats_player_week_2026 gibt es in nflverse erst nach den ersten Spielen. Punkte pro Saisonwoche = Saisonsumme geteilt durch 18, gerechnet nach den Regeln dieser Liga, gleich wie auf der Seite „Spielerleistung 2025“.</p><h4>Manager</h4><p>Die Manager kommen aus teams_2019_2026.csv (Saison 2026). Yahoo hängt dem Kommissar das Wort „Commissioner“ ohne Trennzeichen an den Namen; es wird abgetrennt: „TobiasCommissioner“ wird „Tobias“ (Raging Unicorns). Sonst stehen die Namen, wie Yahoo sie führt.</p></div></dialog><dialog class="fenster" id="f-verteilung" aria-labelledby="f-verteilung-t"><div class="fk"><h3 id="f-verteilung-t">Positionsverteilung und Plätze</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Die Reihe zählt die Kaderplätze je Position (QB · RB · WR · TE · K · DEF); Bank und IR zählen mit. Ligaweit: QB 18 · RB 66 · WR 86 · TE 18 · K 10 · DEF 12.</p><h4>Aufgestellt, Bank, IR</h4><p>Aufgestellt heisst: der Spieler steht in diesem Team auf einem Startplatz (Yahoo-Spalte slot). Das ist nicht der Startbereich der Seite „Spielerleistung 2025“; der meint die ligaweit besten Spieler je Position mit Daten, unabhängig davon, wer sie aufstellt. Bank ist slot BN, IR ist slot IR. Ligaweit 105 aufgestellt, 99 auf der Bank, 6 auf IR.</p><h4>Ohne Vorsaisondaten</h4><p>Rookies und Spieler ohne Statistikzeile 2025 bekommen keinen Nullwert, sondern „keine Daten“. Sie zählen je Team gesondert. Ein Spieler ohne Daten ist nicht schlecht, er ist ungemessen. Ligaweit 30 von 198 Spielern.</p></div></dialog>
+<dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seiten zeigen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><h4>Die Seiten</h4><p>Eine Übersicht und je Manager eine Seite mit neun Blöcken. Fast jede Zahl steht schon auf einer anderen Seite dieses Playbooks und wird hier nur zusammengeführt: Bilanz, Erfolge, ewige Kennzahlen, Rekorde und Kopf an Kopf aus der ewigen Tabelle und der Liga in Zahlen, Waiver vom Waiver-Markt, Handel von den Handelsgeschäften, Drops aus den Griffen und Fehlgriffen, der Kader von den Kaderseiten. Jeder Block nennt seinen Zeitraum, denn die Quellen decken verschiedene Jahre ab: Bilanzen 2019 bis 2025, Waiver 2022 bis 2025, Handel 2019 bis 2025, Drops 2020 bis 2025, Kaderstand 2026-09-09.</p><h4>Keine Deutung, nur Zählung</h4><p>Die Seiten zeigen Zahlen je Manager, aber kein Rangbild: bei Waiver, Handel und Drops lässt sich über einzelne Manager nichts belegen, und die Blöcke sagen das jeweils selbst. Kein Vergleich im Sinne von besser oder schlechter, ausser wo er belegt ist (die Gruppen des ewigen Durchschnitts).</p></div></dialog>
 <script>
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
   const d = document.getElementById(b.getAttribute("aria-controls"));
@@ -341,12 +277,6 @@ document.addEventListener("click", ev => {
 });
 document.querySelectorAll("dialog.fenster").forEach(d => d.addEventListener("close", () => {
   if (!document.querySelector("dialog.fenster[open]")) document.body.classList.remove("fenster-offen");
-}));
-
-document.querySelectorAll(".saisonwahl button").forEach(b => b.addEventListener("click", () => {
-  const s = b.dataset.saison;
-  document.querySelectorAll(".saisonwahl button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
-  document.querySelectorAll("[data-saison-block]").forEach(x => { x.hidden = x.dataset.saisonBlock !== s; });
 }));
 </script>
 </body>
