@@ -313,7 +313,7 @@
   "einheit": "Waiver-Preise",
   "datei": "waiver_markt.json",
   "pfad": "kern.n_preise",
-  "erzeugt_utc": "2026-09-12T00:23:11Z",
+  "erzeugt_utc": "2026-09-12T02:06:03Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260907-1731-yahoo-chat-15123c"
