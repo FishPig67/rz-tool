@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="de">
+<head>
+<title>Die ewige Tabelle</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:type" content="website"><meta property="og:site_name" content="FishPig RedZone"><meta property="og:locale" content="de_CH"><meta property="og:title" content="Die ewige Tabelle"><meta property="og:description" content="Aus den Wochenpunkten der Saisons 2019 bis 2025: die Playoff-Schwelle mit und ohne Spielplan, die Siegquote nach Wochenrang, der ewige Durchschnitt als Gruppen statt als Rangliste, die Rekordtafel und sieben Fun Facts. Gezählte Tatsachen, keine Deutung über Manager."><meta property="og:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg"><meta property="og:url" content="https://fishpig67.github.io/rz-tool/ewige-tabelle.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Die ewige Tabelle"><meta name="twitter:description" content="Aus den Wochenpunkten der Saisons 2019 bis 2025: die Playoff-Schwelle mit und ohne Spielplan, die Siegquote nach Wochenrang, der ewige Durchschnitt als Gruppen statt als Rangliste, die Rekordtafel und sieben Fun Facts. Gezählte Tatsachen, keine Deutung über Manager."><meta name="twitter:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg">
+<style>
+@font-face{font-family:"Anton";font-style:normal;font-weight:400;font-display:swap;src:url("schriften/anton.woff2") format("woff2")}
+@font-face{font-family:"Oswald";font-style:normal;font-weight:600;font-display:swap;src:url("schriften/oswald-600.woff2") format("woff2")}
+:root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
+  --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
+.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
+.marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
+.marke .logo img{width:100%;height:100%;display:block}
+.marke .logo.leer{background:var(--bg3)}
+.marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
+.marke .wm b{color:var(--accent2);font-weight:400}
+.marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
+nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
+nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
+nav.haupt .mit-unter{position:relative;display:flex;align-items:stretch}
+nav.haupt button.pfeil{background:none;border:0;color:var(--ink2);font:inherit;font-size:12px;line-height:1;cursor:pointer;padding:7px 8px;border-radius:5px}
+nav.haupt button.pfeil:hover{color:var(--ink);background:var(--bg3)}
+nav.haupt button.pfeil:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+nav.haupt button.pfeil[aria-expanded="true"]{background:var(--bg3);color:var(--ink)}
+/* Ein Bereich ist ein reiner Knopf und sieht aus wie ein Menüpunkt: gleiche Schrift, gleiche
+   Masse wie nav.haupt a. Er führt auf keine Seite, es gibt keine. */
+nav.haupt button.bereich{display:inline-flex;align-items:center;gap:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);padding:7px 12px}
+nav.haupt button.bereich .pf{font-size:12px;letter-spacing:0}
+nav.haupt button.bereich.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
+nav.haupt .unter{position:absolute;top:100%;left:0;z-index:20;min-width:190px;margin-top:6px;padding:6px;display:flex;flex-direction:column;gap:2px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+nav.haupt .unter a{font-size:13.5px;letter-spacing:.1em;padding:8px 12px;white-space:nowrap}
+/* display:flex würde das hidden-Attribut überstimmen — gemessen am 2026-09-10: das Untermenü
+   stand ohne diese Zeile auf jeder Seite offen da. */
+nav.haupt .unter[hidden]{display:none}
+.rz-nav{display:none}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+h1,h2{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;margin:0;line-height:1.05;letter-spacing:.06em;text-transform:uppercase}
+h3{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;margin:0;line-height:1.05;letter-spacing:.12em;text-transform:uppercase}
+h1{font-size:46px}h2{font-size:28px}h3{font-size:16px;font-weight:600;color:var(--ink2)}
+.eyebrow{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:700}
+.titel{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:8px}
+.lead{color:var(--ink2);max-width:80ch;margin:0 0 18px}
+.lead b{color:var(--ink)}
+.karte{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:18px}
+.karte.eng{padding:12px 16px}
+.controls{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center}
+.controls label{display:flex;gap:9px;align-items:center;cursor:pointer;font-weight:600}
+.controls input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent)}
+.controls select,.blaettern select{background:var(--bg3);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:inherit}
+section{margin-bottom:26px}
+.sec-kopf{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:10px}
+.sec-kopf .n{color:var(--mute);font-size:13px;flex-basis:100%}
+.kenn{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg3);margin-bottom:12px}
+.kenn .z{font-size:40px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;letter-spacing:.02em}
+.kenn .z small{font-size:13px;font-weight:600;color:var(--mute);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.kenn .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.kenn .kurz{color:var(--ink2);font-size:14px;flex:1 1 320px}
+.kenn .kurz b{color:var(--ink)}
+.kenn .neg{color:var(--neg)}.kenn .posv{color:var(--pos)}
+.info{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--accent2);color:var(--accent2);background:transparent;font:700 13px/1 Georgia,"Times New Roman",serif;font-style:italic;cursor:pointer;padding:0;flex:none;vertical-align:middle}
+.info:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.info:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
+th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
+td.l,th.l{text-align:left}td.name{font-weight:600}
+tr:last-child td{border-bottom:none}
+tr.start td{background:var(--start)}
+tr.frei td.name .nm{color:var(--ink2);font-weight:500}
+.sp{display:flex;align-items:center;gap:10px;min-width:0}
+.av{width:36px;height:36px;border-radius:50%;flex:none;background:var(--bg3);border:1px solid var(--line);object-fit:cover;display:inline-block}
+img.av{background:var(--bg3)}
+.sp .txt{min-width:0}
+.sp .sub{display:none;font-size:12px;color:var(--mute);font-weight:400}
+.posv{color:var(--pos)}.negv{color:var(--neg)}.kd{color:var(--mute);font-style:italic}
+.warn{color:var(--neg);font-style:italic}
+.badge{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--accent2);border-radius:3px;padding:1px 5px;color:var(--accent2);margin-left:6px;vertical-align:middle;font-weight:700}
+.blaettern{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:10px;font-size:13.5px;color:var(--mute)}
+.blaettern .seiten{display:flex;flex-wrap:wrap;gap:4px}
+.blaettern button{background:var(--bg3);color:var(--ink2);border:1px solid var(--line);border-radius:6px;min-width:34px;height:32px;padding:0 8px;font:inherit;cursor:pointer}
+.blaettern button:hover{color:var(--ink);border-color:var(--accent2)}
+.blaettern button.hier{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.blaettern button:disabled{opacity:.35;cursor:default}
+.blaettern .lab{margin-left:auto}
+.prov{margin-top:10px;font-size:12px;color:var(--mute);font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;line-height:1.6;overflow-wrap:anywhere}
+.prov b{color:var(--ink2);font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif}
+.foot{margin-top:34px;padding-top:16px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mute);max-width:95ch}
+dialog.fenster{background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:0;width:min(720px,calc(100vw - 24px));max-height:85vh;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+dialog.fenster::backdrop{background:rgba(4,7,16,.72);backdrop-filter:blur(2px)}
+dialog.fenster .fk{position:sticky;top:0;display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--line);z-index:1}
+dialog.fenster .fk h3{flex:1;color:var(--ink);font-size:17px}
+dialog.fenster .zu{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;flex:none}
+dialog.fenster .zu:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+dialog.fenster .fi{padding:14px 18px 18px;overflow:auto;max-height:calc(85vh - 70px);color:var(--ink2);line-height:1.55}
+dialog.fenster .fi h4{margin:14px 0 4px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)}
+dialog.fenster .fi h4:first-child{margin-top:0}
+dialog.fenster .fi p{margin:0 0 10px}
+dialog.fenster .fi b{color:var(--ink)}
+dialog.fenster .fi .vb{border-left:3px solid var(--hint);padding:6px 12px;margin:8px 0;background:rgba(240,192,96,.06);border-radius:0 6px 6px 0}
+noscript p{color:var(--neg)}
+/* Das Spielfeld: Andeutung hinter dem Inhalt, nur Striche und Zahlen, keine Bilddatei. Fest im Fenster,
+   scrollt nicht mit; Karten und Tabellen liegen deckend darüber. Bei offenem Fenster ausgeblendet. */
+.feld{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:
+    repeating-linear-gradient(90deg,rgba(190,208,255,.075) 0 1px,transparent 1px 10%),
+    repeating-linear-gradient(90deg,rgba(190,208,255,.07) 0 1px,transparent 1px 2%) 0 38%/100% 9px repeat-x,
+    repeating-linear-gradient(90deg,rgba(190,208,255,.07) 0 1px,transparent 1px 2%) 0 62%/100% 9px repeat-x,
+    linear-gradient(rgba(190,208,255,.09),rgba(190,208,255,.09)) 0 6%/100% 2px no-repeat,
+    linear-gradient(rgba(190,208,255,.09),rgba(190,208,255,.09)) 0 94%/100% 2px no-repeat}
+.feld span::before{content:attr(data-n)}
+.feld span{position:absolute;top:9%;transform:translateX(-50%);font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:min(9vw,88px);line-height:1;color:rgba(190,208,255,.055);letter-spacing:.04em;user-select:none}
+.feld span.u{top:auto;bottom:9%;transform:translateX(-50%) rotate(180deg)}
+main{position:relative;z-index:1}
+/* Die Kopfzeile muss über dem Inhalt liegen, sonst fängt der Inhalt die Klicks auf das
+   aufgeklappte Untermenü ab: gleiche z-index-Stufe, und das spätere Element gewinnt.
+   Gemessen am 2026-09-10 in Chromium — sichtbar war das Untermenü, klickbar nicht. */
+.kopfzeile{position:relative;z-index:5}
+body.fenster-offen .feld{display:none}
+@media (max-width:760px){
+  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .marke .wm{font-size:21px}
+  nav.haupt{margin-left:0;width:100%;gap:2px 4px}
+  nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
+  nav.haupt .mit-unter{flex-wrap:wrap}
+  nav.haupt .unter{position:static;margin-top:4px;flex-basis:100%;box-shadow:none;background:var(--bg3)}
+  main{padding:18px 12px 60px}
+  h1{font-size:34px}h2{font-size:22px}
+  .kenn .z{font-size:32px}
+  table{font-size:13px}
+  th,td{padding:5px 6px}
+  .sp .sub{display:block;white-space:normal;overflow-wrap:anywhere}
+  td.name{white-space:normal;min-width:120px}
+  .sp{gap:7px}
+  .badge{font-size:9px;padding:0 4px;margin-left:4px}
+  .av{width:30px;height:30px}
+  th small{display:none}
+  th{white-space:normal;letter-spacing:.05em;line-height:1.15}
+  td.name .nm{display:block}
+  td.name .txt{max-width:118px}
+  td.name .badge{margin-left:0;margin-right:4px}
+  .m1{display:none}
+  .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+
+section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.sec-head{margin-bottom:12px}.sec-head h2{display:inline}.sec-head .titel{margin-bottom:4px}
+.sec-head p{max-width:85ch;color:var(--ink2);margin:8px 0 0}
+.kenn-raster{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.kenn-raster>div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg3)}
+.kenn-raster .z{font-size:40px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;letter-spacing:.02em}
+.kenn-raster .z small{font-size:13px;font-weight:600;color:var(--mute);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;letter-spacing:.06em}
+.kenn-raster .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-bottom:6px}
+.kenn-raster p{margin:6px 0 0;color:var(--ink2);font-size:13.5px}
+.beispiel{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0}
+.beispiel div{border-left:3px solid var(--accent);padding:6px 14px;color:var(--ink2);font-size:14.5px;line-height:1.5}
+.beispiel b{color:var(--ink);font-size:17px}
+.hint{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--hint);color:var(--ink2);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0 14px;background:rgba(240,192,96,.05)}
+.hint .tag{flex:none;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--hint);border:1px solid currentColor;border-radius:3px;padding:2px 7px;margin-top:2px}
+.n{color:var(--mute);font-size:13px}
+ul.luecken{max-width:85ch;color:var(--ink2);padding-left:20px}ul.luecken li{margin:4px 0}
+details.prov{margin-top:10px}details.prov summary{cursor:pointer;list-style:none;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700}
+details.prov summary::before{content:"▸ ";color:var(--accent2)}details.prov[open] summary::before{content:"▾ "}
+details.prov summary::-webkit-details-marker{display:none}
+details.prov .prov{margin-top:6px}
+td.name .sp .nm{font-weight:600}
+.av.wappen{border-radius:8px;object-fit:contain;background:#fff;padding:2px}
+.gruppe{margin-top:10px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700}
+@media (max-width:760px){
+  section{padding:12px 12px;border-radius:10px}
+  .kenn-raster .z{font-size:32px}
+  .hint{flex-wrap:wrap}
+  .tablewrap table td.l:first-child,.tablewrap table th.l:first-child{position:sticky;left:0;background:var(--bg2);z-index:2}
+  .tablewrap table th.l:first-child{background:var(--bg3)}
+}
+
+tr.me td.name{color:var(--accent2)}
+.num{font-variant-numeric:tabular-nums}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:6px 0 14px}
+.stat{padding:12px 14px;background:var(--bg3);border:1px solid var(--line);border-radius:10px;display:grid;gap:4px}
+.stat .big{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:44px;font-weight:400;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat .lab{font-size:15px;font-weight:600;color:var(--ink)}
+.stat .sub{font-size:13px;color:var(--mute)}
+p.befund{max-width:80ch;color:var(--ink);font-weight:600;margin:0 0 8px}
+th.grp{background:var(--bg2);color:var(--ink2);text-align:left;letter-spacing:.06em;font-size:12px}
+td.kein{color:var(--mute)}
+.q{display:inline-grid;grid-template-columns:120px auto;align-items:center;gap:8px}
+.q span{height:10px;border-radius:2px;background:var(--accent)}
+.gruppe-kopf{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2);font-weight:700;margin:14px 0 6px}
+.gruppe-kopf small{color:var(--mute);letter-spacing:.06em;text-transform:none;font-weight:600;margin-left:8px}
+ol.fakten{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+ol.fakten li{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:baseline;padding:10px 12px;background:var(--bg3);border:1px solid var(--line);border-radius:10px}
+ol.fakten .z{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:34px;line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+ol.fakten .z small{display:block;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:11px;color:var(--mute);letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+ol.fakten .t{color:var(--ink2)}ol.fakten .t b{color:var(--ink)}
+ol.fakten .n{display:block;color:var(--mute);font-size:12.5px;margin-top:2px}
+td.rek{text-align:left;white-space:normal}
+details.je{margin-top:12px}details.je summary{cursor:pointer;color:var(--ink2);font-weight:600}
+@media (max-width:640px){.q{grid-template-columns:60px auto}ol.fakten li{grid-template-columns:80px 1fr}ol.fakten .z{font-size:28px}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body><!--rz-rahmen--><style>
+:root{--rz-bg:#f6f5f1;--rz-bg2:#ecebe5;--rz-ink:#191c20;--rz-ink2:#4c5259;--rz-mute:#7d838b;--rz-line:#d9d7cf;--rz-accent:#b3261e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}}
+:root[data-theme="dark"]{--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}
+:where(.rz-nav){display:flex}
+.rz-nav{flex-wrap:wrap;gap:6px 20px;align-items:baseline;
+  padding:10px 20px;background:var(--rz-bg2);border-bottom:1px solid var(--rz-line);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+  font-size:14px;color:var(--rz-mute)}
+.rz-nav a{color:var(--rz-accent);text-decoration:none;font-weight:600}
+.rz-nav a:hover{text-decoration:underline}
+.rz-nav .rz-bereich{color:var(--rz-mute);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
+.rz-nav a.rz-hier{color:var(--rz-ink2)}
+.rz-nav a.rz-unter{font-weight:400;font-size:13px;opacity:.85}
+</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich rz-hier">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-hier rz-unter" aria-current="page">Ewig</a><a href="grundlagen.html">Wissen</a></nav><!--/rz-rahmen-->
+<div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
+<div class="kopfzeile"><div class="kopf">
+  <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · Now it goes around the sausage · 2019 bis 2025</div></span></a>
+  <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html" class="hier" aria-current="page">Ewig</a></div></span><a href="grundlagen.html">Wissen</a></nav>
+</div></div>
+<main>
+
+<div class="titel"><h1>Die ewige Tabelle</h1><button class="info" type="button" data-fenster="f-seite" aria-label="Was diese Seite zeigt" title="Was diese Seite zeigt">i</button></div>
+<p class="lead">Fünf Blöcke aus den Wochenpunkten der Saisons 2019 bis 2025, <b>ohne Prognose und ohne Bewertungsmodell</b>: 588 Duelle, 1'176 Team-Wochen. Bündel 20260904-1721-yahoo-voll-227e9b, Stand 2026-09-04, Manifest geprüft (18 Dateien).</p>
+
+<section id="b1">
+  <div class="sec-head"><div class="eyebrow">Block 1 · Woche 1 bis 14 · 2019 bis 2025</div><div class="titel"><h2>Playoff-Schwelle</h2><button class="info" type="button" data-fenster="f-b1" aria-label="Erklärung zu Block 1" title="Erklärung zu Block 1">i</button></div></div>
+  <div class="stats"><div class="stat"><div class="big">5 von 7</div><div class="lab">Saisons mit Bereich auf der echten Tabelle</div><div class="sub">ein punktstärkeres Team blieb draussen, ein punktschwächeres kam rein</div></div><div class="stat"><div class="big">5 von 7</div><div class="lab">Saisons ohne Bereich auf der All-Play-Tabelle</div><div class="sub">ohne Spielplan trennt die Punktzahl drin und draussen sauber</div></div></div><p class="befund">Der Bereich, in dem der Spielplan entschied, besteht auf der echten Tabelle in 5 von 7 Saisons und verschwindet auf der All-Play-Tabelle in 5 von 7 Saisons.</p><div class="tablewrap"><table><thead><tr><th class="grp" rowspan="2">Saison</th><th class="grp" colspan="3">Echte Tabelle</th><th class="grp" colspan="3">All-Play-Tabelle</th></tr><tr><th class="l">Tiefste erfolgreiche</th><th class="l">Höchste erfolglose</th><th>Bereich</th><th class="l">Tiefste in den Top 8</th><th class="l">Höchste ausserhalb</th><th>Bereich</th></tr></thead><tbody><tr><td class="l name">2019</td><td class="l">Dominik <b class="num">1'301,04</b> <span class="n">Platz 5</span></td><td class="l">Jake <b class="num">1'291,98</b> <span class="n">Platz 9</span></td><td class="kein">kein Bereich</td><td class="l">Dominik <b class="num">1'301,04</b> <span class="n">Platz 8</span></td><td class="l">Jake <b class="num">1'291,98</b> <span class="n">Platz 9</span></td><td class="kein">kein Bereich</td></tr><tr><td class="l name">2020</td><td class="l">Cyril <b class="num">1'220,46</b> <span class="n">Platz 3</span></td><td class="l">Dominik <b class="num">1'308,86</b> <span class="n">Platz 9</span></td><td class="num">88,40</td><td class="l">Jarno <b class="num">1'272,78</b> <span class="n">Platz 8</span></td><td class="l">Tobias <b class="num">1'248,52</b> <span class="n">Platz 9</span></td><td class="kein">kein Bereich</td></tr><tr><td class="l name">2021</td><td class="l">Mutzi <b class="num">1'179,44</b> <span class="n">Platz 8</span></td><td class="l">Dominik <b class="num">1'373,84</b> <span class="n">Platz 10</span></td><td class="num">194,40</td><td class="l">Matthias <b class="num">1'280,22</b> <span class="n">Platz 8</span></td><td class="l">Cyril <b class="num">1'244,84</b> <span class="n">Platz 9</span></td><td class="kein">kein Bereich</td></tr><tr><td class="l name">2022</td><td class="l">Cyril <b class="num">1'155,50</b> <span class="n">Platz 8</span></td><td class="l">Simon <b class="num">1'249,54</b> <span class="n">Platz 9</span></td><td class="num">94,04</td><td class="l">Simon <b class="num">1'249,54</b> <span class="n">Platz 5</span></td><td class="l">Cyril <b class="num">1'155,50</b> <span class="n">Platz 9</span></td><td class="kein">kein Bereich</td></tr><tr><td class="l name">2023</td><td class="l">Matthias <b class="num">1'201,50</b> <span class="n">Platz 4</span></td><td class="l">Dominique <b class="num">1'389,52</b> <span class="n">Platz 9</span></td><td class="num">188,02</td><td class="l">Matthias <b class="num">1'201,50</b> <span class="n">Platz 8</span></td><td class="l">Dominik <b class="num">1'206,58</b> <span class="n">Platz 9</span></td><td class="num">5,08</td></tr><tr><td class="l name">2024</td><td class="l">Dominik <b class="num">1'264,76</b> <span class="n">Platz 8</span></td><td class="l">Dominique <b class="num">1'239,86</b> <span class="n">Platz 9</span></td><td class="kein">kein Bereich</td><td class="l">Dominik <b class="num">1'264,76</b> <span class="n">Platz 7</span></td><td class="l">Dominique <b class="num">1'239,86</b> <span class="n">Platz 9</span></td><td class="kein">kein Bereich</td></tr><tr><td class="l name">2025</td><td class="l">Cyril <b class="num">1'231,06</b> <span class="n">Platz 4</span></td><td class="l">Mutzi <b class="num">1'302,06</b> <span class="n">Platz 9</span></td><td class="num">71,00</td><td class="l">Cyril <b class="num">1'231,06</b> <span class="n">Platz 8</span></td><td class="l">Dominik <b class="num">1'267,16</b> <span class="n">Platz 9</span></td><td class="num">36,10</td></tr></tbody></table></div><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · standings_2019_2026.csv <span title="a35d1207dd95a761045edf1ee63a43fa188c82b38ff67b789c450b7645d11846">a35d1207dd95…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span></div></details>
+</section>
+
+<section id="b2">
+  <div class="sec-head"><div class="eyebrow">Block 2 · Woche 1 bis 14 · 2019 bis 2025</div><div class="titel"><h2>Siegquote nach Wochenrang</h2><button class="info" type="button" data-fenster="f-b2" aria-label="Erklärung zu Block 2" title="Erklärung zu Block 2">i</button></div></div>
+  <div class="tablewrap"><table><thead><tr><th class="l">Wochenrang</th><th>Fälle</th><th>Siege</th><th>Niederlagen</th><th>Unentschieden</th><th class="l">Siegquote</th></tr></thead><tbody><tr><td class="l name">1</td><td>98</td><td>98</td><td>0</td><td>0</td><td class="l"><span class="q"><span style="width:100.0%"></span><b class="num">100,0 %</b></span></td></tr><tr><td class="l name">2</td><td>99</td><td>82</td><td>15</td><td>2</td><td class="l"><span class="q"><span style="width:82.8%"></span><b class="num">82,8 %</b></span></td></tr><tr><td class="l name">3</td><td>97</td><td>78</td><td>19</td><td>0</td><td class="l"><span class="q"><span style="width:80.4%"></span><b class="num">80,4 %</b></span></td></tr><tr><td class="l name">4</td><td>98</td><td>77</td><td>21</td><td>0</td><td class="l"><span class="q"><span style="width:78.6%"></span><b class="num">78,6 %</b></span></td></tr><tr><td class="l name">5</td><td>98</td><td>64</td><td>34</td><td>0</td><td class="l"><span class="q"><span style="width:65.3%"></span><b class="num">65,3 %</b></span></td></tr><tr><td class="l name">6</td><td>98</td><td>53</td><td>45</td><td>0</td><td class="l"><span class="q"><span style="width:54.1%"></span><b class="num">54,1 %</b></span></td></tr><tr><td class="l name">7</td><td>98</td><td>44</td><td>54</td><td>0</td><td class="l"><span class="q"><span style="width:44.9%"></span><b class="num">44,9 %</b></span></td></tr><tr><td class="l name">8</td><td>98</td><td>36</td><td>62</td><td>0</td><td class="l"><span class="q"><span style="width:36.7%"></span><b class="num">36,7 %</b></span></td></tr><tr><td class="l name">9</td><td>98</td><td>30</td><td>68</td><td>0</td><td class="l"><span class="q"><span style="width:30.6%"></span><b class="num">30,6 %</b></span></td></tr><tr><td class="l name">10</td><td>98</td><td>18</td><td>80</td><td>0</td><td class="l"><span class="q"><span style="width:18.4%"></span><b class="num">18,4 %</b></span></td></tr><tr><td class="l name">11</td><td>99</td><td>6</td><td>91</td><td>2</td><td class="l"><span class="q"><span style="width:6.1%"></span><b class="num">6,1 %</b></span></td></tr><tr><td class="l name">12</td><td>97</td><td>0</td><td>97</td><td>0</td><td class="l"><span class="q"><span style="width:0.0%"></span><b class="num">0,0 %</b></span></td></tr></tbody></table></div><p class="n" style="margin:8px 0 0">1'176 Team-Wochen; Wochenrang = Platz der eigenen Punktzahl unter den zwölf der Woche.</p><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span></div></details>
+</section>
+
+<section id="b3">
+  <div class="sec-head"><div class="eyebrow">Block 3 · Woche 1 bis 14 · 2019 bis 2025</div><div class="titel"><h2>Der ewige Durchschnitt</h2><button class="info" type="button" data-fenster="f-b3" aria-label="Erklärung zu Block 3" title="Erklärung zu Block 3">i</button></div></div>
+  <div class="gruppe-kopf">Gruppe 1<small>4 Manager</small></div><div class="tablewrap"><table><thead><tr><th class="l">Manager</th><th>Anteil gewonnener Vergleiche</th><th>95-%-Bereich</th><th>Vergleiche</th><th>Ø Wochenrang</th><th>Ø Punkte</th></tr></thead><tbody><tr><td class="l name">Michael</td><td class="num"><b>60,4 %</b></td><td class="num">54,5 bis 66,6</td><td>1078</td><td class="num">5,35</td><td class="num">100,14</td></tr><tr><td class="l name">Jake</td><td class="num"><b>58,3 %</b></td><td class="num">52,3 bis 64,1</td><td>1078</td><td class="num">5,59</td><td class="num">97,53</td></tr><tr><td class="l name">Dominique</td><td class="num"><b>57,0 %</b></td><td class="num">50,4 bis 63,3</td><td>1078</td><td class="num">5,73</td><td class="num">97,15</td></tr><tr><td class="l name">Samuel</td><td class="num"><b>55,4 %</b></td><td class="num">49,3 bis 61,5</td><td>1078</td><td class="num">5,90</td><td class="num">95,15</td></tr></tbody></table></div><div class="gruppe-kopf">Gruppe 2<small>7 Manager</small></div><div class="tablewrap"><table><thead><tr><th class="l">Manager</th><th>Anteil gewonnener Vergleiche</th><th>95-%-Bereich</th><th>Vergleiche</th><th>Ø Wochenrang</th><th>Ø Punkte</th></tr></thead><tbody><tr><td class="l name">Dominik</td><td class="num"><b>51,0 %</b></td><td class="num">45,3 bis 56,8</td><td>1078</td><td class="num">6,39</td><td class="num">93,52</td></tr><tr><td class="l name">Tanju</td><td class="num"><b>50,8 %</b></td><td class="num">44,5 bis 57,2</td><td>1078</td><td class="num">6,41</td><td class="num">92,85</td></tr><tr><td class="l name">Cyril</td><td class="num"><b>49,0 %</b></td><td class="num">43,0 bis 54,8</td><td>1078</td><td class="num">6,61</td><td class="num">91,42</td></tr><tr><td class="l name">Tobias</td><td class="num"><b>46,9 %</b></td><td class="num">40,8 bis 53,1</td><td>1078</td><td class="num">6,84</td><td class="num">91,21</td></tr><tr><td class="l name">Jarno</td><td class="num"><b>46,2 %</b></td><td class="num">39,8 bis 52,6</td><td>1078</td><td class="num">6,92</td><td class="num">89,37</td></tr><tr class="me"><td class="l name">Simon</td><td class="num"><b>45,2 %</b></td><td class="num">39,0 bis 51,5</td><td>1078</td><td class="num">7,03</td><td class="num">88,53</td></tr><tr><td class="l name">Matthias</td><td class="num"><b>45,0 %</b></td><td class="num">39,1 bis 51,0</td><td>1078</td><td class="num">7,05</td><td class="num">88,87</td></tr></tbody></table></div><div class="gruppe-kopf">Gruppe 3<small>1 Manager</small></div><div class="tablewrap"><table><thead><tr><th class="l">Manager</th><th>Anteil gewonnener Vergleiche</th><th>95-%-Bereich</th><th>Vergleiche</th><th>Ø Wochenrang</th><th>Ø Punkte</th></tr></thead><tbody><tr><td class="l name">Mutzi</td><td class="num"><b>34,8 %</b></td><td class="num">29,3 bis 40,5</td><td>1078</td><td class="num">8,16</td><td class="num">81,98</td></tr></tbody></table></div><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span></div></details>
+</section>
+
+<section id="b4">
+  <div class="sec-head"><div class="eyebrow">Block 4 · Woche 1 bis 14 · 2019 bis 2025</div><div class="titel"><h2>Rekordtafel</h2><button class="info" type="button" data-fenster="f-b4" aria-label="Erklärung zu Block 4" title="Erklärung zu Block 4">i</button></div></div>
+  <div class="tablewrap"><table><thead><tr><th class="l">Rekord</th><th>Wert</th><th class="l">Wer, wann, gegen wen</th></tr></thead><tbody><tr><td class="l name">Höchste Wochenpunktzahl</td><td class="num"><b>169,80</b></td><td class="rek"><b>Dominique</b> gegen Tanju (81,12), 2021 Woche 2, Sieg</td></tr><tr><td class="l name">Tiefste Wochenpunktzahl</td><td class="num"><b>36,64</b></td><td class="rek"><b>Michael</b> gegen Mutzi (59,42), 2019 Woche 7, Niederlage</td></tr><tr><td class="l name">Höchste Saisonsumme</td><td class="num"><b>1'577,50</b></td><td class="rek"><b>Dominique</b>, Saison 2022</td></tr><tr><td class="l name">Tiefste Saisonsumme</td><td class="num"><b>881,22</b></td><td class="rek"><b>Dominique</b>, Saison 2025</td></tr><tr><td class="l name">Grösster Siegesabstand</td><td class="num"><b>99,66</b></td><td class="rek"><b>Tanju</b> 165,22 gegen Simon 65,56, 2023 Woche 10</td></tr><tr><td class="l name">Knappster Siegesabstand</td><td class="num"><b>0,28</b></td><td class="rek"><b>Jake</b> 85,86 gegen Cyril 85,58, 2025 Woche 4</td></tr><tr><td class="l name">Punktreichstes Duell</td><td class="num"><b>288,26</b></td><td class="rek"><b>Matthias</b> 148,28 gegen Michael 139,98, 2021 Woche 5</td></tr><tr><td class="l name">Punktärmstes Duell</td><td class="num"><b>96,06</b></td><td class="rek"><b>Mutzi</b> 59,42 gegen Michael 36,64, 2019 Woche 7</td></tr><tr><td class="l name">Unentschieden</td><td class="num"><b>2</b></td><td class="rek">2019 Woche 2: <b>Michael</b> gegen <b>Tobias</b>, je 108,42; 2022 Woche 11: <b>Mutzi</b> gegen <b>Samuel</b>, je 62,30</td></tr></tbody></table></div><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span></div></details>
+</section>
+
+<section id="b5">
+  <div class="sec-head"><div class="eyebrow">Block 5 · Woche 1 bis 14 · 2019 bis 2025</div><div class="titel"><h2>Fun Facts</h2><button class="info" type="button" data-fenster="f-b5" aria-label="Erklärung zu Block 5" title="Erklärung zu Block 5">i</button></div></div>
+  <ol class="fakten"><li id="fact-niederlagenserie"><div class="z">13<small>Wochen</small></div><div class="t"><b>Längste Niederlagenserie</b>: <b>Dominique</b>, 2025 Woche 2 bis 14<span class="n">innerhalb einer Saison</span></div></li><li id="fact-siegesserie"><div class="z">10<small>Wochen</small></div><div class="t"><b>Längste Siegesserie</b>: <b>Samuel</b>, 2024 Woche 5 bis 14<span class="n">innerhalb einer Saison</span></div></li><li id="fact-unter_schnitt"><div class="z">20<small>Wochen</small></div><div class="t"><b>Längste Serie unter dem Ligaschnitt</b>: <b>Simon</b>, 2023 Woche 5 bis 2024 Woche 10<span class="n">über die Saisongrenze hinweg gezählt</span></div></li><li id="fact-ueber_schnitt"><div class="z">16<small>Wochen</small></div><div class="t"><b>Längste Serie über dem Ligaschnitt</b>: <b>Samuel</b>, 2024 Woche 8 bis 2025 Woche 9<span class="n">über die Saisongrenze hinweg gezählt</span></div></li><li id="fact-meister_ohne_punkte"><div class="z">7 von 7<small>Saisons</small></div><div class="t"><b>Meister ohne die meisten Punkte</b>: 2019 <b>Michael</b> (Platz 3 nach Punkten, punktbester Cyril); 2020 <b>Matthias</b> (Platz 4 nach Punkten, punktbester Dominique); 2021 <b>Tanju</b> (Platz 3 nach Punkten, punktbester Dominique); 2022 <b>Tobias</b> (Platz 5 nach Punkten, punktbester Dominique); 2023 <b>Samuel</b> (Platz 7 nach Punkten, punktbester Tanju); 2024 <b>Jake</b> (Platz 2 nach Punkten, punktbester Samuel); 2025 <b>Jake</b> (Platz 2 nach Punkten, punktbester Samuel) (7 Fälle mit diesem Wert)<span class="n">7 Fälle, keine Regel: der Meister kann auch die meisten Punkte haben</span></div></li><li id="fact-hoechste_niederlage"><div class="z">139,98<small>Punkte</small></div><div class="t"><b>Höchste Punktzahl, die eine Niederlage war</b>: <b>Michael</b> gegen Matthias (148,28), 2021 Woche 5</div></li><li id="fact-tiefster_sieg"><div class="z">54,44<small>Punkte</small></div><div class="t"><b>Tiefste Punktzahl, die einen Sieg brachte</b>: <b>Jarno</b> gegen Samuel (53,44), 2019 Woche 11</div></li></ol><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · podium_2019_2025.csv <span title="5d929b83f12060de08f77fdf538186ebefe1e2e421a158f5765f0e756afd7178">5d929b83f120…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span></div></details>
+</section>
+
+<section id="bm">
+  <div class="sec-head"><div class="eyebrow">Legende</div><h2>Manager und Teamnamen</h2></div>
+  <details class="je"><summary>Manager und Teamnamen je Saison</summary><p class="n">Gleicher Name wie in der Vorsaison ist als „ abgekürzt.</p><div class="tablewrap"><table><thead><tr><th class="l">Manager</th><th class="l">2019</th><th class="l">2020</th><th class="l">2021</th><th class="l">2022</th><th class="l">2023</th><th class="l">2024</th><th class="l">2025</th><th class="l">2026</th></tr></thead><tbody><tr><td class="l name">Cyril</td><td class="l" style="">Craptree Luckers</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="">CrapTree Luckers</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Dominik</td><td class="l" style="">Dom's hand-picked AP</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Dominique</td><td class="l" style="">Stettlers</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Jake</td><td class="l" style="">Gotham City Rogues</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="">Wakanda Meerkats</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Jarno</td><td class="l" style="">Show Me Your TD's</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="">Fumble Fiesta Zürich</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Matthias</td><td class="l" style="">Minnesota youngsters</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Michael</td><td class="l" style="">Pietätlosi Pinguin</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Mutzi</td><td class="l" style="">Team Sgt. Hartman</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Samuel</td><td class="l" style="">Säm Frän</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr class="me"><td class="l name">Simon</td><td class="l" style="">Effi Butt Fumbler</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="">No Name Butt Fumblers</td><td class="l" style="">FishPig Tackles</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Tanju</td><td class="l" style="">Wehntal Cows</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr><tr><td class="l name">Tobias</td><td class="l" style="">Raging Unicorns</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td><td class="l" style="color:var(--mute)">„</td></tr></tbody></table></div></details>
+</section>
+
+<div class="foot">Quelle: Yahoo Fantasy Football, Web-Abgriff mit scripts/yahoo/abgriff_liga.js. Rohdaten unverändert; diese Seite ist abgeleitet und wird aus Bündel und Code neu erzeugt (python3 -m ewige_tabelle). Playoffwochen 15 bis 17 zählen nirgends. Seite erzeugt 2026-09-12 00:21 UTC.</div>
+</main>
+<dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seite zeigt</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><h4>Die Seite</h4><p>Fünf Blöcke aus den Wochenpunkten der Saisons 2019 bis 2025, reguläre Saison Woche 1 bis 14. Keine Prognose, kein Bewertungsmodell. Manager sind der Schlüssel, nicht Teamnamen; die wechseln (Legende am Ende).</p><h4>Die Regeln, mit denen gerechnet wird</h4><p>8 Playoff-Plätze. Ein Unentschieden zählt als halber Sieg. Bei gleicher Bilanz entscheiden die Punkte für. Die drei Divisionssieger stehen vor dem Rest. Alle vier Regeln sind am Bündel gemessen, nicht angenommen; der reguläre Platz wird daraus gerechnet, weil die Abschlusstabelle für die Plätze 1 bis 8 den Rang nach den Playoffs führt.</p><h4>Was nicht auf der Seite steht</h4><p>Paarbilanzen als Angstgegner, eine Rangliste 1 bis 12, Ergebnisserien über Saisongrenzen, die Spielplan-Lotterie als eigener Block. Die Grenze ist die Art der Aussage: eine gezählte Tatsache über einen Manager ist erlaubt, eine Deutung daraus nicht.</p></div></dialog><dialog class="fenster" id="f-b1" aria-labelledby="f-b1-t"><div class="fk"><h3 id="f-b1-t">Block 1 · Playoff-Schwelle</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Je Saison die tiefste Saisonpunktzahl, die noch für einen der 8 Playoff-Plätze reichte, und die höchste, die nicht reichte. Liegt die höchste erfolglose über der tiefsten erfolgreichen, gibt es einen Bereich, in dem nicht die Punkte entschieden haben, sondern der Spielplan. Daneben dieselben zwei Zahlen auf der All-Play-Tabelle: dort zählt je Woche, wie viele der elf anderen Teams man übertroffen hat, der Gegner spielt keine Rolle.</p><p>Der Bereich besteht auf der echten Tabelle in 5 von 7 Saisons und verschwindet auf der All-Play-Tabelle in 5 von 7 Saisons.</p><p>Die Spielplan-Lotterie, die dieselben Wochenpunkte unter 10'000 gewürfelten Spielplänen je Saison neu auszählt, kommt zum selben Ergebnis wie die All-Play-Tabelle: in 82 von 84 Team-Saisons dieselbe Achtergruppe.</p></div></dialog><dialog class="fenster" id="f-b2" aria-labelledby="f-b2-t"><div class="fk"><h3 id="f-b2-t">Block 2 · Siegquote nach Wochenrang</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Jede Team-Woche bekommt ihren Rang unter den zwölf Punktzahlen der Woche; gezählt wird, wie oft dieser Rang gewann. Rang 1 gewinnt immer und Rang 12 verliert immer, weil es rechnerisch nicht anders sein kann: wer mehr Punkte hat als alle elf anderen, hat auch mehr als sein Gegner. Dazwischen zeigt die Treppe, wie viel ein mittlerer Wochenrang wert ist.</p></div></dialog><dialog class="fenster" id="f-b3" aria-labelledby="f-b3-t"><div class="fk"><h3 id="f-b3-t">Block 3 · Der ewige Durchschnitt</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Über alle 98 Wochen je Manager der Anteil gewonnener Vergleiche gegen die elf anderen, die Zahl der Vergleiche, der mittlere Wochenrang und die mittlere Punktzahl. Der Bereich daneben ist ein Bootstrap über die Saison-Wochen als Blöcke, weil Vergleiche derselben Woche nicht unabhängig sind (10'000 Ziehungen, feste Saat).</p><p>Dargestellt als Gruppen, nicht als Rangliste: von 11 benachbarten Rangpaaren nur eines getrennt. Ein Manager gehört zur laufenden Gruppe, solange er von keinem ihrer Mitglieder belegt getrennt ist; die Reihenfolge innerhalb einer Gruppe ist nicht belegt.</p></div></dialog><dialog class="fenster" id="f-b4" aria-labelledby="f-b4-t"><div class="fk"><h3 id="f-b4-t">Block 4 · Rekordtafel</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Acht Rekorde aus den regulären Wochen, je mit Manager, Saison, Woche und Gegner, dazu die Unentschieden. Die Punkteregeln der Liga sind in allen 8 Einstellungsdateien gleich; Punktzahlen sind über die Saisons deshalb vergleichbar. Bei Gleichstand stehen alle Fälle.</p></div></dialog><dialog class="fenster" id="f-b5" aria-labelledby="f-b5-t"><div class="fk"><h3 id="f-b5-t">Block 5 · Fun Facts</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Sieben Zeilen, jede aus dem Ergebnis gerechnet, je mit Manager, Saison und Woche. Ergebnisserien zählen innerhalb einer Saison; die Serien über und unter dem Ligaschnitt derselben Woche laufen über die Saisongrenze hinweg, weil sie vom Gegner unabhängig sind. Die Meisterzeile beruht auf sieben Fällen, das ist eine Zählung und keine Regel.</p></div></dialog>
+<script>
+document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
+  const d = document.getElementById(b.getAttribute("aria-controls"));
+  b.addEventListener("click", ev => {
+    ev.stopPropagation();
+    const auf = b.getAttribute("aria-expanded") === "true";
+    document.querySelectorAll("nav.haupt button.pfeil").forEach(x => {
+      x.setAttribute("aria-expanded", "false");
+      document.getElementById(x.getAttribute("aria-controls")).hidden = true;
+    });
+    b.setAttribute("aria-expanded", auf ? "false" : "true");
+    d.hidden = auf;
+  });
+});
+document.addEventListener("click", ev => {
+  if (ev.target.closest("nav.haupt .mit-unter")) return;
+  document.querySelectorAll("nav.haupt button.pfeil[aria-expanded='true']").forEach(b => {
+    b.setAttribute("aria-expanded", "false");
+    document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+  });
+});
+document.addEventListener("keydown", ev => {
+  if (ev.key !== "Escape") return;
+  document.querySelectorAll("nav.haupt button.pfeil[aria-expanded='true']").forEach(b => {
+    b.setAttribute("aria-expanded", "false");
+    document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+    b.focus();
+  });
+});
+
+document.addEventListener("click", ev => {
+  const i = ev.target.closest("button.info");
+  if (i){
+    const d = document.getElementById(i.dataset.fenster);
+    if (d && typeof d.showModal === "function") d.showModal(); else if (d) d.setAttribute("open", "");
+    document.body.classList.add("fenster-offen");
+    return;
+  }
+  const zu = ev.target.closest("button.zu");
+  if (zu){ zu.closest("dialog").close(); return; }
+  if (ev.target.tagName === "DIALOG" && ev.target.open) ev.target.close();
+});
+document.querySelectorAll("dialog.fenster").forEach(d => d.addEventListener("close", () => {
+  if (!document.querySelector("dialog.fenster[open]")) document.body.classList.remove("fenster-offen");
+}));
+</script>
+</body>
+</html>

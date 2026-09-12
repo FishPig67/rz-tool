@@ -27,6 +27,36 @@
    ]
   }
  },
+ "ewige-tabelle": {
+  "wert": 588,
+  "einheit": "Duelle",
+  "datei": "ewige_tabelle.json",
+  "pfad": "kenn.n_duelle",
+  "erzeugt_utc": "2026-09-12T00:21:36Z",
+  "buendel": [
+   "20260904-1721-yahoo-voll-227e9b"
+  ],
+  "stand": {
+   "text": "Saisons 2019 bis 2025",
+   "teile": [
+    {
+     "text": "Saisons 2019 bis 2025",
+     "wert": [
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "datei": "ewige_tabelle.json",
+     "pfad": "schema.saisons",
+     "vorwort": "Saisons"
+    }
+   ]
+  }
+ },
  "griffe-fehlgriffe": {
   "wert": 448,
   "einheit": "Paare gleicher Position",
