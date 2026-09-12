@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="de">
+<head>
+<title>Wer die harten Gegner hat</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:type" content="website"><meta property="og:site_name" content="FishPig RedZone"><meta property="og:locale" content="de_CH"><meta property="og:title" content="Wer die harten Gegner hat"><meta property="og:description" content="Wie stark sind die Gegner, die der Spielplan 2026 jedem zuteilt: je Manager die Punkte seiner vierzehn Gegner aus der Saison 2025, mit Rang. Dazu, wie schmal der Unterschied wirklich ist, ob die Vorhersage 2020 bis 2025 getroffen hat und warum die Rechnung nach Siegquoten, wie sie die NFL macht, in dieser Liga nichts voraussagt. Misst den Spielplan, nicht die Kader."><meta property="og:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg"><meta property="og:url" content="https://fishpig67.github.io/rz-tool/gegner.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Wer die harten Gegner hat"><meta name="twitter:description" content="Wie stark sind die Gegner, die der Spielplan 2026 jedem zuteilt: je Manager die Punkte seiner vierzehn Gegner aus der Saison 2025, mit Rang. Dazu, wie schmal der Unterschied wirklich ist, ob die Vorhersage 2020 bis 2025 getroffen hat und warum die Rechnung nach Siegquoten, wie sie die NFL macht, in dieser Liga nichts voraussagt. Misst den Spielplan, nicht die Kader."><meta name="twitter:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg">
+<style>
+@font-face{font-family:"Anton";font-style:normal;font-weight:400;font-display:swap;src:url("schriften/anton.woff2") format("woff2")}
+@font-face{font-family:"Oswald";font-style:normal;font-weight:600;font-display:swap;src:url("schriften/oswald-600.woff2") format("woff2")}
+:root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
+  --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
+*{box-sizing:border-box}
+html{background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
+.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
+.marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
+.marke .logo img{width:100%;height:100%;display:block}
+.marke .logo.leer{background:var(--bg3)}
+.marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
+.marke .wm b{color:var(--accent2);font-weight:400}
+.marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
+nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
+nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
+nav.haupt .mit-unter{position:relative;display:flex;align-items:stretch}
+nav.haupt button.pfeil{background:none;border:0;color:var(--ink2);font:inherit;font-size:12px;line-height:1;cursor:pointer;padding:7px 8px;border-radius:5px}
+nav.haupt button.pfeil:hover{color:var(--ink);background:var(--bg3)}
+nav.haupt button.pfeil:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+nav.haupt button.pfeil[aria-expanded="true"]{background:var(--bg3);color:var(--ink)}
+/* Ein Bereich ist ein reiner Knopf und sieht aus wie ein Menüpunkt: gleiche Schrift, gleiche
+   Masse wie nav.haupt a. Er führt auf keine Seite, es gibt keine. */
+nav.haupt button.bereich{display:inline-flex;align-items:center;gap:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);padding:7px 12px}
+nav.haupt button.bereich .pf{font-size:12px;letter-spacing:0}
+nav.haupt button.bereich.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
+nav.haupt .unter{position:absolute;top:100%;left:0;z-index:20;min-width:190px;margin-top:6px;padding:6px;display:flex;flex-direction:column;gap:2px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+nav.haupt .unter a{font-size:13.5px;letter-spacing:.1em;padding:8px 12px;white-space:nowrap}
+/* display:flex würde das hidden-Attribut überstimmen — gemessen am 2026-09-10: das Untermenü
+   stand ohne diese Zeile auf jeder Seite offen da. */
+nav.haupt .unter[hidden]{display:none}
+.rz-nav{display:none}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+h1,h2{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;margin:0;line-height:1.05;letter-spacing:.06em;text-transform:uppercase}
+h3{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;margin:0;line-height:1.05;letter-spacing:.12em;text-transform:uppercase}
+h1{font-size:46px}h2{font-size:28px}h3{font-size:16px;font-weight:600;color:var(--ink2)}
+.eyebrow{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:700}
+.titel{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:8px}
+.lead{color:var(--ink2);max-width:80ch;margin:0 0 18px}
+.lead b{color:var(--ink)}
+.karte{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:18px}
+.karte.eng{padding:12px 16px}
+.controls{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center}
+.controls label{display:flex;gap:9px;align-items:center;cursor:pointer;font-weight:600}
+.controls input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent)}
+.controls select,.blaettern select{background:var(--bg3);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:inherit}
+section{margin-bottom:26px}
+.sec-kopf{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:10px}
+.sec-kopf .n{color:var(--mute);font-size:13px;flex-basis:100%}
+.kenn{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg3);margin-bottom:12px}
+.kenn .z{font-size:40px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;letter-spacing:.02em}
+.kenn .z small{font-size:13px;font-weight:600;color:var(--mute);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.kenn .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.kenn .kurz{color:var(--ink2);font-size:14px;flex:1 1 320px}
+.kenn .kurz b{color:var(--ink)}
+.kenn .neg{color:var(--neg)}.kenn .posv{color:var(--pos)}
+.info{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--accent2);color:var(--accent2);background:transparent;font:700 13px/1 Georgia,"Times New Roman",serif;font-style:italic;cursor:pointer;padding:0;flex:none;vertical-align:middle}
+.info:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.info:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
+th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
+td.l,th.l{text-align:left}td.name{font-weight:600}
+tr:last-child td{border-bottom:none}
+tr.start td{background:var(--start)}
+tr.frei td.name .nm{color:var(--ink2);font-weight:500}
+.sp{display:flex;align-items:center;gap:10px;min-width:0}
+.av{width:36px;height:36px;border-radius:50%;flex:none;background:var(--bg3);border:1px solid var(--line);object-fit:cover;display:inline-block}
+img.av{background:var(--bg3)}
+.sp .txt{min-width:0}
+.sp .sub{display:none;font-size:12px;color:var(--mute);font-weight:400}
+.posv{color:var(--pos)}.negv{color:var(--neg)}.kd{color:var(--mute);font-style:italic}
+.warn{color:var(--neg);font-style:italic}
+.badge{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--accent2);border-radius:3px;padding:1px 5px;color:var(--accent2);margin-left:6px;vertical-align:middle;font-weight:700}
+.blaettern{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:10px;font-size:13.5px;color:var(--mute)}
+.blaettern .seiten{display:flex;flex-wrap:wrap;gap:4px}
+.blaettern button{background:var(--bg3);color:var(--ink2);border:1px solid var(--line);border-radius:6px;min-width:34px;height:32px;padding:0 8px;font:inherit;cursor:pointer}
+.blaettern button:hover{color:var(--ink);border-color:var(--accent2)}
+.blaettern button.hier{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.blaettern button:disabled{opacity:.35;cursor:default}
+.blaettern .lab{margin-left:auto}
+.prov{margin-top:10px;font-size:12px;color:var(--mute);font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;line-height:1.6;overflow-wrap:anywhere}
+.prov b{color:var(--ink2);font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif}
+.foot{margin-top:34px;padding-top:16px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mute);max-width:95ch}
+dialog.fenster{background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:0;width:min(720px,calc(100vw - 24px));max-height:85vh;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+dialog.fenster::backdrop{background:rgba(4,7,16,.72);backdrop-filter:blur(2px)}
+dialog.fenster .fk{position:sticky;top:0;display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--line);z-index:1}
+dialog.fenster .fk h3{flex:1;color:var(--ink);font-size:17px}
+dialog.fenster .zu{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;flex:none}
+dialog.fenster .zu:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+dialog.fenster .fi{padding:14px 18px 18px;overflow:auto;max-height:calc(85vh - 70px);color:var(--ink2);line-height:1.55}
+dialog.fenster .fi h4{margin:14px 0 4px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)}
+dialog.fenster .fi h4:first-child{margin-top:0}
+dialog.fenster .fi p{margin:0 0 10px}
+dialog.fenster .fi b{color:var(--ink)}
+dialog.fenster .fi .vb{border-left:3px solid var(--hint);padding:6px 12px;margin:8px 0;background:rgba(240,192,96,.06);border-radius:0 6px 6px 0}
+noscript p{color:var(--neg)}
+/* Das Spielfeld: Andeutung hinter dem Inhalt, nur Striche und Zahlen, keine Bilddatei. Fest im Fenster,
+   scrollt nicht mit; Karten und Tabellen liegen deckend darüber. Bei offenem Fenster ausgeblendet. */
+.feld{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:
+    repeating-linear-gradient(90deg,rgba(190,208,255,.075) 0 1px,transparent 1px 10%),
+    repeating-linear-gradient(90deg,rgba(190,208,255,.07) 0 1px,transparent 1px 2%) 0 38%/100% 9px repeat-x,
+    repeating-linear-gradient(90deg,rgba(190,208,255,.07) 0 1px,transparent 1px 2%) 0 62%/100% 9px repeat-x,
+    linear-gradient(rgba(190,208,255,.09),rgba(190,208,255,.09)) 0 6%/100% 2px no-repeat,
+    linear-gradient(rgba(190,208,255,.09),rgba(190,208,255,.09)) 0 94%/100% 2px no-repeat}
+.feld span::before{content:attr(data-n)}
+.feld span{position:absolute;top:9%;transform:translateX(-50%);font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:min(9vw,88px);line-height:1;color:rgba(190,208,255,.055);letter-spacing:.04em;user-select:none}
+.feld span.u{top:auto;bottom:9%;transform:translateX(-50%) rotate(180deg)}
+main{position:relative;z-index:1}
+/* Die Kopfzeile muss über dem Inhalt liegen, sonst fängt der Inhalt die Klicks auf das
+   aufgeklappte Untermenü ab: gleiche z-index-Stufe, und das spätere Element gewinnt.
+   Gemessen am 2026-09-10 in Chromium — sichtbar war das Untermenü, klickbar nicht. */
+.kopfzeile{position:relative;z-index:5}
+body.fenster-offen .feld{display:none}
+@media (max-width:760px){
+  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .marke .wm{font-size:21px}
+  nav.haupt{margin-left:0;width:100%;gap:2px 4px}
+  nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
+  nav.haupt .mit-unter{flex-wrap:wrap}
+  nav.haupt .unter{position:static;margin-top:4px;flex-basis:100%;box-shadow:none;background:var(--bg3)}
+  main{padding:18px 12px 60px}
+  h1{font-size:34px}h2{font-size:22px}
+  .kenn .z{font-size:32px}
+  table{font-size:13px}
+  th,td{padding:5px 6px}
+  .sp .sub{display:block;white-space:normal;overflow-wrap:anywhere}
+  td.name{white-space:normal;min-width:120px}
+  .sp{gap:7px}
+  .badge{font-size:9px;padding:0 4px;margin-left:4px}
+  .av{width:30px;height:30px}
+  th small{display:none}
+  th{white-space:normal;letter-spacing:.05em;line-height:1.15}
+  td.name .nm{display:block}
+  td.name .txt{max-width:118px}
+  td.name .badge{margin-left:0;margin-right:4px}
+  .m1{display:none}
+  .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+
+section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.sec-head{margin-bottom:12px}.sec-head h2{display:inline}.sec-head .titel{margin-bottom:4px}
+.sec-head p{max-width:85ch;color:var(--ink2);margin:8px 0 0}
+.kenn-raster{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.kenn-raster>div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg3)}
+.kenn-raster .z{font-size:40px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;letter-spacing:.02em}
+.kenn-raster .z small{font-size:13px;font-weight:600;color:var(--mute);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;letter-spacing:.06em}
+.kenn-raster .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-bottom:6px}
+.kenn-raster p{margin:6px 0 0;color:var(--ink2);font-size:13.5px}
+.beispiel{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0}
+.beispiel div{border-left:3px solid var(--accent);padding:6px 14px;color:var(--ink2);font-size:14.5px;line-height:1.5}
+.beispiel b{color:var(--ink);font-size:17px}
+.hint{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--hint);color:var(--ink2);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0 14px;background:rgba(240,192,96,.05)}
+.hint .tag{flex:none;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--hint);border:1px solid currentColor;border-radius:3px;padding:2px 7px;margin-top:2px}
+.n{color:var(--mute);font-size:13px}
+ul.luecken{max-width:85ch;color:var(--ink2);padding-left:20px}ul.luecken li{margin:4px 0}
+details.prov{margin-top:10px}details.prov summary{cursor:pointer;list-style:none;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700}
+details.prov summary::before{content:"▸ ";color:var(--accent2)}details.prov[open] summary::before{content:"▾ "}
+details.prov summary::-webkit-details-marker{display:none}
+details.prov .prov{margin-top:6px}
+td.name .sp .nm{font-weight:600}
+.av.wappen{border-radius:8px;object-fit:contain;background:#fff;padding:2px}
+.gruppe{margin-top:10px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700}
+@media (max-width:760px){
+  section{padding:12px 12px;border-radius:10px}
+  .kenn-raster .z{font-size:32px}
+  .hint{flex-wrap:wrap}
+  .tablewrap table td.l:first-child,.tablewrap table th.l:first-child{position:sticky;left:0;background:var(--bg2);z-index:2}
+  .tablewrap table th.l:first-child{background:var(--bg3)}
+}
+
+tr.me td.name{color:var(--accent2)}
+.num{font-variant-numeric:tabular-nums}
+td.rang{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:19px;color:var(--accent2)}
+th.vergleich,td.vergleich{color:var(--mute)}
+table.programm td.bal{width:34%;min-width:90px}
+.bal .stab{display:block;height:9px;border-radius:5px;background:var(--accent);opacity:.75}
+ul.satz{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+ul.satz li{border-left:3px solid var(--accent);padding:8px 14px;color:var(--ink2);font-size:15px;line-height:1.5}
+ul.satz li b{color:var(--ink)}
+table.treffer td,table.treffer th{text-align:center}
+table.treffer td.l,table.treffer th.l{text-align:left}
+.grenze{border:1px solid var(--line);border-left:3px solid var(--hint);border-radius:0 8px 8px 0;padding:12px 16px;background:rgba(240,192,96,.05);color:var(--ink2);line-height:1.55}
+.grenze b{color:var(--ink)}
+@media (max-width:760px){table.programm td.bal{display:none}table.programm th.bal{display:none}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+</head>
+<body><!--rz-rahmen--><style>
+:root{--rz-bg:#f6f5f1;--rz-bg2:#ecebe5;--rz-ink:#191c20;--rz-ink2:#4c5259;--rz-mute:#7d838b;--rz-line:#d9d7cf;--rz-accent:#b3261e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}}
+:root[data-theme="dark"]{--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}
+:where(.rz-nav){display:flex}
+.rz-nav{flex-wrap:wrap;gap:6px 20px;align-items:baseline;
+  padding:10px 20px;background:var(--rz-bg2);border-bottom:1px solid var(--rz-line);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+  font-size:14px;color:var(--rz-mute)}
+.rz-nav a{color:var(--rz-accent);text-decoration:none;font-weight:600}
+.rz-nav a:hover{text-decoration:underline}
+.rz-nav .rz-bereich{color:var(--rz-mute);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
+.rz-nav a.rz-hier{color:var(--rz-ink2)}
+.rz-nav a.rz-unter{font-weight:400;font-size:13px;opacity:.85}
+</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich rz-hier">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="gegner.html" class="rz-hier rz-unter" aria-current="page">Gegner</a><a href="grundlagen.html">Wissen</a></nav><!--/rz-rahmen-->
+<div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
+<div class="kopfzeile"><div class="kopf">
+  <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · Now it goes around the sausage · Spielplan 2026</div></span></a>
+  <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html">Manager</a><a href="gegner.html" class="hier" aria-current="page">Gegner</a></div></span><a href="grundlagen.html">Wissen</a></nav>
+</div></div>
+<main>
+
+<div class="titel"><h1>Wer die harten Gegner hat</h1><button class="info" type="button" data-fenster="f-seite" aria-label="Was diese Seite zeigt" title="Was diese Seite zeigt">i</button></div>
+<p class="lead">Wie stark sind die Gegner, die der Spielplan 2026 jedem zuteilt? Gerechnet aus den Punkten der Saison 2025, <b>ohne Prognose und ohne Bewertungsmodell</b>. Zwischen dem härtesten und dem leichtesten Programm liegen 5,5 Punkte je Spiel. Bündel 20260904-1721-yahoo-voll-227e9b, Manifest geprüft (18 Dateien).</p>
+
+<section id="b1">
+  <div class="sec-head"><div class="eyebrow">Block 1 · Spielplan 2026 · Punkte 2025</div><div class="titel"><h2>Das Programm 2026</h2><button class="info" type="button" data-fenster="f-b1" aria-label="Erklärung zu Block 1" title="Erklärung zu Block 1">i</button></div></div>
+  <div class="tablewrap"><table class="programm"><thead><tr><th>Rang</th><th class="l">Manager</th><th>Punkte der Gegner je Spiel</th><th class="bal"></th><th class="l">Division</th><th class="vergleich">Siegquote der Gegner (nur Vergleich, ohne Rangfolge)</th></tr></thead><tbody><tr><td class="rang num">1</td><td class="l name">Dominique</td><td class="num"><b>93,87</b></td><td class="bal"><span class="stab" style="width:100.0%"></span></td><td class="l">Wastelands</td><td class="num vergleich">54,6 %</td></tr><tr><td class="rang num">2</td><td class="l name">Tobias</td><td class="num"><b>93,40</b></td><td class="bal"><span class="stab" style="width:91.9%"></span></td><td class="l">Downtown</td><td class="num vergleich">53,6 %</td></tr><tr><td class="rang num">3</td><td class="l name">Cyril</td><td class="num"><b>92,46</b></td><td class="bal"><span class="stab" style="width:75.7%"></span></td><td class="l">Catlake</td><td class="num vergleich">50,0 %</td></tr><tr><td class="rang num">4</td><td class="l name">Matthias</td><td class="num"><b>92,32</b></td><td class="bal"><span class="stab" style="width:73.4%"></span></td><td class="l">Catlake</td><td class="num vergleich">54,1 %</td></tr><tr><td class="rang num">5</td><td class="l name">Dominik</td><td class="num"><b>91,33</b></td><td class="bal"><span class="stab" style="width:56.4%"></span></td><td class="l">Downtown</td><td class="num vergleich">47,4 %</td></tr><tr><td class="rang num">6</td><td class="l name">Jarno</td><td class="num"><b>91,23</b></td><td class="bal"><span class="stab" style="width:54.6%"></span></td><td class="l">Catlake</td><td class="num vergleich">52,0 %</td></tr><tr><td class="rang num">7</td><td class="l name">Michael</td><td class="num"><b>90,64</b></td><td class="bal"><span class="stab" style="width:44.6%"></span></td><td class="l">Downtown</td><td class="num vergleich">49,5 %</td></tr><tr><td class="rang num">8</td><td class="l name">Jake</td><td class="num"><b>90,10</b></td><td class="bal"><span class="stab" style="width:35.3%"></span></td><td class="l">Catlake</td><td class="num vergleich">48,0 %</td></tr><tr class="me"><td class="rang num">9</td><td class="l name">Simon</td><td class="num"><b>89,96</b></td><td class="bal"><span class="stab" style="width:32.8%"></span></td><td class="l">Wastelands</td><td class="num vergleich">47,4 %</td></tr><tr><td class="rang num">10</td><td class="l name">Mutzi</td><td class="num"><b>89,58</b></td><td class="bal"><span class="stab" style="width:26.3%"></span></td><td class="l">Wastelands</td><td class="num vergleich">48,5 %</td></tr><tr><td class="rang num">11</td><td class="l name">Samuel</td><td class="num"><b>89,22</b></td><td class="bal"><span class="stab" style="width:20.1%"></span></td><td class="l">Downtown</td><td class="num vergleich">48,5 %</td></tr><tr><td class="rang num">12</td><td class="l name">Tanju</td><td class="num"><b>88,39</b></td><td class="bal"><span class="stab" style="width:6.0%"></span></td><td class="l">Wastelands</td><td class="num vergleich">46,4 %</td></tr></tbody></table></div><p class="n" style="margin:10px 0 0">Sortiert und gerangt allein nach der Spalte „Punkte der Gegner je Spiel". Die Siegquote steht daneben, weil sie der Weg der NFL ist; sie bekommt hier bewusst keinen Rang, denn sie sagt in dieser Liga nichts voraus (Block 3).</p><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · standings_2019_2026.csv <span title="a35d1207dd95a761045edf1ee63a43fa188c82b38ff67b789c450b7645d11846">a35d1207dd95…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span> · league_settings_2019.json <span title="68221c9fef38edc5d8431dbe25765974c3651f8aff5485d1430ad0f28db4ea51">68221c9fef38…</span> · league_settings_2020.json <span title="194123bf885e38ff2eb786b0ebfd5bccdb6b0797e9f598360e71539c67540abe">194123bf885e…</span> · league_settings_2021.json <span title="c78558f01147f8b45feabb44387275f8d0fbe2afc135042a3b30745e94bc47a7">c78558f01147…</span> · league_settings_2022.json <span title="dafbe157a74b1a68d26bff6dbfb280379ed132a5303d16da276c10eb157e729c">dafbe157a74b…</span> · league_settings_2023.json <span title="a16a6ba872b223fae22c48d7800ae39a6285a6637fa91105d5cf89b2cf9f679c">a16a6ba872b2…</span> · league_settings_2024.json <span title="1b7781a72858cd86b690c2dd0a72a34d02150db44f77866684272443d4debe14">1b7781a72858…</span> · league_settings_2025.json <span title="5194e13b6313550d95059ba63818add1d906d7dd96089ba051510df0f11350ed">5194e13b6313…</span> · league_settings_2026.json <span title="4b07a6671a5b7dee3019f9fce470b418dc6e7634084ce67a933f771809ac88af">4b07a6671a5b…</span></div></details>
+</section>
+
+<section id="b2">
+  <div class="sec-head"><div class="eyebrow">Block 2 · Spielplan 2026 · Punkte 2025</div><div class="titel"><h2>Wie schmal der Unterschied ist</h2><button class="info" type="button" data-fenster="f-b2" aria-label="Erklärung zu Block 2" title="Erklärung zu Block 2">i</button></div></div>
+  <div class="kenn-raster"><div><div class="lab">Härtestes gegen leichtestes Programm</div><div class="z">5,5<small> Punkte je Spiel</small></div><p>Dominique 93,87 gegen Tanju 88,39.</p></div><div><div class="lab">Derselbe Abstand über eine ganze Saison</div><div class="z">77<small> Punkte in 14 Spielen</small></div><p>Eine einzelne Woche schwankt um ein Vielfaches davon.</p></div><div><div class="lab">Auf dem Weg der Siegquote</div><div class="z">1,1<small> Siege in 14 Spielen</small></div><p>54,6 % gegen 46,4 %, also gut ein Sieg Unterschied über die ganze Liga.</p></div></div><ul class="satz"><li>Jeder spielt gegen jeden: die <b>drei Gegner der eigenen Division zweimal</b>, die acht anderen einmal. Alle elf Gegner kommen bei jedem vor, deshalb bleibt der Unterschied schmal.</li><li>Was übrig bleibt, kommt aus <b>zwei</b> Dingen: aus der Stärke der eigenen Division, und daraus, dass man <b>sich selbst nicht spielt</b>. Beide zusammen ergeben genau den Abstand oben, nichts sonst.</li><li>Deshalb bekommt, wer letzte Saison stark war, hier rechnerisch das <b>leichtere</b> Programm zugeschrieben. Das ist kein Fehler, sondern die Folge davon, dass man gegen sich selbst nicht antritt.</li></ul><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · standings_2019_2026.csv <span title="a35d1207dd95a761045edf1ee63a43fa188c82b38ff67b789c450b7645d11846">a35d1207dd95…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span> · league_settings_2019.json <span title="68221c9fef38edc5d8431dbe25765974c3651f8aff5485d1430ad0f28db4ea51">68221c9fef38…</span> · league_settings_2020.json <span title="194123bf885e38ff2eb786b0ebfd5bccdb6b0797e9f598360e71539c67540abe">194123bf885e…</span> · league_settings_2021.json <span title="c78558f01147f8b45feabb44387275f8d0fbe2afc135042a3b30745e94bc47a7">c78558f01147…</span> · league_settings_2022.json <span title="dafbe157a74b1a68d26bff6dbfb280379ed132a5303d16da276c10eb157e729c">dafbe157a74b…</span> · league_settings_2023.json <span title="a16a6ba872b223fae22c48d7800ae39a6285a6637fa91105d5cf89b2cf9f679c">a16a6ba872b2…</span> · league_settings_2024.json <span title="1b7781a72858cd86b690c2dd0a72a34d02150db44f77866684272443d4debe14">1b7781a72858…</span> · league_settings_2025.json <span title="5194e13b6313550d95059ba63818add1d906d7dd96089ba051510df0f11350ed">5194e13b6313…</span> · league_settings_2026.json <span title="4b07a6671a5b7dee3019f9fce470b418dc6e7634084ce67a933f771809ac88af">4b07a6671a5b…</span></div></details>
+</section>
+
+<section id="b3">
+  <div class="sec-head"><div class="eyebrow">Block 3 · Rückblick 2020 bis 2025</div><div class="titel"><h2>Trifft die Vorhersage?</h2><button class="info" type="button" data-fenster="f-b3" aria-label="Erklärung zu Block 3" title="Erklärung zu Block 3">i</button></div></div>
+  <ul class="satz"><li>Über die 6 Saisons 2020 bis 2025 (72 Team-Saisons) hat die Vorhersage <b>nach Punkten</b> 9 der 18 Plätze unter den drei härtesten Programmen getroffen und 9 der 18 unter den drei leichtesten. Zufällig wären es 4,5 von 18.</li><li><b>Nach Siegquote</b>, dem Weg der NFL, waren es 6 von 18 und 6 von 18: so viel, wie der Zufall ohnehin liefert.</li><li>Saison für Saison gezählt: nach Punkten lagen in <b>3 von 6</b> Saisons mindestens zwei der drei vorhergesagt härtesten Programme hinterher tatsächlich unter den drei härtesten; nach Siegquote in 1 von 6. 2021 lag die Siegquote sogar <b>verkehrt herum</b>: keines der drei getroffen.</li><li>Die Rangfolge nach Punkten trägt also, aber schwach. Sie taugt als <b>Reihenfolge</b>, nicht als Zahl: als Zahl liegt sie weiter daneben als die Auskunft „alle Programme sind gleich hart" (Zahlen im Info-Fenster).</li></ul><div class="tablewrap"><table class="treffer"><thead><tr><th class="l">Saison</th><th>Härteste drei, nach Punkten</th><th>Leichteste drei, nach Punkten</th><th class="vergleich">Härteste drei, nach Siegquote</th><th class="vergleich">Leichteste drei, nach Siegquote</th></tr></thead><tbody><tr><td class="l">2020</td><td class="num">2</td><td class="num">1</td><td class="num vergleich">1</td><td class="num vergleich">1</td></tr><tr><td class="l">2021</td><td class="num">1</td><td class="num">1</td><td class="num vergleich">0</td><td class="num vergleich">0</td></tr><tr><td class="l">2022</td><td class="num">2</td><td class="num">2</td><td class="num vergleich">1</td><td class="num vergleich">2</td></tr><tr><td class="l">2023</td><td class="num">2</td><td class="num">1</td><td class="num vergleich">1</td><td class="num vergleich">1</td></tr><tr><td class="l">2024</td><td class="num">1</td><td class="num">1</td><td class="num vergleich">1</td><td class="num vergleich">1</td></tr><tr><td class="l">2025</td><td class="num">1</td><td class="num">3</td><td class="num vergleich">2</td><td class="num vergleich">1</td></tr></tbody></table></div><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · standings_2019_2026.csv <span title="a35d1207dd95a761045edf1ee63a43fa188c82b38ff67b789c450b7645d11846">a35d1207dd95…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span> · league_settings_2019.json <span title="68221c9fef38edc5d8431dbe25765974c3651f8aff5485d1430ad0f28db4ea51">68221c9fef38…</span> · league_settings_2020.json <span title="194123bf885e38ff2eb786b0ebfd5bccdb6b0797e9f598360e71539c67540abe">194123bf885e…</span> · league_settings_2021.json <span title="c78558f01147f8b45feabb44387275f8d0fbe2afc135042a3b30745e94bc47a7">c78558f01147…</span> · league_settings_2022.json <span title="dafbe157a74b1a68d26bff6dbfb280379ed132a5303d16da276c10eb157e729c">dafbe157a74b…</span> · league_settings_2023.json <span title="a16a6ba872b223fae22c48d7800ae39a6285a6637fa91105d5cf89b2cf9f679c">a16a6ba872b2…</span> · league_settings_2024.json <span title="1b7781a72858cd86b690c2dd0a72a34d02150db44f77866684272443d4debe14">1b7781a72858…</span> · league_settings_2025.json <span title="5194e13b6313550d95059ba63818add1d906d7dd96089ba051510df0f11350ed">5194e13b6313…</span> · league_settings_2026.json <span title="4b07a6671a5b7dee3019f9fce470b418dc6e7634084ce67a933f771809ac88af">4b07a6671a5b…</span></div></details>
+</section>
+
+<section id="b4">
+  <div class="sec-head"><div class="eyebrow">Block 4 · 84 Team-Saisons</div><div class="titel"><h2>Warum die NFL-Rechnung hier nicht trägt</h2><button class="info" type="button" data-fenster="f-b4" aria-label="Erklärung zu Block 4" title="Erklärung zu Block 4">i</button></div></div>
+  <ul class="satz"><li>Eine <b>Bilanz enthält selbst das Spielplanglück</b>. Gemessen an dieser Liga: nur rund 54 Prozent der Reihenfolge einer Saisontabelle lassen sich aus den erzielten Punkten erklären (84 Team-Saisons). Der Rest hängt daran, wer wann gegen wen antrat. Wer aus solchen Bilanzen die Spielplanstärke rechnet, trägt diesen Zufall ein zweites Mal mit.</li><li>In einer Zwölferliga <b>spielt jeder gegen jeden</b>. In der NFL trifft ein Team nur einen Teil der Liga; dort kann der Spielplan wirklich ungleich ausfallen, hier kaum.</li><li>Ein Fantasy-Kader <b>verändert sich zwischen zwei Saisons stärker als eine NFL-Mannschaft</b>: Draft, Handel und Waiver bauen ihn jedes Jahr um. Wie stark ein Gegner letzte Saison war, sagt darum weniger über dieses Jahr aus, als man erwartet.</li></ul><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · standings_2019_2026.csv <span title="a35d1207dd95a761045edf1ee63a43fa188c82b38ff67b789c450b7645d11846">a35d1207dd95…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span> · league_settings_2019.json <span title="68221c9fef38edc5d8431dbe25765974c3651f8aff5485d1430ad0f28db4ea51">68221c9fef38…</span> · league_settings_2020.json <span title="194123bf885e38ff2eb786b0ebfd5bccdb6b0797e9f598360e71539c67540abe">194123bf885e…</span> · league_settings_2021.json <span title="c78558f01147f8b45feabb44387275f8d0fbe2afc135042a3b30745e94bc47a7">c78558f01147…</span> · league_settings_2022.json <span title="dafbe157a74b1a68d26bff6dbfb280379ed132a5303d16da276c10eb157e729c">dafbe157a74b…</span> · league_settings_2023.json <span title="a16a6ba872b223fae22c48d7800ae39a6285a6637fa91105d5cf89b2cf9f679c">a16a6ba872b2…</span> · league_settings_2024.json <span title="1b7781a72858cd86b690c2dd0a72a34d02150db44f77866684272443d4debe14">1b7781a72858…</span> · league_settings_2025.json <span title="5194e13b6313550d95059ba63818add1d906d7dd96089ba051510df0f11350ed">5194e13b6313…</span> · league_settings_2026.json <span title="4b07a6671a5b7dee3019f9fce470b418dc6e7634084ce67a933f771809ac88af">4b07a6671a5b…</span></div></details>
+</section>
+
+<section id="b5">
+  <div class="sec-head"><div class="eyebrow">Block 5 · Grenze</div><div class="titel"><h2>Was hier noch fehlt</h2><button class="info" type="button" data-fenster="f-b5" aria-label="Erklärung zu Block 5" title="Erklärung zu Block 5">i</button></div></div>
+  <div class="grenze"><b>Für 2026 steht bisher nur die Vorschau.</b> Diese Seite rechnet die Stärke des Programms 2026 aus den Punkten der Saison 2025. Was dabei herauskommt, wie hart die Gegner <b>tatsächlich</b> waren, lässt sich erst sagen, wenn die Ergebnisse der Paarungen dieser Saison vorliegen. Die holt der Wochenabgriff heute nicht: er sichert Kader, Projektionen und den freien Markt, nicht die Paarungen. Sobald die Paarungsergebnisse mitgeholt werden, kann diese Seite Woche für Woche mitwachsen und den zweiten Wert daneben stellen. Am Wochenablauf ist dafür bisher nichts geändert.</div><p class="n" style="margin:10px 0 0">Gemessen am Bündel: die 84 Paarungen der Saison 2026 führen alle 168 Punktwerte als 0,00, und die Abschlusstabelle 2026 steht auf 0-0-0.</p><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Bündel 20260904-1721-yahoo-voll-227e9b · Wochen 1 bis 14 · Logo 20260909-2023-fishpig-logo-e100ca · Schriften 20260909-2056-google-fonts-5755a9<br>matchups_2019_2026.csv <span title="9d7ced473549143903758c0dd90981bce26a9a38965e9ffc6b2a7692070fe57d">9d7ced473549…</span> · standings_2019_2026.csv <span title="a35d1207dd95a761045edf1ee63a43fa188c82b38ff67b789c450b7645d11846">a35d1207dd95…</span> · teams_2019_2026.csv <span title="d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105">d8ef0dc58408…</span> · league_settings_2019.json <span title="68221c9fef38edc5d8431dbe25765974c3651f8aff5485d1430ad0f28db4ea51">68221c9fef38…</span> · league_settings_2020.json <span title="194123bf885e38ff2eb786b0ebfd5bccdb6b0797e9f598360e71539c67540abe">194123bf885e…</span> · league_settings_2021.json <span title="c78558f01147f8b45feabb44387275f8d0fbe2afc135042a3b30745e94bc47a7">c78558f01147…</span> · league_settings_2022.json <span title="dafbe157a74b1a68d26bff6dbfb280379ed132a5303d16da276c10eb157e729c">dafbe157a74b…</span> · league_settings_2023.json <span title="a16a6ba872b223fae22c48d7800ae39a6285a6637fa91105d5cf89b2cf9f679c">a16a6ba872b2…</span> · league_settings_2024.json <span title="1b7781a72858cd86b690c2dd0a72a34d02150db44f77866684272443d4debe14">1b7781a72858…</span> · league_settings_2025.json <span title="5194e13b6313550d95059ba63818add1d906d7dd96089ba051510df0f11350ed">5194e13b6313…</span> · league_settings_2026.json <span title="4b07a6671a5b7dee3019f9fce470b418dc6e7634084ce67a933f771809ac88af">4b07a6671a5b…</span></div></details>
+</section>
+
+<div class="foot">Quelle: Yahoo Fantasy Football, Web-Abgriff mit scripts/yahoo/abgriff_liga.js. Rohdaten unverändert; diese Seite ist abgeleitet und wird aus Bündel und Code neu erzeugt (python3 -m gegner). Playoffwochen zählen nirgends. Seite erzeugt 2026-09-12 12:39 UTC.</div>
+</main>
+<dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seite zeigt</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><h4>Die Frage</h4><p>Wie stark sind die Gegner, die einem der Spielplan zuteilt? Gerechnet wird sie für 2026 aus den Punkten der Saison 2025: je Manager das Mittel über alle 14 Spiele der regulären Wochen 1 bis 14, die drei Divisionsgegner damit doppelt gewichtet.</p><h4>Zwei Wege, einer trägt</h4><p>Der tragende Weg sind die <b>Punkte</b> der Gegner. Der Weg der NFL, die <b>Siegquote</b> der Gegner, steht auf dieser Seite nur als Vergleich: gemessen sagt er in dieser Liga nichts voraus (Block 3), deshalb bekommt er keinen Rang und bestimmt keine Sortierung.</p><h4>Was hier nicht steht</h4><p>Keine Prognose auf Siege, keine Aussage darüber, wer die Saison gewinnt, keine Entschuldigung für ein Ergebnis. Die Seite misst den Spielplan, nicht die Kader.</p><h4>Divisionen 2026</h4><p>Catlake: Cyril, Jake, Jarno, Matthias · Downtown: Dominik, Michael, Samuel, Tobias · Wastelands: Dominique, Mutzi, Simon, Tanju</p></div></dialog><dialog class="fenster" id="f-b1" aria-labelledby="f-b1-t"><div class="fk"><h3 id="f-b1-t">Block 1 · Das Programm 2026</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Je Manager das Mittel der Punkte, die seine 14 Gegner in der Saison 2025 je Spiel erzielt haben. Die Gegner kommen aus dem Spielplan 2026, die Punkte aus der Abschlusstabelle 2025; der Divisionszuschnitt hat sich mehrfach geändert, deshalb nie der Spielplan der Vorsaison.</p><h4>Zwei Eigenarten, die wie Fehler aussehen</h4><p><b>Wer stark war, bekommt ein leichteres Programm.</b> Man spielt gegen sich selbst nicht. Der eigene Wert fehlt darum in der eigenen Rechnung und fehlt zusätzlich ein zweites Mal, weil die eigene Division doppelt zählt. Genau: das Vierzehnfache des eigenen Werts ist die Punktsumme der ganzen Liga plus die Summe der eigenen Division minus zweimal der eigene Wert.</p><p><b>Das Nachher einer Saison ist das Vorher der nächsten</b>, solange die Divisionen gleich bleiben. Die Werte für 2026 sind deshalb Zahl für Zahl dieselben wie die tatsächliche Gegnerstärke der Saison 2025. Das ist keine Doppelung, sondern die Folge davon, dass derselbe Spielplan auf dieselben Punkte trifft; bei einem Zuschnittwechsel gilt es nicht.</p><p>Die Siegquote der Gegner steht als Vergleichsspalte daneben, ohne Rang und ohne Sortierung. Härtestes Programm nach Punkten: <b>Dominique</b> (93,87); leichtestes: <b>Tanju</b> (88,39).</p></div></dialog><dialog class="fenster" id="f-b2" aria-labelledby="f-b2-t"><div class="fk"><h3 id="f-b2-t">Block 2 · Wie schmal der Unterschied ist</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Spanne 2026: 5,48 Punkte je Spiel auf dem Punkteweg, 1,14 Siege über 14 Spiele auf dem Weg der Siegquote. Zum Vergleich: die Punkte der Teams selbst streuen in derselben Saison mit einer Standardabweichung von 11,44 Punkten je Spiel, die Gegnerstärke nur mit 1,63, also rund einem Siebtel davon.</p><h4>Die Zerlegung, genau</h4><p>Vierzehn mal die Gegnerstärke eines Managers ist die Punktsumme aller zwölf plus die Summe seiner eigenen Division minus zweimal sein eigener Wert. Diese Gleichung ist kein Modell, sondern eine Umformung, und sie wird bei jedem Lauf für jeden Manager und jede Saison nachgerechnet.</p><p>Daraus folgt, dass nicht allein die Division den Unterschied macht: in fünf von sieben gerechneten Saisons streut der eigene Anteil stärker als der Divisionsanteil. Wer sagt, der Unterschied komme nur aus der Division, sagt zu wenig.</p></div></dialog><dialog class="fenster" id="f-b3" aria-labelledby="f-b3-t"><div class="fk"><h3 id="f-b3-t">Block 3 · Trifft die Vorhersage?</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Verglichen wird das Vorher einer Saison mit dem, was hinterher tatsächlich herauskam, über 6 Saisons und 72 Team-Saisons. Als Nachher gilt die Fassung <b>alle Spiele des Gegners</b>: das Vorher rechnet nichts heraus, weil es nicht wissen kann, wie ein Gegner gegen einen selbst abschneidet. Die andere Fassung, ohne die Spiele gegen einen selbst, steht im Ergebnis daneben und ändert das Bild nicht.</p><h4>Die technischen Zahlen</h4><p>Rangkorrelation nach Spearman, gepoolt: <b>0,396</b> auf dem Punkteweg, 0,184 auf dem Weg der Siegquote. Je Saison liegt der Punkteweg zwischen 0,308 und 0,657 und ist in keiner Saison negativ; die Siegquote liegt zwischen -0,346 und 0,366 und ist in 1 Saison negativ.</p><p>Mittlerer Fehler auf dem Punkteweg: 1,87 Punkte je Spiel. Die Grundlinie „alle Programme gleich hart“ liegt bei 1,12, ist also besser. Deshalb steht auf der Seite eine Reihenfolge und keine Vorhersagezahl.</p><p>Zufallserwartung für drei aus zwölf: 0,75 Plätze je Saison, 4,5 über 6 Saisons.</p></div></dialog><dialog class="fenster" id="f-b4" aria-labelledby="f-b4-t"><div class="fk"><h3 id="f-b4-t">Block 4 · Warum der NFL-Weg hier nicht trägt</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Rangkorrelation zwischen der Siegquote eines Teams und seinen eigenen Punkten je Spiel, über 84 Team-Saisons: 0,733. Das Quadrat davon, 54 Prozent, ist der Anteil der Reihenfolge, den die Punkte erklären; der Rest ist Spielplan und Zufall.</p><p>Der dritte Satz über die Kaderfluktuation ist eine Begründung aus der Sache, keine Messung dieser Seite: wie stark sich Kader zwischen Saisons ändern, ist hier nicht gemessen worden.</p></div></dialog><dialog class="fenster" id="f-b5" aria-labelledby="f-b5-t"><div class="fk"><h3 id="f-b5-t">Block 5 · Was hier noch fehlt</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Gemessen am Bündel 20260904-1721-yahoo-voll-227e9b: die 84 Paarungen der Saison 2026 tragen alle 168 Punktwerte als 0,00, und die Abschlusstabelle dieser Saison steht auf 0-0-0. Beides ist richtig so: die Saison hat noch nicht gespielt.</p><p>Das Abgriffwerkzeug kann Paarungen ernten. Der Wochenablauf ruft das bisher nicht auf, und der Speichern-Knopf schreibt vier Dateien, unter denen die Paarungen nicht sind. Diese Seite ändert daran nichts; sie nennt es nur.</p></div></dialog>
+<script>
+document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
+  const d = document.getElementById(b.getAttribute("aria-controls"));
+  b.addEventListener("click", ev => {
+    ev.stopPropagation();
+    const auf = b.getAttribute("aria-expanded") === "true";
+    document.querySelectorAll("nav.haupt button.pfeil").forEach(x => {
+      x.setAttribute("aria-expanded", "false");
+      document.getElementById(x.getAttribute("aria-controls")).hidden = true;
+    });
+    b.setAttribute("aria-expanded", auf ? "false" : "true");
+    d.hidden = auf;
+  });
+});
+document.addEventListener("click", ev => {
+  if (ev.target.closest("nav.haupt .mit-unter")) return;
+  document.querySelectorAll("nav.haupt button.pfeil[aria-expanded='true']").forEach(b => {
+    b.setAttribute("aria-expanded", "false");
+    document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+  });
+});
+document.addEventListener("keydown", ev => {
+  if (ev.key !== "Escape") return;
+  document.querySelectorAll("nav.haupt button.pfeil[aria-expanded='true']").forEach(b => {
+    b.setAttribute("aria-expanded", "false");
+    document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+    b.focus();
+  });
+});
+
+document.addEventListener("click", ev => {
+  const i = ev.target.closest("button.info");
+  if (i){
+    const d = document.getElementById(i.dataset.fenster);
+    if (d && typeof d.showModal === "function") d.showModal(); else if (d) d.setAttribute("open", "");
+    document.body.classList.add("fenster-offen");
+    return;
+  }
+  const zu = ev.target.closest("button.zu");
+  if (zu){ zu.closest("dialog").close(); return; }
+  if (ev.target.tagName === "DIALOG" && ev.target.open) ev.target.close();
+});
+document.querySelectorAll("dialog.fenster").forEach(d => d.addEventListener("close", () => {
+  if (!document.querySelector("dialog.fenster[open]")) document.body.classList.remove("fenster-offen");
+}));
+</script>
+</body>
+</html>

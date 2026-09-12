@@ -57,6 +57,42 @@
    ]
   }
  },
+ "gegner": {
+  "wert": 5.4793877551020245,
+  "einheit": "Punkte Unterschied je Spiel",
+  "datei": "gegner.json",
+  "pfad": "kenn.spanne_punkte_2026",
+  "erzeugt_utc": "2026-09-12T12:39:09+00:00",
+  "buendel": [
+   "20260904-1721-yahoo-voll-227e9b"
+  ],
+  "stand": {
+   "text": "Spielplan 2026 · Rückblick 2020 bis 2025",
+   "teile": [
+    {
+     "text": "Spielplan 2026",
+     "wert": 2026,
+     "datei": "gegner.json",
+     "pfad": "schema.saison_ziel",
+     "vorwort": "Spielplan"
+    },
+    {
+     "text": "Rückblick 2020 bis 2025",
+     "wert": [
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+     ],
+     "datei": "gegner.json",
+     "pfad": "schema.saisons_guete",
+     "vorwort": "Rückblick"
+    }
+   ]
+  }
+ },
  "griffe-fehlgriffe": {
   "wert": 448,
   "einheit": "Paare gleicher Position",
