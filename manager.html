@@ -10,10 +10,15 @@
 :root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
   --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
 *{box-sizing:border-box}
-html{background:var(--bg)}
+html{background:var(--bg);scroll-padding-top:calc(var(--leiste, 52px) + 10px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
-.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
-.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.kopfzeile{background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 12px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+/* Die klebende Leiste: nur die Navigation bleibt oben stehen, Logo, Wortmarke und Metazeile
+   scrollen weg. Der gestrichelte Strich sitzt jetzt hier, damit er die Leiste nach unten
+   abschliesst. Der Hintergrund muss deckend sein, sonst scheint der Inhalt durch. */
+.navleiste{position:sticky;top:0;z-index:6;background:linear-gradient(180deg,#0d1322,#0a0e1a);border-bottom:3px dashed var(--accent)}
+.navinner{max-width:1180px;margin:0 auto;padding:6px 20px 7px}
 .marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
 .marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
 .marke .logo img{width:100%;height:100%;display:block}
@@ -21,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 .marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
 .marke .wm b{color:var(--accent2);font-weight:400}
 .marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
-nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px}
 nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
 nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
 nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
@@ -71,6 +76,11 @@ section{margin-bottom:26px}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
 th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+/* Gemessen am 2026-09-13: dieses top:0 wirkt nirgends gegen das Fenster, weil jede Tabelle in
+   .tablewrap mit overflow-x:auto steht und dieser Kasten der Scrollbereich ist. Der Kopf klebt
+   also innerhalb des Kastens, der senkrecht nie scrollt. Deshalb bleibt es bei top:0: ein Wert
+   wie top:var(--leiste) würde den Kopf im Kasten nach unten schieben, sobald der Kasten doch
+   einmal senkrecht scrollt, und die klebende Leiste kann ihn ohnehin nicht verdecken. */
 th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
 th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
 td.l,th.l{text-align:left}td.name{font-weight:600}
@@ -127,7 +137,8 @@ main{position:relative;z-index:1}
 .kopfzeile{position:relative;z-index:5}
 body.fenster-offen .feld{display:none}
 @media (max-width:760px){
-  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .kopf{padding:12px 14px 8px;gap:10px 16px}
+  .navinner{padding:5px 12px 6px}
   .marke .wm{font-size:21px}
   nav.haupt{margin-left:0;width:100%;gap:2px 4px}
   nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
@@ -150,6 +161,13 @@ body.fenster-offen .feld{display:none}
   td.name .badge{margin-left:0;margin-right:4px}
   .m1{display:none}
   .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+/* Unter 420 px bricht die Leiste sonst auf zwei Zeilen um und wird von 46 auf 79 px hoch
+   (gemessen am 2026-09-13 bei 375 px: 11,9 Prozent der Bildschirmhöhe statt 5,4). Enger gesetzt
+   bleibt sie bis 320 px einzeilig und 42 px hoch. */
+@media (max-width:420px){
+  nav.haupt a,nav.haupt button.bereich{font-size:12.5px;padding:5px 7px;letter-spacing:.06em}
+  nav.haupt button.pfeil{padding:5px 5px}
 }
 
 section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
@@ -247,6 +265,8 @@ table#uebersicht th,table#uebersicht td{padding:6px 8px}
 <div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
 <div class="kopfzeile"><div class="kopf">
   <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · Now it goes around the sausage · 12 Manager</div></span></a>
+</div></div>
+<div class="navleiste"><div class="navinner">
   <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html" class="hier" aria-current="page">Manager</a><a href="gegner.html">Gegner</a></div></span><a href="grundlagen.html">Wissen</a></nav>
 </div></div>
 <main>
@@ -259,10 +279,27 @@ table#uebersicht th,table#uebersicht td{padding:6px 8px}
   <p class="n" style="margin:8px 0 0">Ein Klick auf einen Spaltenkopf sortiert nach dieser Spalte, zuerst absteigend, nochmal geklickt aufsteigend; bei Gleichstand gilt die vorgegebene Reihenfolge (nach Siegen, bei Gleichstand nach Punkten für, dann nach dem Namen). Die Reihenfolge ordnet gezählte Grössen und ist keine Bewertung der Manager.</p>
   <p class="n" style="margin:8px 0 0">Die Spalten im Einzelnen: <b>Titel</b> und <b>Podest</b> 2019 bis 2025, das Podest enthält die Titel; <b>Playoffs</b> von 7 Saisons; <b>Bilanz</b> über alle Saisons als Siege, Niederlagen und Unentschieden; <b>Punkte</b> und <b>Gegenpunkte</b> je Spiel aus 98 Spielen je Manager; <b>All-Play</b>, der Anteil gewonnener Vergleiche: je Woche die eigene Punktzahl gegen die der elf anderen, 1078 Vergleiche je Manager; <b>Waiver</b>-Käufe 2022 bis 2025; <b>Handel</b>sgeschäfte 2019 bis 2025; <b>Drops</b> 2020 bis 2025, also Wechsel gleicher Position.</p>
 </section>
-<div class="foot">Quelle: die Ergebnisse der Seiten Die ewige Tabelle, Die Liga in Zahlen, Der Waiver-Markt, Die Handelsgeschäfte, Griffe und Fehlgriffe und Die Kader. Seite erzeugt 2026-09-13 21:05 UTC.</div>
+<div class="foot">Quelle: die Ergebnisse der Seiten Die ewige Tabelle, Die Liga in Zahlen, Der Waiver-Markt, Die Handelsgeschäfte, Griffe und Fehlgriffe und Die Kader. Seite erzeugt 2026-09-13 22:42 UTC.</div>
 </main>
 <dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seiten zeigen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><h4>Die Seiten</h4><p>Eine Übersicht und je Manager eine Seite mit neun Blöcken. Fast jede Zahl steht schon auf einer anderen Seite dieses Playbooks und wird hier nur zusammengeführt: Bilanz, Erfolge, ewige Kennzahlen, Rekorde und Kopf an Kopf aus der ewigen Tabelle und der Liga in Zahlen, Waiver vom Waiver-Markt, Handel von den Handelsgeschäften, Drops aus den Griffen und Fehlgriffen, der Kader von den Kaderseiten. Jeder Block nennt seinen Zeitraum, denn die Quellen decken verschiedene Jahre ab: Bilanzen 2019 bis 2025, Waiver 2022 bis 2025, Handel 2019 bis 2025, Drops 2020 bis 2025, Kaderstand 2026-09-09.</p><h4>Keine Deutung, nur Zählung</h4><p>Die Seiten zeigen Zahlen je Manager, aber kein Rangbild: bei Waiver, Handel und Drops lässt sich über einzelne Manager nichts belegen, und die Blöcke sagen das jeweils selbst. Kein Vergleich im Sinne von besser oder schlechter, ausser wo er belegt ist (die Gruppen des ewigen Durchschnitts).</p></div></dialog>
 <script>
+// Die Höhe der klebenden Leiste als --leiste: davon hängen der Abstand der Sprungziele
+// (scroll-padding-top) und die Höhe ab, in der der Tabellenkopf klebt. Ohne Skript gilt der
+// Vorrat aus dem Stil; die Leiste selbst klebt auch ohne Skript, sie ist reines CSS.
+(function(){
+  const l = document.querySelector(".navleiste");
+  if (!l) return;
+  // Ein offener Aufklapper steht auf dem Handy in der Leiste und macht sie vorübergehend hoch
+  // (gemessen 383 px). Diese Höhe ist nicht die Leiste, deshalb wird dann nicht nachgemessen.
+  const setzen = () => {
+    if (document.querySelector("nav.haupt button.pfeil[aria-expanded='true']")) return;
+    document.documentElement.style.setProperty("--leiste", l.offsetHeight + "px");
+  };
+  setzen();
+  addEventListener("resize", setzen);
+  if (window.ResizeObserver) new ResizeObserver(setzen).observe(l);
+})();
+
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
   const d = document.getElementById(b.getAttribute("aria-controls"));
   b.addEventListener("click", ev => {

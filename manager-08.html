@@ -10,10 +10,15 @@
 :root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
   --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
 *{box-sizing:border-box}
-html{background:var(--bg)}
+html{background:var(--bg);scroll-padding-top:calc(var(--leiste, 52px) + 10px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
-.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
-.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.kopfzeile{background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 12px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+/* Die klebende Leiste: nur die Navigation bleibt oben stehen, Logo, Wortmarke und Metazeile
+   scrollen weg. Der gestrichelte Strich sitzt jetzt hier, damit er die Leiste nach unten
+   abschliesst. Der Hintergrund muss deckend sein, sonst scheint der Inhalt durch. */
+.navleiste{position:sticky;top:0;z-index:6;background:linear-gradient(180deg,#0d1322,#0a0e1a);border-bottom:3px dashed var(--accent)}
+.navinner{max-width:1180px;margin:0 auto;padding:6px 20px 7px}
 .marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
 .marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
 .marke .logo img{width:100%;height:100%;display:block}
@@ -21,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 .marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
 .marke .wm b{color:var(--accent2);font-weight:400}
 .marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
-nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px}
 nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
 nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
 nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
@@ -71,6 +76,11 @@ section{margin-bottom:26px}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
 th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+/* Gemessen am 2026-09-13: dieses top:0 wirkt nirgends gegen das Fenster, weil jede Tabelle in
+   .tablewrap mit overflow-x:auto steht und dieser Kasten der Scrollbereich ist. Der Kopf klebt
+   also innerhalb des Kastens, der senkrecht nie scrollt. Deshalb bleibt es bei top:0: ein Wert
+   wie top:var(--leiste) würde den Kopf im Kasten nach unten schieben, sobald der Kasten doch
+   einmal senkrecht scrollt, und die klebende Leiste kann ihn ohnehin nicht verdecken. */
 th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
 th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
 td.l,th.l{text-align:left}td.name{font-weight:600}
@@ -127,7 +137,8 @@ main{position:relative;z-index:1}
 .kopfzeile{position:relative;z-index:5}
 body.fenster-offen .feld{display:none}
 @media (max-width:760px){
-  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .kopf{padding:12px 14px 8px;gap:10px 16px}
+  .navinner{padding:5px 12px 6px}
   .marke .wm{font-size:21px}
   nav.haupt{margin-left:0;width:100%;gap:2px 4px}
   nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
@@ -150,6 +161,13 @@ body.fenster-offen .feld{display:none}
   td.name .badge{margin-left:0;margin-right:4px}
   .m1{display:none}
   .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+/* Unter 420 px bricht die Leiste sonst auf zwei Zeilen um und wird von 46 auf 79 px hoch
+   (gemessen am 2026-09-13 bei 375 px: 11,9 Prozent der Bildschirmhöhe statt 5,4). Enger gesetzt
+   bleibt sie bis 320 px einzeilig und 42 px hoch. */
+@media (max-width:420px){
+  nav.haupt a,nav.haupt button.bereich{font-size:12.5px;padding:5px 7px;letter-spacing:.06em}
+  nav.haupt button.pfeil{padding:5px 5px}
 }
 
 section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
@@ -219,6 +237,8 @@ table.saisons td.pod{font-weight:600}
 <div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
 <div class="kopfzeile"><div class="kopf">
   <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · Now it goes around the sausage · Manager 08</div></span></a>
+</div></div>
+<div class="navleiste"><div class="navinner">
   <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html" class="hier" aria-current="page">Manager</a><a href="gegner.html">Gegner</a></div></span><a href="grundlagen.html">Wissen</a></nav>
 </div></div>
 <main>
@@ -263,10 +283,27 @@ table.saisons td.pod{font-weight:600}
   <p class="zeit">Zeitraum: Saisons 2019 bis 2026</p><p>keine Umbenennung, derselbe Name in allen Saisons.</p><div class="tablewrap"><table><thead><tr><th class="l">Saison</th><th class="l">Teamname</th></tr></thead><tbody><tr><td class="l name">2019</td><td class="l">Stettlers</td></tr><tr><td class="l name">2020</td><td class="l">Stettlers</td></tr><tr><td class="l name">2021</td><td class="l">Stettlers</td></tr><tr><td class="l name">2022</td><td class="l">Stettlers</td></tr><tr><td class="l name">2023</td><td class="l">Stettlers</td></tr><tr><td class="l name">2024</td><td class="l">Stettlers</td></tr><tr><td class="l name">2025</td><td class="l">Stettlers</td></tr><tr><td class="l name">2026</td><td class="l">Stettlers</td></tr></tbody></table></div><details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> ewige_tabelle.json › manager</div></details>
 </section>
 
-<div class="foot">Quelle: die Ergebnisse der Seiten Die ewige Tabelle, Die Liga in Zahlen, Der Waiver-Markt, Die Handelsgeschäfte, Griffe und Fehlgriffe und Die Kader; Drops mit dem Rechenkern der Griffe. Rohdaten unverändert; diese Seite ist abgeleitet und wird aus den Ergebnissen und Code neu erzeugt (python3 -m profil). Seite erzeugt 2026-09-13 21:05 UTC.</div>
+<div class="foot">Quelle: die Ergebnisse der Seiten Die ewige Tabelle, Die Liga in Zahlen, Der Waiver-Markt, Die Handelsgeschäfte, Griffe und Fehlgriffe und Die Kader; Drops mit dem Rechenkern der Griffe. Rohdaten unverändert; diese Seite ist abgeleitet und wird aus den Ergebnissen und Code neu erzeugt (python3 -m profil). Seite erzeugt 2026-09-13 22:42 UTC.</div>
 </main>
 <dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seiten zeigen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><h4>Die Seiten</h4><p>Eine Übersicht und je Manager eine Seite mit neun Blöcken. Fast jede Zahl steht schon auf einer anderen Seite dieses Playbooks und wird hier nur zusammengeführt: Bilanz, Erfolge, ewige Kennzahlen, Rekorde und Kopf an Kopf aus der ewigen Tabelle und der Liga in Zahlen, Waiver vom Waiver-Markt, Handel von den Handelsgeschäften, Drops aus den Griffen und Fehlgriffen, der Kader von den Kaderseiten. Jeder Block nennt seinen Zeitraum, denn die Quellen decken verschiedene Jahre ab: Bilanzen 2019 bis 2025, Waiver 2022 bis 2025, Handel 2019 bis 2025, Drops 2020 bis 2025, Kaderstand 2026-09-09.</p><h4>Keine Deutung, nur Zählung</h4><p>Die Seiten zeigen Zahlen je Manager, aber kein Rangbild: bei Waiver, Handel und Drops lässt sich über einzelne Manager nichts belegen, und die Blöcke sagen das jeweils selbst. Kein Vergleich im Sinne von besser oder schlechter, ausser wo er belegt ist (die Gruppen des ewigen Durchschnitts).</p></div></dialog><dialog class="fenster" id="f-a" aria-labelledby="f-a-t"><div class="fk"><h3 id="f-a-t">Bilanz und Erfolge</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Titel, zweite und dritte Plätze aus der Podest-Datei, die bis 2025 reicht. Playoff-Teilnahmen, Platz nach Woche 14 und Saisons als Letzter aus der gerechneten regulären Tabelle (8 Playoff-Plätze, Unentschieden als halber Sieg, Gleichstand nach Punkten für, Divisionssieger gesetzt). Der Endrang nach den Playoffs stammt aus der Abschlusstabelle. Für die Plätze ausserhalb der Playoffs ist er in allen 28 Saisonzeilen zugleich der reguläre Platz. Ewige Bilanz und Punkte aus den regulären Spielen; Unentschieden zählen in der Saisonzeile als eigener Wert, nicht als halber Sieg.</p></div></dialog><dialog class="fenster" id="f-b" aria-labelledby="f-b-t"><div class="fk"><h3 id="f-b-t">Die ewigen Kennzahlen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Je Woche wird die eigene Punktzahl mit denen der elf anderen Teams verglichen, unabhängig vom Gegner. Der All-Play-Wert, also der Anteil gewonnener Vergleiche über alle Wochen, der mittlere Wochenrang und die mittleren Punkte stammen aus der ewigen Tabelle; der Bereich ist ein Bootstrap über die Saison-Wochen. Die Gruppe sagt, mit wem der Unterschied nicht belegt ist: innerhalb einer Gruppe kann der Zufall die Reihenfolge erklären.</p></div></dialog><dialog class="fenster" id="f-c" aria-labelledby="f-c-t"><div class="fk"><h3 id="f-c-t">Rekorde und Serien</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Beste und schlechteste Woche aus allen regulären Wochen dieses Managers. Sieges- und Niederlagenserien innerhalb einer Saison; die Serien über und unter dem Ligaschnitt derselben Woche laufen über die Saisongrenze, weil sie vom Gegner unabhängig sind. Dazu die Einträge in der Rekordtafel der Liga, auf beiden Seiten eines Duells.</p></div></dialog><dialog class="fenster" id="f-d" aria-labelledby="f-d-t"><div class="fk"><h3 id="f-d-t">Kopf an Kopf</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Bilanz gegen jeden der elf anderen über alle sieben Saisons, mit Spielzahl und Punktdifferenz. Die Spielzahl je Paar ist ungleich, weil Divisionsgegner doppelt spielen und die Divisionen wechselten. Keine dieser Bilanzen ist bei dieser Fallzahl mehr als das, was Zufall bei 66 Paaren erzeugt (gemessen auf der ewigen Tabelle).</p></div></dialog><dialog class="fenster" id="f-e" aria-labelledby="f-e-t"><div class="fk"><h3 id="f-e-t">Waiver</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Käufe mit FAB-Preis aus der Transaktionsliste, Gebote und Siege in umkämpften Läufen aus dem Ligakanal, Saisons 2022 bis 2025 (die FAB-Ära). Ein Kauf ohne Gegenbieter ist ein Kauf, kein Lauf.</p><div class='vb'>Aus diesen Zahlen folgt kein Rangbild über Manager: im Schnitt gibt es rund zwei umkämpfte Waiver-Läufe je Manager und Jahr, und ein Sieg in einem Lauf sagt nichts über den Wert des Kaufs.</div></div></dialog><dialog class="fenster" id="f-f" aria-labelledby="f-f-t"><div class="fk"><h3 id="f-f-t">Handel</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Geschäfte, an denen dieser Manager beteiligt war, mit Partner, erhaltenen und abgegebenen Teilen und den Punkten, die die erhaltenen Spieler danach nach den Ligaregeln machten: offen über die ganze Zeit, gehalten nur solange sie im eigenen Kader standen. Draft-Picks zählen nur, wenn sie zu einem Spieler aufgelöst werden konnten.</p><div class='vb'>Aus diesen Zahlen folgt kein Rangbild über Manager: 24 Geschäfte in sieben Jahren auf zwölf Personen sind zu wenige, um irgendjemandem ein Talent oder eine Schwäche nachzusagen.</div></div></dialog><dialog class="fenster" id="f-g" aria-labelledby="f-g-t"><div class="fk"><h3 id="f-g-t">Drops</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Wechsel gleicher Position: ein Spieler abgegeben, einer geholt, beide mit Punkten über den Rest der Saison nach den Ligaregeln. Die Differenz je Restwoche ordnet die Fälle; positiv heisst Fehlgriff (der abgegebene brachte mehr), negativ guter Griff. Gerechnet mit denselben Bausteinen wie die Seite Griffe und Fehlgriffe.</p><div class='vb'>Aus diesen Zahlen folgt kein Rangbild über Manager: die Vertrauensbereiche aller zwölf Manager überlappen einander vollständig, gemessen auf der Seite Griffe und Fehlgriffe. Wer hier oft steht, hat oft getauscht.</div></div></dialog><dialog class="fenster" id="f-h" aria-labelledby="f-h-t"><div class="fk"><h3 id="f-h-t">Der Kader heute</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Die Aufstellung vor Woche 1 der Saison 2026 in Kurzform, mit den Punkten je Woche der Vorsaison nach den Ligaregeln; Bank und IR als Liste. Alles Weitere, mit Bildern und Statistiken, steht auf der Kaderseite.</p></div></dialog><dialog class="fenster" id="f-i" aria-labelledby="f-i-t"><div class="fk"><h3 id="f-i-t">Teamnamen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Der Teamname je Saison aus der Teamliste. 4 Manager haben umbenannt, 1 davon mehrfach; die Geschichte bleibt nur lesbar, wenn die alten Namen hier stehen.</p></div></dialog>
 <script>
+// Die Höhe der klebenden Leiste als --leiste: davon hängen der Abstand der Sprungziele
+// (scroll-padding-top) und die Höhe ab, in der der Tabellenkopf klebt. Ohne Skript gilt der
+// Vorrat aus dem Stil; die Leiste selbst klebt auch ohne Skript, sie ist reines CSS.
+(function(){
+  const l = document.querySelector(".navleiste");
+  if (!l) return;
+  // Ein offener Aufklapper steht auf dem Handy in der Leiste und macht sie vorübergehend hoch
+  // (gemessen 383 px). Diese Höhe ist nicht die Leiste, deshalb wird dann nicht nachgemessen.
+  const setzen = () => {
+    if (document.querySelector("nav.haupt button.pfeil[aria-expanded='true']")) return;
+    document.documentElement.style.setProperty("--leiste", l.offsetHeight + "px");
+  };
+  setzen();
+  addEventListener("resize", setzen);
+  if (window.ResizeObserver) new ResizeObserver(setzen).observe(l);
+})();
+
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
   const d = document.getElementById(b.getAttribute("aria-controls"));
   b.addEventListener("click", ev => {
