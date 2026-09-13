@@ -10,10 +10,15 @@
 :root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
   --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
 *{box-sizing:border-box}
-html{background:var(--bg)}
+html{background:var(--bg);scroll-padding-top:calc(var(--leiste, 52px) + 10px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
-.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
-.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.kopfzeile{background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 12px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+/* Die klebende Leiste: nur die Navigation bleibt oben stehen, Logo, Wortmarke und Metazeile
+   scrollen weg. Der gestrichelte Strich sitzt jetzt hier, damit er die Leiste nach unten
+   abschliesst. Der Hintergrund muss deckend sein, sonst scheint der Inhalt durch. */
+.navleiste{position:sticky;top:0;z-index:6;background:linear-gradient(180deg,#0d1322,#0a0e1a);border-bottom:3px dashed var(--accent)}
+.navinner{max-width:1180px;margin:0 auto;padding:6px 20px 7px}
 .marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
 .marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
 .marke .logo img{width:100%;height:100%;display:block}
@@ -21,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 .marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
 .marke .wm b{color:var(--accent2);font-weight:400}
 .marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
-nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px}
 nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
 nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
 nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
@@ -71,6 +76,11 @@ section{margin-bottom:26px}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
 th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+/* Gemessen am 2026-09-13: dieses top:0 wirkt nirgends gegen das Fenster, weil jede Tabelle in
+   .tablewrap mit overflow-x:auto steht und dieser Kasten der Scrollbereich ist. Der Kopf klebt
+   also innerhalb des Kastens, der senkrecht nie scrollt. Deshalb bleibt es bei top:0: ein Wert
+   wie top:var(--leiste) würde den Kopf im Kasten nach unten schieben, sobald der Kasten doch
+   einmal senkrecht scrollt, und die klebende Leiste kann ihn ohnehin nicht verdecken. */
 th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
 th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
 td.l,th.l{text-align:left}td.name{font-weight:600}
@@ -127,7 +137,8 @@ main{position:relative;z-index:1}
 .kopfzeile{position:relative;z-index:5}
 body.fenster-offen .feld{display:none}
 @media (max-width:760px){
-  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .kopf{padding:12px 14px 8px;gap:10px 16px}
+  .navinner{padding:5px 12px 6px}
   .marke .wm{font-size:21px}
   nav.haupt{margin-left:0;width:100%;gap:2px 4px}
   nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
@@ -150,6 +161,13 @@ body.fenster-offen .feld{display:none}
   td.name .badge{margin-left:0;margin-right:4px}
   .m1{display:none}
   .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+/* Unter 420 px bricht die Leiste sonst auf zwei Zeilen um und wird von 46 auf 79 px hoch
+   (gemessen am 2026-09-13 bei 375 px: 11,9 Prozent der Bildschirmhöhe statt 5,4). Enger gesetzt
+   bleibt sie bis 320 px einzeilig und 42 px hoch. */
+@media (max-width:420px){
+  nav.haupt a,nav.haupt button.bereich{font-size:12.5px;padding:5px 7px;letter-spacing:.06em}
+  nav.haupt button.pfeil{padding:5px 5px}
 }
 
 section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
@@ -249,10 +267,12 @@ dl.glossar dd{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.55;max-w
 .rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
 .rz-nav a.rz-hier{color:var(--rz-ink2)}
 .rz-nav a.rz-unter{font-weight:400;font-size:13px;opacity:.85}
-</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="grundlagen.html" class="rz-hier" aria-current="page">Wissen</a></nav><!--/rz-rahmen-->
+</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="gegner.html" class="rz-unter">Gegner</a><a href="grundlagen.html" class="rz-hier" aria-current="page">Wissen</a></nav><!--/rz-rahmen-->
 <div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
 <div class="kopfzeile"><div class="kopf">
   <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Grundlagen · Thema 3 von 9</div></span></a>
+</div></div>
+<div class="navleiste"><div class="navinner">
   <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html">Manager</a><a href="gegner.html">Gegner</a></div></span><a href="grundlagen.html" class="hier" aria-current="page">Wissen</a></nav>
 </div></div>
 <main>
@@ -262,11 +282,28 @@ dl.glossar dd{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.55;max-w
 <div class="knoepfe"><a class="knopf zurueck" href="grundlagen.html">← Alle Grundlagen</a><a class="knopf" href="grundlagen-dynasty.html">← Was Dynasty ist</a><a class="knopf" href="grundlagen-picks.html">Draft-Picks →</a></div>
 <section><div class="lehr mit-zeichnung"><div class="text"><p>Weil ein Dynasty-Kader über Jahre lebt, hat jeder Manager eine Frage zu beantworten, die es im Redraft nicht gibt: <b>Wann soll mein Team stark sein?</b> Jetzt, oder in zwei, drei Jahren? Beides zugleich geht selten, weil dieselben Mittel, die heute Punkte bringen, morgen weniger wert sind, und die Mittel, die morgen Punkte bringen, heute noch keine machen. Die Antwort auf diese Frage nennt man die Strategie des Teams. Drei Haltungen sind üblich; die Übergänge sind fliessend.</p></div><figure class="zeichnung"><svg viewBox="0 0 520 270" role="img" aria-label="Drei Strategien als Kurven über die Zeit: Win-Now ist heute stark und fällt, der harte Rebuild ist heute schwach und steigt, der weiche Rebuild bleibt dazwischen" xmlns="http://www.w3.org/2000/svg"><title>Drei Strategien als Kurven über die Zeit: Win-Now ist heute stark und fällt, der harte Rebuild ist heute schwach und steigt, der weiche Rebuild bleibt dazwischen</title><defs><marker id="pf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--mute)"/></marker></defs><line x1="50" y1="210" x2="500" y2="210" stroke="var(--mute)" stroke-width="1.5" marker-end="url(#pf)"/><line x1="50" y1="210" x2="50" y2="30" stroke="var(--mute)" stroke-width="1.5" marker-end="url(#pf)"/><text x="500" y="228" font-size="11" fill="var(--mute)" text-anchor="end" font-weight="normal" >Zeit</text><text x="44" y="34" font-size="11" fill="var(--mute)" text-anchor="end" font-weight="normal" transform="rotate(-90 44 34)">Stärke des Teams</text><path d="M 60,70 C 73.3,68.3 113.3,59.2 140,60 C 166.7,60.8 193.3,66.7 220,75 C 246.7,83.3 273.3,96.7 300,110 C 326.7,123.3 353.3,142.5 380,155 C 406.7,167.5 446.7,180.0 460,185" fill="none" stroke="var(--neg)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 60,125 C 73.3,126.7 113.3,135.8 140,135 C 166.7,134.2 193.3,126.7 220,120 C 246.7,113.3 273.3,101.7 300,95 C 326.7,88.3 353.3,83.3 380,80 C 406.7,76.7 446.7,75.8 460,75" fill="none" stroke="var(--accent2)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M 60,150 C 73.3,155.8 113.3,180.0 140,185 C 166.7,190.0 193.3,185.8 220,180 C 246.7,174.2 273.3,164.2 300,150 C 326.7,135.8 353.3,110.8 380,95 C 406.7,79.2 446.7,61.7 460,55" fill="none" stroke="var(--pos)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/><text x="64" y="56" font-size="12" fill="var(--neg)" text-anchor="start" font-weight="bold" >Win-Now</text><text x="170" y="148" font-size="12" fill="var(--accent2)" text-anchor="middle" font-weight="bold" >weicher Rebuild</text><text x="150" y="204" font-size="12" fill="var(--pos)" text-anchor="middle" font-weight="bold" >harter Rebuild</text><line x1="60" y1="210" x2="60" y2="215" stroke="var(--mute)" stroke-width="1.5" stroke-linecap="round"/><text x="60" y="242" font-size="10.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >heute</text><line x1="460" y1="210" x2="460" y2="215" stroke="var(--mute)" stroke-width="1.5" stroke-linecap="round"/><text x="460" y="242" font-size="10.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >in einigen Jahren</text></svg><figcaption>Die drei Strategien unterscheiden sich nicht darin, wie stark ein Team wird, sondern wann. Schematisch, keine gemessenen Werte.</figcaption></figure></div></section><section><div class="sec-head"><div class="titel"><h2>Win-Now</h2></div></div><div class="lehr"><div class="text"><p>Ein Win-Now-Team will diese Saison gewinnen. Es sammelt Spieler, die heute Punkte machen, auch wenn sie älter sind und in zwei Jahren wenig wert sein werden, und es gibt dafür her, was erst später zählt: künftige Draft-Picks, junge Spieler, die noch nicht produzieren, Rookies mit Aussicht.</p><p>Woran man es erkennt: die Aufstellung ist auf allen Plätzen stark besetzt, der Kader ist eher alt, die eigenen Picks der nächsten Jahre sind oft schon weg. Die Tabelle steht vorn oder soll es.</p><p>Der Preis: Win-Now hat ein Ablaufdatum. Wenn die alten Spieler abfallen und die Picks fehlen, mit denen man nachlegen könnte, fällt das Team schnell und tief. Als Faustregel gilt: die Fenster, in denen ein Team wirklich um den Titel spielt, sind kürzer, als sie sich anfühlen. Verletzungen entscheiden mit, und ein Titel hängt oft daran, wer im Dezember gesund ist.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Harter Rebuild</h2></div></div><div class="lehr"><div class="text"><p>Der harte Rebuild ist das Gegenteil: das Team gibt die laufende Saison auf, um in einigen Jahren stark zu sein. Alles, was heute Punkte macht, aber altert, wird abgegeben, meist an Win-Now-Teams, gegen Picks und junge Spieler. Das Team verliert absichtlich viel, weil eine schlechte Tabelle einen frühen Pick im nächsten Rookie-Draft bringt.</p><p>Woran man es erkennt: der Kader ist jung, die Aufstellung schwach, die Zahl der eigenen und fremden Picks hoch. Der Manager redet in Jahren, nicht in Wochen.</p><p>Der Preis: Zeit und Nerven. Faustregel: ein harter Rebuild kostet ein bis zwei Saisons ohne Aussicht auf die Playoffs. Dazu hat er eine bekannte Falle. Wer nie aufhört, umzubauen, muss sich nie an einem Ergebnis messen lassen; die Picks werden zu Rookies, die Rookies zu Picks, und das Team ist immer „nächstes Jahr“ gut. Die meisten erfahrenen Dynasty-Spieler setzen einem Rebuild deshalb eine Frist, meist nicht länger als zwei Saisons.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Weicher Rebuild</h2></div></div><div class="lehr"><div class="text"><p>Der weiche Rebuild (englisch oft „Retool“) versucht, beides zu vermeiden: den Absturz des Win-Now-Teams und die verlorenen Jahre des harten Rebuilds. Das Team behält seine besten Spieler, vor allem die jungen, und tauscht am Rand: ältere Spieler auf Positionen, die es tief besetzt hat, gegen Picks oder gegen jüngere Spieler, die in einem Jahr so weit sind. Es bleibt wettbewerbsfähig, ohne alles auf diese Saison zu setzen.</p><p>Woran man es erkennt: der Kader ist gemischt, ein paar Spieler in der Blüte, ein paar junge im Kommen, wenige alte. Die Tabelle steht im Mittelfeld oder knapp darüber. Die Picks der nächsten Jahre sind noch da.</p><p>Der Preis: der weiche Rebuild ist die Strategie mit dem geringsten Ausschlag nach beiden Seiten. Das Team ist selten das stärkste der Liga, aber auch selten das schwächste. Wer sie fährt, verzichtet auf den frühen Pick, den ein bewusst schlechtes Jahr bringen würde, und auf den Titel, den ein bewusst alles setzendes Jahr bringen könnte.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Woran man erkennt, wo ein Team steht</h2></div></div><div class="lehr"><div class="text"><p>Drei Dinge werden dafür üblicherweise angesehen. <b>Die Stärke der Aufstellung</b>, Platz für Platz gegen die anderen Teams der Liga: wer auf den meisten Plätzen zu den besseren gehört, hat ein Team, das jetzt gewinnen kann. <b>Das Alter des Kaders</b>, nach Position, weil Positionen verschieden altern (Thema 2): ein Kader, dessen Kern in zwei Jahren über der Blüte ist, hat sein Fenster jetzt oder gar nicht. <b>Die Picks</b>, die dem Team gehören: wer die eigenen Picks der nächsten Jahre noch hat, kann umbauen, wer sie abgegeben hat, muss mit dem Kader leben, den er hat.</p><p>Auf diesen Seiten stehen die drei Dinge für jedes Team der Liga: die Aufstellung mit Leistung je Spieler auf den Kaderseiten, das Altersprofil auf der Seite „Die Liga in Zahlen“, die gehandelten Picks auf der Seite „Die Handelsgeschäfte“. Was ein Team daraus macht, steht dort nicht; das ist die Strategie, und die gehört dem Manager.</p></div></div></section>
 
-<p class="foot">Erklärtext ohne Messung. Nichts auf dieser Seite ist aus den Daten des Projekts gerechnet. Erzeugt 2026-09-12T02:06:48Z UTC.</p>
+<p class="foot">Erklärtext ohne Messung. Nichts auf dieser Seite ist aus den Daten des Projekts gerechnet. Erzeugt 2026-09-13T22:39:19Z UTC.</p>
 
 </main>
 <dialog class="fenster" id="f-thema-3" aria-labelledby="f-thema-3-t"><div class="fk"><h3 id="f-thema-3-t">Zu diesem Thema</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Drei Haltungen, die ein Dynasty-Team einnehmen kann: Win-Now, weicher Rebuild, harter Rebuild. Was jede bedeutet, woran man sie erkennt und was sie kostet.</p><h4>Was hier steht und was nicht</h4><p>Dieser Bereich erklärt. Er misst nichts, er prognostiziert nichts, und er empfiehlt nichts. Die Zahlen aus den Daten der Liga stehen auf den anderen Seiten; hier steht, was die Begriffe dort bedeuten.</p><h4>Zeichnungen</h4><p>Die Zeichnungen zeigen Zusammenhänge, keine gemessenen Werte. Wo eine Kurve steigt oder fällt, ist die Richtung gemeint, nicht die Höhe.</p><h4>Herkunft</h4><p>Erklärtext ohne Datenquelle. Nichts auf dieser Seite ist aus den Daten des Projekts gerechnet.</p></div></dialog>
 <script>
+// Die Höhe der klebenden Leiste als --leiste: davon hängen der Abstand der Sprungziele
+// (scroll-padding-top) und die Höhe ab, in der der Tabellenkopf klebt. Ohne Skript gilt der
+// Vorrat aus dem Stil; die Leiste selbst klebt auch ohne Skript, sie ist reines CSS.
+(function(){
+  const l = document.querySelector(".navleiste");
+  if (!l) return;
+  // Ein offener Aufklapper steht auf dem Handy in der Leiste und macht sie vorübergehend hoch
+  // (gemessen 383 px). Diese Höhe ist nicht die Leiste, deshalb wird dann nicht nachgemessen.
+  const setzen = () => {
+    if (document.querySelector("nav.haupt button.pfeil[aria-expanded='true']")) return;
+    document.documentElement.style.setProperty("--leiste", l.offsetHeight + "px");
+  };
+  setzen();
+  addEventListener("resize", setzen);
+  if (window.ResizeObserver) new ResizeObserver(setzen).observe(l);
+})();
+
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
   const d = document.getElementById(b.getAttribute("aria-controls"));
   b.addEventListener("click", ev => {

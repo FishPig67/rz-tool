@@ -10,10 +10,15 @@
 :root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
   --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
 *{box-sizing:border-box}
-html{background:var(--bg)}
+html{background:var(--bg);scroll-padding-top:calc(var(--leiste, 52px) + 10px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
-.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
-.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.kopfzeile{background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 12px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+/* Die klebende Leiste: nur die Navigation bleibt oben stehen, Logo, Wortmarke und Metazeile
+   scrollen weg. Der gestrichelte Strich sitzt jetzt hier, damit er die Leiste nach unten
+   abschliesst. Der Hintergrund muss deckend sein, sonst scheint der Inhalt durch. */
+.navleiste{position:sticky;top:0;z-index:6;background:linear-gradient(180deg,#0d1322,#0a0e1a);border-bottom:3px dashed var(--accent)}
+.navinner{max-width:1180px;margin:0 auto;padding:6px 20px 7px}
 .marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
 .marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
 .marke .logo img{width:100%;height:100%;display:block}
@@ -21,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 .marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
 .marke .wm b{color:var(--accent2);font-weight:400}
 .marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
-nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px}
 nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
 nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
 nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
@@ -71,6 +76,11 @@ section{margin-bottom:26px}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
 th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+/* Gemessen am 2026-09-13: dieses top:0 wirkt nirgends gegen das Fenster, weil jede Tabelle in
+   .tablewrap mit overflow-x:auto steht und dieser Kasten der Scrollbereich ist. Der Kopf klebt
+   also innerhalb des Kastens, der senkrecht nie scrollt. Deshalb bleibt es bei top:0: ein Wert
+   wie top:var(--leiste) würde den Kopf im Kasten nach unten schieben, sobald der Kasten doch
+   einmal senkrecht scrollt, und die klebende Leiste kann ihn ohnehin nicht verdecken. */
 th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
 th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
 td.l,th.l{text-align:left}td.name{font-weight:600}
@@ -127,7 +137,8 @@ main{position:relative;z-index:1}
 .kopfzeile{position:relative;z-index:5}
 body.fenster-offen .feld{display:none}
 @media (max-width:760px){
-  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .kopf{padding:12px 14px 8px;gap:10px 16px}
+  .navinner{padding:5px 12px 6px}
   .marke .wm{font-size:21px}
   nav.haupt{margin-left:0;width:100%;gap:2px 4px}
   nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
@@ -150,6 +161,13 @@ body.fenster-offen .feld{display:none}
   td.name .badge{margin-left:0;margin-right:4px}
   .m1{display:none}
   .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+/* Unter 420 px bricht die Leiste sonst auf zwei Zeilen um und wird von 46 auf 79 px hoch
+   (gemessen am 2026-09-13 bei 375 px: 11,9 Prozent der Bildschirmhöhe statt 5,4). Enger gesetzt
+   bleibt sie bis 320 px einzeilig und 42 px hoch. */
+@media (max-width:420px){
+  nav.haupt a,nav.haupt button.bereich{font-size:12.5px;padding:5px 7px;letter-spacing:.06em}
+  nav.haupt button.pfeil{padding:5px 5px}
 }
 
 section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
@@ -249,10 +267,12 @@ dl.glossar dd{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.55;max-w
 .rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
 .rz-nav a.rz-hier{color:var(--rz-ink2)}
 .rz-nav a.rz-unter{font-weight:400;font-size:13px;opacity:.85}
-</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="grundlagen.html" class="rz-hier" aria-current="page">Wissen</a></nav><!--/rz-rahmen-->
+</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="gegner.html" class="rz-unter">Gegner</a><a href="grundlagen.html" class="rz-hier" aria-current="page">Wissen</a></nav><!--/rz-rahmen-->
 <div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
 <div class="kopfzeile"><div class="kopf">
   <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Grundlagen · Thema 7 von 9</div></span></a>
+</div></div>
+<div class="navleiste"><div class="navinner">
   <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html">Manager</a><a href="gegner.html">Gegner</a></div></span><a href="grundlagen.html" class="hier" aria-current="page">Wissen</a></nav>
 </div></div>
 <main>
@@ -262,11 +282,28 @@ dl.glossar dd{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.55;max-w
 <div class="knoepfe"><a class="knopf zurueck" href="grundlagen.html">← Alle Grundlagen</a><a class="knopf" href="grundlagen-jahr.html">← Der Jahreslauf</a><a class="knopf" href="grundlagen-positionen.html">Die Positionen →</a></div>
 <section><div class="lehr breit"><div class="text"><p>43 Begriffe, alphabetisch. Wo ein Begriff auf diesen Seiten eine eigene, engere Bedeutung hat (Abstand, Leistung, aufgestellt, Startbereich), steht das dabei.</p><dl class="glossar"><div><dt>Abstand</dt><dd>Auf diesen Seiten: die Punkte pro Saisonwoche eines Spielers minus die des besten Spielers derselben Position, der gerade frei ist. Sagt, wie viel ein Spieler mehr bringt als das, was jeder ohne Gegenleistung holen könnte. Negativ heisst: der freie Markt hat einen besseren.</dd></div><div><dt>ADP</dt><dd>Average Draft Position, die durchschnittliche Stelle, an der ein Spieler in vielen Drafts gewählt wird. Ein Preis, den der Markt zahlt, keine Vorhersage, was der Spieler leisten wird. Die beiden werden oft verwechselt.</dd></div><div><dt>aufgestellt</dt><dd>Ein Spieler, der auf einem Startplatz steht. Nur aufgestellte Spieler machen in dieser Woche Punkte für das Team. Auf der Kaderseite steht dieses Wort für den Platz „Aufgestellt“, im Gegensatz zu Bank und IR.</dd></div><div><dt>Bank</dt><dd>Alle Spieler eines Kaders, die nicht aufgestellt und nicht auf IR sind. Machen keine Punkte, sind Ersatz für Bye-Wochen und Verletzungen oder Vorrat für eine spätere Saison.</dd></div><div><dt>Boom oder Bust</dt><dd>Ein Spieler, der in einer Woche sehr viel oder sehr wenig bringt, selten etwas dazwischen. Das Gegenteil ist ein Spieler mit hohem Boden (Floor) und niedriger Decke (Ceiling).</dd></div><div><dt>Breakout</dt><dd>Die Saison, in der ein junger Spieler zum ersten Mal zum Starter wird. Bei Receivern oft im zweiten oder dritten Jahr, bei Running Backs oft schon als Rookie.</dd></div><div><dt>Bye-Woche</dt><dd>Die eine Woche der Saison, in der ein NFL-Team nicht spielt. Ein aufgestellter Spieler in seiner Bye-Woche bringt null Punkte.</dd></div><div><dt>Combine</dt><dd>Die Sichtung der Rookies durch die NFL im Februar und März, mit Messungen und Tests, vor dem NFL-Draft.</dd></div><div><dt>Deadline</dt><dd>Der letzte Tag der Saison, an dem gehandelt werden darf. Danach bleibt nur der freie Markt. In dieser Liga Ende November.</dd></div><div><dt>Depth Chart</dt><dd>Die Rangfolge der Spieler eines NFL-Teams je Position: wer Starter ist, wer zweiter, wer dritter. Die NFL-Teamseiten zeigen ihn.</dd></div><div><dt>Draft</dt><dd>Die Verteilung von Spielern an Manager in einer festen Reihenfolge: jeder wählt, wenn er dran ist. Im Redraft jedes Jahr alle Spieler, in Dynasty nur einmal alle (Startup) und danach jedes Jahr die Rookies.</dd></div><div><dt>Drop</dt><dd>Einen Spieler aus dem Kader entlassen, meist um Platz für einen Zugang zu schaffen. Der Spieler geht auf die Waiver-Liste und danach in den freien Markt.</dd></div><div><dt>Dynasty</dt><dd>Das Format, in dem der Kader von Saison zu Saison vollständig beim Manager bleibt. Neue Spieler kommen nur über Rookie-Draft, Waiver und Handel dazu. Thema 2.</dd></div><div><dt>FAB</dt><dd>Free Agent Budget, auch FAAB. Jeder Manager hat ein Saisonbudget an Spielgeld und bietet daraus verdeckt auf freie Spieler; das höchste Gebot bekommt den Spieler und zahlt den Betrag. Ersetzt die Waiver-Reihenfolge durch einen Preis. Diese Liga läuft mit FAB: hundert je Saison, was übrig bleibt, wandert in die nächste Saison.</dd></div><div><dt>Flex</dt><dd>Ein Startplatz, auf den wahlweise ein Running Back, ein Receiver oder ein Tight End darf. Diese Liga hat keinen; jeder Startplatz ist an eine Position gebunden.</dd></div><div><dt>Free Agency</dt><dd>In der NFL: die Wochen im März, in denen Spieler ohne Vertrag den Klub wechseln. Im Fantasy: der freie Markt, also alle Spieler, die keinem Manager gehören.</dd></div><div><dt>Free Agent</dt><dd>Ein Spieler, der keinem Team der Liga gehört und nicht auf der Waiver-Liste steht. Kann ohne Gebot geholt werden, sobald er frei ist. In dieser Liga gratis.</dd></div><div><dt>Handcuff</dt><dd>Der Ersatzmann eines eigenen Starters, meist bei Running Backs: der Spieler, der übernähme, wenn der Starter ausfällt. Wer beide hat, gilt auf dieser Position als abgesichert.</dd></div><div><dt>Handel</dt><dd>Trade. Zwei Manager tauschen Spieler oder Picks. In dieser Liga prüft der Kommissär jeden Handel, und Picks dürfen mitgehandelt werden.</dd></div><div><dt>Head-to-Head</dt><dd>Die Wertung, in der jede Woche zwei Teams gegeneinander spielen und das Team mit mehr Punkten gewinnt. Die Tabelle zählt Siege, nicht Punkte. Diese Liga spielt so.</dd></div><div><dt>IR</dt><dd>Injured Reserve, ein eigener Platz für einen verletzten Spieler neben der Bank. Wer dort steht, belegt keinen Bankplatz. Nur Spieler, die offiziell verletzt sind, dürfen dorthin.</dd></div><div><dt>Keeper</dt><dd>Im engen Sinn: ein Spieler, den ein Manager über die Saison hinaus behalten darf, in Ligen, die nur wenige Keeper erlauben. Bei Yahoo heisst auch das Werkzeug so, mit dem eine Dynasty-Liga ihre ganzen Kader in die nächste Saison übernimmt.</dd></div><div><dt>Kommissär</dt><dd>Commissioner. Der Manager, der die Liga verwaltet: Einstellungen, Handelsprüfung, Streitfälle.</dd></div><div><dt>Leistung</dt><dd>Auf diesen Seiten: die Punkte eines Spielers pro Saisonwoche, gerechnet aus den NFL-Statistiken nach den Regeln dieser Liga. Eine Messung der Vorsaison, keine Vorhersage.</dd></div><div><dt>Non-PPR</dt><dd>Wertung ohne Punkte für den Fang selbst; nur Yards und Touchdowns zählen. Auch Standard genannt. Diese Liga ist Non-PPR, deshalb sind Receiver hier weniger wert als in den meisten Ranglisten.</dd></div><div><dt>Pick</dt><dd>Draft-Pick: das Recht, an einer bestimmten Stelle eines Rookie-Drafts zu wählen. Handelbar, auch für künftige Jahre. Thema 4.</dd></div><div><dt>PPR</dt><dd>Points Per Reception: ein Punkt für jeden gefangenen Pass, zusätzlich zu Yards und Touchdowns. Half-PPR gibt einen halben Punkt. Macht Receiver und fangende Running Backs wertvoller. Diese Liga spielt nicht so.</dd></div><div><dt>Rebuild</dt><dd>Die Strategie, die laufende Saison aufzugeben und alternde Spieler gegen Picks und junge Spieler zu tauschen, um in einigen Jahren stark zu sein. Hart oder weich, je nachdem, wie viel abgegeben wird. Thema 3.</dd></div><div><dt>Redraft</dt><dd>Das Format, in dem jedes Jahr alle Spieler neu gedraftet werden. Nichts wird mitgenommen. Thema 2.</dd></div><div><dt>Rookie</dt><dd>Ein Spieler in seiner ersten NFL-Saison.</dd></div><div><dt>Rookie-Draft</dt><dd>Der jährliche kurze Draft einer Dynasty-Liga, in dem die neuen NFL-Rookies verteilt werden, meist im Mai nach dem NFL-Draft. Reihenfolge meist umgekehrt zur Tabelle. Thema 2.</dd></div><div><dt>Sleeper</dt><dd>Ein Spieler, von dem wenige etwas erwarten und der spät gewählt wird, dem der Sprecher aber mehr zutraut. Ein Wort für eine Wette, kein Mass.</dd></div><div><dt>Startbereich</dt><dd>Auf der Seite „Spielerleistung 2025“: die ligaweit besten Spieler je Position, so viele, wie die Liga Startplätze dafür hat. Eine Grösse der ganzen Liga, nicht eines Teams. Nicht dasselbe wie „aufgestellt“.</dd></div><div><dt>Startplatz</dt><dd>Ein Platz in der Aufstellung, an eine Position gebunden. Der Spieler darauf ist aufgestellt und macht Punkte. Thema 5.</dd></div><div><dt>Startup-Draft</dt><dd>Der eine grosse Draft am Anfang einer Dynasty-Liga, in dem alle Spieler verteilt werden. Danach gibt es ihn nie wieder.</dd></div><div><dt>Stash</dt><dd>Einen Spieler auf der Bank halten, der jetzt nichts bringt, aber später etwas bringen könnte: ein Rookie, ein Verletzter, ein Ersatzmann. In Dynasty ein grosser Teil dessen, wofür die Bank da ist.</dd></div><div><dt>Streaming</dt><dd>Jede Woche einen anderen Spieler für einen Platz holen, je nach Gegner, statt einen festen zu halten. Üblich bei Kickern und Team-Defenses.</dd></div><div><dt>Superflex</dt><dd>Ein Flex-Platz, auf den auch ein Quarterback darf. Macht Quarterbacks viel wertvoller. Diese Liga hat keinen.</dd></div><div><dt>Taxi Squad</dt><dd>In manchen Dynasty-Ligen ein zusätzlicher Bereich für Rookies, die nicht zum Kader zählen und nicht aufgestellt werden dürfen. Diese Liga hat keinen.</dd></div><div><dt>Team-Defense</dt><dd>DEF oder D/ST: die ganze Verteidigung und Special Teams eines NFL-Klubs als ein Spieler. Punkte für Sacks, Interceptions, Touchdowns und wenig zugelassene Punkte.</dd></div><div><dt>Tier</dt><dd>Eine Gruppe von Spielern, die als etwa gleich gut gelten. Zwischen zwei Tiers liegt ein Sprung, innerhalb kaum einer.</dd></div><div><dt>Waiver</dt><dd>Die Wartefrist, in der ein entlassener oder neu verfügbarer Spieler nicht sofort geholt werden kann. Alle können Anspruch anmelden; wer ihn bekommt, entscheidet die Waiver-Reihenfolge oder, wie in dieser Liga, das FAB-Gebot. Abgerechnet wird einmal die Woche, hier am Dienstag; ein Anspruch kostet mindestens eins.</dd></div><div><dt>Win-Now</dt><dd>Die Strategie, alles auf die laufende Saison zu setzen: Punkte heute gegen Wert morgen. Thema 3.</dd></div></dl></div></div></section>
 
-<p class="foot">Erklärtext ohne Messung. Wo die Seite eine Regel dieser Liga nennt, stammt sie aus Thema 1; nichts ist aus den Daten des Projekts gerechnet. Erzeugt 2026-09-12T02:06:48Z UTC.</p>
+<p class="foot">Erklärtext ohne Messung. Wo die Seite eine Regel dieser Liga nennt, stammt sie aus Thema 1; nichts ist aus den Daten des Projekts gerechnet. Erzeugt 2026-09-13T22:39:19Z UTC.</p>
 
 </main>
 <dialog class="fenster" id="f-thema-7" aria-labelledby="f-thema-7-t"><div class="fk"><h3 id="f-thema-7-t">Zu diesem Thema</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Waiver, FAB, Flex, IR, PPR, ADP, Handcuff, Stash und was sonst gebraucht wird, wenn auf diesen Seiten oder im Stream ein Wort fällt, das man nicht kennt.</p><h4>Was hier steht und was nicht</h4><p>Dieser Bereich erklärt. Er misst nichts, er prognostiziert nichts, und er empfiehlt nichts. Die Zahlen aus den Daten der Liga stehen auf den anderen Seiten; hier steht, was die Begriffe dort bedeuten.</p><h4>Herkunft</h4><p>Erklärtext ohne Datenquelle. Nichts auf dieser Seite ist aus den Daten des Projekts gerechnet.</p></div></dialog>
 <script>
+// Die Höhe der klebenden Leiste als --leiste: davon hängen der Abstand der Sprungziele
+// (scroll-padding-top) und die Höhe ab, in der der Tabellenkopf klebt. Ohne Skript gilt der
+// Vorrat aus dem Stil; die Leiste selbst klebt auch ohne Skript, sie ist reines CSS.
+(function(){
+  const l = document.querySelector(".navleiste");
+  if (!l) return;
+  // Ein offener Aufklapper steht auf dem Handy in der Leiste und macht sie vorübergehend hoch
+  // (gemessen 383 px). Diese Höhe ist nicht die Leiste, deshalb wird dann nicht nachgemessen.
+  const setzen = () => {
+    if (document.querySelector("nav.haupt button.pfeil[aria-expanded='true']")) return;
+    document.documentElement.style.setProperty("--leiste", l.offsetHeight + "px");
+  };
+  setzen();
+  addEventListener("resize", setzen);
+  if (window.ResizeObserver) new ResizeObserver(setzen).observe(l);
+})();
+
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
   const d = document.getElementById(b.getAttribute("aria-controls"));
   b.addEventListener("click", ev => {
