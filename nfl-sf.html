@@ -10,10 +10,15 @@
 :root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
   --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
 *{box-sizing:border-box}
-html{background:var(--bg)}
+html{background:var(--bg);scroll-padding-top:calc(var(--leiste, 52px) + 10px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
-.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
-.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.kopfzeile{background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 12px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+/* Die klebende Leiste: nur die Navigation bleibt oben stehen, Logo, Wortmarke und Metazeile
+   scrollen weg. Der gestrichelte Strich sitzt jetzt hier, damit er die Leiste nach unten
+   abschliesst. Der Hintergrund muss deckend sein, sonst scheint der Inhalt durch. */
+.navleiste{position:sticky;top:0;z-index:6;background:linear-gradient(180deg,#0d1322,#0a0e1a);border-bottom:3px dashed var(--accent)}
+.navinner{max-width:1180px;margin:0 auto;padding:6px 20px 7px}
 .marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
 .marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
 .marke .logo img{width:100%;height:100%;display:block}
@@ -21,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 .marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
 .marke .wm b{color:var(--accent2);font-weight:400}
 .marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
-nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px}
 nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
 nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
 nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
@@ -71,6 +76,11 @@ section{margin-bottom:26px}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
 th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+/* Gemessen am 2026-09-13: dieses top:0 wirkt nirgends gegen das Fenster, weil jede Tabelle in
+   .tablewrap mit overflow-x:auto steht und dieser Kasten der Scrollbereich ist. Der Kopf klebt
+   also innerhalb des Kastens, der senkrecht nie scrollt. Deshalb bleibt es bei top:0: ein Wert
+   wie top:var(--leiste) würde den Kopf im Kasten nach unten schieben, sobald der Kasten doch
+   einmal senkrecht scrollt, und die klebende Leiste kann ihn ohnehin nicht verdecken. */
 th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
 th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
 td.l,th.l{text-align:left}td.name{font-weight:600}
@@ -127,7 +137,8 @@ main{position:relative;z-index:1}
 .kopfzeile{position:relative;z-index:5}
 body.fenster-offen .feld{display:none}
 @media (max-width:760px){
-  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .kopf{padding:12px 14px 8px;gap:10px 16px}
+  .navinner{padding:5px 12px 6px}
   .marke .wm{font-size:21px}
   nav.haupt{margin-left:0;width:100%;gap:2px 4px}
   nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
@@ -150,6 +161,13 @@ body.fenster-offen .feld{display:none}
   td.name .badge{margin-left:0;margin-right:4px}
   .m1{display:none}
   .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+/* Unter 420 px bricht die Leiste sonst auf zwei Zeilen um und wird von 46 auf 79 px hoch
+   (gemessen am 2026-09-13 bei 375 px: 11,9 Prozent der Bildschirmhöhe statt 5,4). Enger gesetzt
+   bleibt sie bis 320 px einzeilig und 42 px hoch. */
+@media (max-width:420px){
+  nav.haupt a,nav.haupt button.bereich{font-size:12.5px;padding:5px 7px;letter-spacing:.06em}
+  nav.haupt button.pfeil{padding:5px 5px}
 }
 
 section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
@@ -279,10 +297,12 @@ details.dc .inhalt{padding:0 14px 12px}
 .rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
 .rz-nav a.rz-hier{color:var(--rz-ink2)}
 .rz-nav a.rz-unter{font-weight:400;font-size:13px;opacity:.85}
-</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich rz-hier">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-hier rz-unter" aria-current="page">NFL-Teams</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="grundlagen.html">Wissen</a></nav><!--/rz-rahmen-->
+</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich rz-hier">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-hier rz-unter" aria-current="page">NFL-Teams</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="gegner.html" class="rz-unter">Gegner</a><a href="grundlagen.html">Wissen</a></nav><!--/rz-rahmen-->
 <div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
 <div class="kopfzeile"><div class="kopf">
   <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · NFL · Depth Chart 2026-09-04</div></span></a>
+</div></div>
+<div class="navleiste"><div class="navinner">
   <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html" class="hier" aria-current="page">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html">Manager</a><a href="gegner.html">Gegner</a></div></span><a href="grundlagen.html">Wissen</a></nav>
 </div></div>
 <main>
@@ -308,11 +328,28 @@ details.dc .inhalt{padding:0 14px 12px}
 <div class="dc-gruppe"><h3>Offense</h3><div class="dc-raster"><div class="dc-pos"><div class="p">Quarterback</div><ol class="dc"><li class="dc-spieler eins">Brock Purdy</li><li class="dc-spieler">Mac Jones</li><li class="dc-spieler">Kurtis Rourke</li></ol></div><div class="dc-pos"><div class="p">Running Back</div><ol class="dc"><li class="dc-spieler eins">Christian McCaffrey</li><li class="dc-spieler">Kaelon Black</li><li class="dc-spieler">Jordan James</li><li class="dc-spieler">Isaac Guerendo</li></ol></div><div class="dc-pos"><div class="p">Wide Receiver</div><ol class="dc"><li class="dc-spieler eins">Mike Evans</li><li class="dc-spieler">Deebo Samuel</li><li class="dc-spieler">De'Zhaun Stribling</li><li class="dc-spieler">Demarcus Robinson</li><li class="dc-spieler">Jordan Watkins</li><li class="dc-spieler">Jacob Cowing</li><li class="dc-spieler">Christian Kirk</li><li class="dc-spieler">Brandon Aiyuk</li><li class="dc-spieler">Ricky Pearsall</li></ol></div><div class="dc-pos"><div class="p">Tight End</div><ol class="dc"><li class="dc-spieler eins">George Kittle</li><li class="dc-spieler">Jake Tonges</li><li class="dc-spieler">Luke Farrell</li><li class="dc-spieler">Brayden Willis</li></ol></div><div class="dc-pos"><div class="p">Fullback</div><ol class="dc"><li class="dc-spieler eins">Kyle Juszczyk</li></ol></div><div class="dc-pos"><div class="p">Left Tackle</div><ol class="dc"><li class="dc-spieler eins">Trent Williams</li><li class="dc-spieler">Vederian Lowe</li><li class="dc-spieler">Enrique Cruz Jr.</li><li class="dc-spieler">Austen Pleasants</li></ol></div><div class="dc-pos"><div class="p">Left Guard</div><ol class="dc"><li class="dc-spieler eins">Connor Colby</li><li class="dc-spieler">Carver Willis</li><li class="dc-spieler">Nick Zakelj</li></ol></div><div class="dc-pos"><div class="p">Center</div><ol class="dc"><li class="dc-spieler eins">Jake Brendel</li><li class="dc-spieler">Jarrett Patterson</li><li class="dc-spieler">Brett Toth</li></ol></div><div class="dc-pos"><div class="p">Right Guard</div><ol class="dc"><li class="dc-spieler eins">Dominick Puni</li></ol></div><div class="dc-pos"><div class="p">Right Tackle</div><ol class="dc"><li class="dc-spieler eins">Colton McKivitz</li></ol></div></div></div><details class="dc"><summary>Defense (Base 3-4)</summary><div class="inhalt"><div class="dc-raster"><div class="dc-pos"><div class="p">Left Defensive End</div><ol class="dc"><li class="dc-spieler eins">C.J. West</li><li class="dc-spieler">James Thompson Jr.</li></ol></div><div class="dc-pos"><div class="p">Nose Tackle</div><ol class="dc"><li class="dc-spieler eins">Alfred Collins</li></ol></div><div class="dc-pos"><div class="p">Right Defensive End</div><ol class="dc"><li class="dc-spieler eins">Osa Odighizuwa</li><li class="dc-spieler">Gracen Halton</li></ol></div><div class="dc-pos"><div class="p">Left Inside Linebacker</div><ol class="dc"><li class="dc-spieler eins">Dre Greenlaw</li><li class="dc-spieler">Garret Wallow</li><li class="dc-spieler">Luke Gifford</li><li class="dc-spieler">Nick Martin</li></ol></div><div class="dc-pos"><div class="p">Right Inside Linebacker</div><ol class="dc"><li class="dc-spieler eins">Fred Warner</li><li class="dc-spieler">Tatum Bethune</li><li class="dc-spieler">Jaden Dugger</li></ol></div><div class="dc-pos"><div class="p">Left Cornerback</div><ol class="dc"><li class="dc-spieler eins">Renardo Green</li><li class="dc-spieler">Jack Jones</li></ol></div><div class="dc-pos"><div class="p">Right Cornerback</div><ol class="dc"><li class="dc-spieler eins">Deommodore Lenoir</li><li class="dc-spieler">Ephesians Prysock</li><li class="dc-spieler">Nate Hobbs</li></ol></div><div class="dc-pos"><div class="p">Strong Safety</div><ol class="dc"><li class="dc-spieler eins">Malik Mustapha</li><li class="dc-spieler">Marques Sigle</li><li class="dc-spieler">Ashtyn Davis</li></ol></div><div class="dc-pos"><div class="p">Free Safety</div><ol class="dc"><li class="dc-spieler eins">Ji'Ayir Brown</li><li class="dc-spieler">Siran Neal</li><li class="dc-spieler">Darrick Forrest</li></ol></div><div class="dc-pos"><div class="p">Weakside Linebacker</div><ol class="dc"><li class="dc-spieler eins">Nick Bosa</li><li class="dc-spieler">Romello Height</li><li class="dc-spieler">Andrew Farmer II</li><li class="dc-spieler">Mikail Kamara</li></ol></div><div class="dc-pos"><div class="p">Strongside Linebacker</div><ol class="dc"><li class="dc-spieler eins">Keion White</li><li class="dc-spieler">Sam Okuayinonu</li><li class="dc-spieler">Mykel Williams</li></ol></div><div class="dc-pos"><div class="p">Nickel Back</div><ol class="dc"><li class="dc-spieler eins">Upton Stout</li></ol></div></div></div></details><details class="dc"><summary>Special Teams</summary><div class="inhalt"><div class="dc-raster"><div class="dc-pos"><div class="p">Place kicker</div><ol class="dc"><li class="dc-spieler eins">Eddy Pineiro</li></ol></div><div class="dc-pos"><div class="p">Punter</div><ol class="dc"><li class="dc-spieler eins">Corliss Waitman</li></ol></div><div class="dc-pos"><div class="p">Punt Returner</div><ol class="dc"><li class="dc-spieler eins">Jacob Cowing</li><li class="dc-spieler">Jordan Watkins</li><li class="dc-spieler">Ricky Pearsall</li></ol></div><div class="dc-pos"><div class="p">Kick Returner</div><ol class="dc"><li class="dc-spieler eins">Deebo Samuel</li><li class="dc-spieler">Jacob Cowing</li><li class="dc-spieler">Isaac Guerendo</li></ol></div><div class="dc-pos"><div class="p">Holder</div><ol class="dc"><li class="dc-spieler eins">Corliss Waitman</li></ol></div></div></div></details>
 </section>
 <details class="prov"><summary>Herkunft</summary><div class="prov"><b>Team</b>: Spielplan payload/games.parquet, Saison 2026, 17 Spiele; Konferenz, Division und Klubname aus dem Schema (handgepflegt), Divisionszugehörigkeit gegen div_game geprüft<br><b>Depth Chart</b>: 73 Zeilen team SF, dt 2026-09-04T11:57:41Z in payload/depth_charts_2026.parquet<br><b>Kennzahlen 2025</b>: payload/stats_player_week_2025.parquet, season_type REG, Wochen 1–18: 17 Spiele, 1082 Plays; Yards netto 4318 passing -161 sack +1817 rushing = 5974<br>Teamlogos 20260909-1847-nflverse-logos-1cb9bb (32 squared_logos, nflverse)</div></details>
-<p class="foot">Erzeugt 2026-09-12T02:07:09Z UTC aus 20260905-0122-nflverse-parquet-5b1a0a und 20260909-1015-nflverse-schedules-frueh-w01-ddc931; beide Manifeste geprüft.</p>
+<p class="foot">Erzeugt 2026-09-13T22:39:44Z UTC aus 20260905-0122-nflverse-parquet-5b1a0a und 20260909-1015-nflverse-schedules-frueh-w01-ddc931; beide Manifeste geprüft.</p>
 
 </main>
 <dialog class="fenster" id="f-kennzahlen" aria-labelledby="f-kennzahlen-t"><div class="fk"><h3 id="f-kennzahlen-t">Wie die Kennzahlen gerechnet sind</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><h4>Plays je Spiel</h4><p>Wie oft die Offense zum Spielzug kam. Ein Play ist ein Pass-Versuch, ein Lauf oder ein Sack. Formel: (attempts + carries + sacks_suffered) / Spiele.</p><h4>Pass Rate</h4><p>Anteil der Plays, die als Pass angelegt waren. Ein Sack zählt als Pass-Versuch, weil der Spielzug einer war. Formel: (attempts + sacks_suffered) / (attempts + carries + sacks_suffered).</p><h4>Yards per Play</h4><p>Raumgewinn je Spielzug, netto. passing_yards ist auf Spielerebene brutto; die Sackverluste gehen weg. In dieser Datei steht sack_yards_lost bereits negativ, deshalb steht in der Formel ein Plus. Formel: (passing_yards + sack_yards_lost + rushing_yards) / Plays.</p><h4>Saison und Spiele</h4><p>Nach Woche 1 beruht jede dieser Zahlen auf einem einzigen Spiel, und der Ligarang wäre dann Rauschen: ein Spiel gegen einen schwachen Gegner reicht für Platz 1. Deshalb steht die Zahl der Spiele immer neben der Kennzahl. Ein Ligarang wird erst ab 4 Spielen gezeigt; darunter steht die Zahl allein.</p><p>Für die laufende Saison 2026 gibt es noch keine Zahlen: stats_player_week_2026.parquet liegt in keinem der gelesenen nflverse-Bündel. Sobald die Datei da ist, erscheint hier ein Umschalter; gerechnet wird sie mit demselben Code und denselben Formeln.</p><h4>Die Falle in den Rohdaten</h4><p>passing_yards ist auf Spielerebene brutto, vor den Sackverlusten. Für Yards per Play wird sack_yards_lost abgezogen; sonst steht ein Team mit vielen Sacks zu gut da.</p><h4>Was fehlt</h4><p>EPA je Spiel fehlt, ohne Ersatzgrösse. Expected Points Added entsteht Play für Play aus den Play-by-Play-Daten; stats_player_week führt nur Teilsummen je Spieler (passing_epa, rushing_epa, receiving_epa), die sich nicht zu einer Team-EPA je Spiel addieren lassen — Defense und Special Teams fehlen darin ganz. Eine Näherung daraus wäre eine erfundene Zahl mit einem bekannten Namen. Die Grösse kommt, wenn ein Play-by-Play-Bündel liegt, und vorher nicht.</p><div class='vb'>Der Rang reagiert auf das gerade gespielte Spiel. Er ist Buchhaltung und keine Vorschau: er sagt, was war, und nicht, was kommt. Zwei Teams, die im Rang zehn Plätze auseinanderliegen, können in der nächsten Woche die Plätze tauschen, ohne dass sich an ihnen etwas geändert hat. (Befund vom 7. September 2026.)</div></div></dialog><dialog class="fenster" id="f-spielplan" aria-labelledby="f-spielplan-t"><div class="fk"><h3 id="f-spielplan-t">Zum Spielplan</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Die 18 Wochen der Saison 2026 als Kacheln: Wochennummer, Gegner mit „vs“ für ein Heimspiel und „@“ für ein Auswärtsspiel, Datum. Die Bye-Woche ist gestrichelt, die Wochen 15, 16, 17 tragen oben eine Kante.</p><div class='vb'>Keine eigene Strength-of-Schedule-Wertung: die Kacheln zeigen den Spielplan, sie bewerten ihn nicht. Das Playoff-Fenster der Liga (Wochen 15 bis 17) ist nur optisch gekennzeichnet — daraus folgt hier keine Zahl und keine Empfehlung.</div></div></dialog><dialog class="fenster" id="f-depth" aria-labelledby="f-depth-t"><div class="fk"><h3 id="f-depth-t">Zum Depth Chart</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Depth Chart im Stand, den nflverse zuletzt vor dem Bündel geschrieben hat. Er ist eine Momentaufnahme und keine Aufstellung: die Reihenfolge (pos_rank) ist die des Anbieters, nicht die des Klubs, und keine Zusage, wer spielt. Wo der Anbieter einen Platz führt, ohne einen Spieler zu nennen, steht „kein Eintrag“.</p><h4>Gruppen</h4><p>nflverse führt vier Gruppen (pos_grp). Die Offense („3WR 1TE“) steht offen, weil für Fantasy Football sie zählt; Verteidigung und Special Teams stehen aufklappbar daneben statt zu fehlen — weggelassen wären sie ein stiller Verlust gegenüber der Rohdatei. Stand des Depth Charts: 2026-09-04.</p><h4>Reihenfolge</h4><p>Innerhalb einer Position nach pos_rank; der erste ist hervorgehoben. Keine Spielerbilder — sie würden je Klubseite bis zu 80 Dateien laden, ohne etwas zu zeigen, was der Name nicht sagt.</p></div></dialog>
 <script>
+// Die Höhe der klebenden Leiste als --leiste: davon hängen der Abstand der Sprungziele
+// (scroll-padding-top) und die Höhe ab, in der der Tabellenkopf klebt. Ohne Skript gilt der
+// Vorrat aus dem Stil; die Leiste selbst klebt auch ohne Skript, sie ist reines CSS.
+(function(){
+  const l = document.querySelector(".navleiste");
+  if (!l) return;
+  // Ein offener Aufklapper steht auf dem Handy in der Leiste und macht sie vorübergehend hoch
+  // (gemessen 383 px). Diese Höhe ist nicht die Leiste, deshalb wird dann nicht nachgemessen.
+  const setzen = () => {
+    if (document.querySelector("nav.haupt button.pfeil[aria-expanded='true']")) return;
+    document.documentElement.style.setProperty("--leiste", l.offsetHeight + "px");
+  };
+  setzen();
+  addEventListener("resize", setzen);
+  if (window.ResizeObserver) new ResizeObserver(setzen).observe(l);
+})();
+
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
   const d = document.getElementById(b.getAttribute("aria-controls"));
   b.addEventListener("click", ev => {

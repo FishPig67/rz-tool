@@ -10,10 +10,15 @@
 :root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
   --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
 *{box-sizing:border-box}
-html{background:var(--bg)}
+html{background:var(--bg);scroll-padding-top:calc(var(--leiste, 52px) + 10px)}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
-.kopfzeile{border-bottom:3px dashed var(--accent);background:linear-gradient(180deg,#0d1322,#0a0e1a)}
-.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 16px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+.kopfzeile{background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 12px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+/* Die klebende Leiste: nur die Navigation bleibt oben stehen, Logo, Wortmarke und Metazeile
+   scrollen weg. Der gestrichelte Strich sitzt jetzt hier, damit er die Leiste nach unten
+   abschliesst. Der Hintergrund muss deckend sein, sonst scheint der Inhalt durch. */
+.navleiste{position:sticky;top:0;z-index:6;background:linear-gradient(180deg,#0d1322,#0a0e1a);border-bottom:3px dashed var(--accent)}
+.navinner{max-width:1180px;margin:0 auto;padding:6px 20px 7px}
 .marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
 .marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
 .marke .logo img{width:100%;height:100%;display:block}
@@ -21,7 +26,7 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,Bl
 .marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
 .marke .wm b{color:var(--accent2);font-weight:400}
 .marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
-nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px;margin-left:auto}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px}
 nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
 nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
 nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
@@ -71,6 +76,11 @@ section{margin-bottom:26px}
 .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
 table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
 th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+/* Gemessen am 2026-09-13: dieses top:0 wirkt nirgends gegen das Fenster, weil jede Tabelle in
+   .tablewrap mit overflow-x:auto steht und dieser Kasten der Scrollbereich ist. Der Kopf klebt
+   also innerhalb des Kastens, der senkrecht nie scrollt. Deshalb bleibt es bei top:0: ein Wert
+   wie top:var(--leiste) würde den Kopf im Kasten nach unten schieben, sobald der Kasten doch
+   einmal senkrecht scrollt, und die klebende Leiste kann ihn ohnehin nicht verdecken. */
 th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
 th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
 td.l,th.l{text-align:left}td.name{font-weight:600}
@@ -127,7 +137,8 @@ main{position:relative;z-index:1}
 .kopfzeile{position:relative;z-index:5}
 body.fenster-offen .feld{display:none}
 @media (max-width:760px){
-  .kopf{padding:14px 14px 12px;gap:10px 16px}
+  .kopf{padding:12px 14px 8px;gap:10px 16px}
+  .navinner{padding:5px 12px 6px}
   .marke .wm{font-size:21px}
   nav.haupt{margin-left:0;width:100%;gap:2px 4px}
   nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
@@ -150,6 +161,13 @@ body.fenster-offen .feld{display:none}
   td.name .badge{margin-left:0;margin-right:4px}
   .m1{display:none}
   .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+/* Unter 420 px bricht die Leiste sonst auf zwei Zeilen um und wird von 46 auf 79 px hoch
+   (gemessen am 2026-09-13 bei 375 px: 11,9 Prozent der Bildschirmhöhe statt 5,4). Enger gesetzt
+   bleibt sie bis 320 px einzeilig und 42 px hoch. */
+@media (max-width:420px){
+  nav.haupt a,nav.haupt button.bereich{font-size:12.5px;padding:5px 7px;letter-spacing:.06em}
+  nav.haupt button.pfeil{padding:5px 5px}
 }
 
 section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
@@ -283,6 +301,8 @@ details.dc .inhalt{padding:0 14px 12px}
 <div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
 <div class="kopfzeile"><div class="kopf">
   <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Dynasty · NFL · Depth Chart 2026-09-04</div></span></a>
+</div></div>
+<div class="navleiste"><div class="navinner">
   <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html" class="hier" aria-current="page">NFL-Teams</a></div></span><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html">Manager</a><a href="gegner.html">Gegner</a></div></span><a href="grundlagen.html">Wissen</a></nav>
 </div></div>
 <main>
@@ -294,12 +314,29 @@ Kennzahlen der Offense mit Ligarang, der Spielplan 2026 und der Depth Chart aus 
 <div class="kenn-raster"><div><div class="lab">Klubs</div><div class="z">32</div><p>in 8 Divisionen, je eine eigene Seite</p></div><div><div class="lab">Divisionen</div><div class="z">8</div><p>je 4 Klubs, AFC und NFC</p></div><div><div class="lab">Spielplan</div><div class="z">2026</div><p>je Klub 17 Spiele und eine Bye-Woche; Depth Chart im Stand vom 2026-09-04</p></div></div>
 <section id="afc"><div class="sec-head"><div class="titel"><h2>AFC</h2></div></div><div class="divkopf"><h3>AFC East</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-buf.html"><img src="bilder/teams/BUF.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">BUF</span><span class="nm">Buffalo Bills</span></span></a></li><li><a class="teamkarte" href="nfl-mia.html"><img src="bilder/teams/MIA.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">MIA</span><span class="nm">Miami Dolphins</span></span></a></li><li><a class="teamkarte" href="nfl-ne.html"><img src="bilder/teams/NE.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">NE</span><span class="nm">New England Patriots</span></span></a></li><li><a class="teamkarte" href="nfl-nyj.html"><img src="bilder/teams/NYJ.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">NYJ</span><span class="nm">New York Jets</span></span></a></li></ol><div class="divkopf"><h3>AFC North</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-bal.html"><img src="bilder/teams/BAL.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">BAL</span><span class="nm">Baltimore Ravens</span></span></a></li><li><a class="teamkarte" href="nfl-cin.html"><img src="bilder/teams/CIN.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">CIN</span><span class="nm">Cincinnati Bengals</span></span></a></li><li><a class="teamkarte" href="nfl-cle.html"><img src="bilder/teams/CLE.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">CLE</span><span class="nm">Cleveland Browns</span></span></a></li><li><a class="teamkarte" href="nfl-pit.html"><img src="bilder/teams/PIT.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">PIT</span><span class="nm">Pittsburgh Steelers</span></span></a></li></ol><div class="divkopf"><h3>AFC South</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-hou.html"><img src="bilder/teams/HOU.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">HOU</span><span class="nm">Houston Texans</span></span></a></li><li><a class="teamkarte" href="nfl-ind.html"><img src="bilder/teams/IND.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">IND</span><span class="nm">Indianapolis Colts</span></span></a></li><li><a class="teamkarte" href="nfl-jax.html"><img src="bilder/teams/JAX.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">JAX</span><span class="nm">Jacksonville Jaguars</span></span></a></li><li><a class="teamkarte" href="nfl-ten.html"><img src="bilder/teams/TEN.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">TEN</span><span class="nm">Tennessee Titans</span></span></a></li></ol><div class="divkopf"><h3>AFC West</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-den.html"><img src="bilder/teams/DEN.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">DEN</span><span class="nm">Denver Broncos</span></span></a></li><li><a class="teamkarte" href="nfl-kc.html"><img src="bilder/teams/KC.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">KC</span><span class="nm">Kansas City Chiefs</span></span></a></li><li><a class="teamkarte" href="nfl-lac.html"><img src="bilder/teams/LAC.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">LAC</span><span class="nm">Los Angeles Chargers</span></span></a></li><li><a class="teamkarte" href="nfl-lv.html"><img src="bilder/teams/LV.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">LV</span><span class="nm">Las Vegas Raiders</span></span></a></li></ol></section><section id="nfc"><div class="sec-head"><div class="titel"><h2>NFC</h2></div></div><div class="divkopf"><h3>NFC East</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-dal.html"><img src="bilder/teams/DAL.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">DAL</span><span class="nm">Dallas Cowboys</span></span></a></li><li><a class="teamkarte" href="nfl-nyg.html"><img src="bilder/teams/NYG.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">NYG</span><span class="nm">New York Giants</span></span></a></li><li><a class="teamkarte" href="nfl-phi.html"><img src="bilder/teams/PHI.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">PHI</span><span class="nm">Philadelphia Eagles</span></span></a></li><li><a class="teamkarte" href="nfl-was.html"><img src="bilder/teams/WAS.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">WAS</span><span class="nm">Washington Commanders</span></span></a></li></ol><div class="divkopf"><h3>NFC North</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-chi.html"><img src="bilder/teams/CHI.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">CHI</span><span class="nm">Chicago Bears</span></span></a></li><li><a class="teamkarte" href="nfl-det.html"><img src="bilder/teams/DET.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">DET</span><span class="nm">Detroit Lions</span></span></a></li><li><a class="teamkarte" href="nfl-gb.html"><img src="bilder/teams/GB.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">GB</span><span class="nm">Green Bay Packers</span></span></a></li><li><a class="teamkarte" href="nfl-min.html"><img src="bilder/teams/MIN.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">MIN</span><span class="nm">Minnesota Vikings</span></span></a></li></ol><div class="divkopf"><h3>NFC South</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-atl.html"><img src="bilder/teams/ATL.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">ATL</span><span class="nm">Atlanta Falcons</span></span></a></li><li><a class="teamkarte" href="nfl-car.html"><img src="bilder/teams/CAR.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">CAR</span><span class="nm">Carolina Panthers</span></span></a></li><li><a class="teamkarte" href="nfl-no.html"><img src="bilder/teams/NO.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">NO</span><span class="nm">New Orleans Saints</span></span></a></li><li><a class="teamkarte" href="nfl-tb.html"><img src="bilder/teams/TB.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">TB</span><span class="nm">Tampa Bay Buccaneers</span></span></a></li></ol><div class="divkopf"><h3>NFC West</h3><span class="n">4 Klubs</span></div><ol class="klubs"><li><a class="teamkarte" href="nfl-ari.html"><img src="bilder/teams/ARI.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">ARI</span><span class="nm">Arizona Cardinals</span></span></a></li><li><a class="teamkarte" href="nfl-la.html"><img src="bilder/teams/LAR.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">LAR</span><span class="nm">Los Angeles Rams</span></span></a></li><li><a class="teamkarte" href="nfl-sea.html"><img src="bilder/teams/SEA.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">SEA</span><span class="nm">Seattle Seahawks</span></span></a></li><li><a class="teamkarte" href="nfl-sf.html"><img src="bilder/teams/SF.png" alt="" width="40" height="40" loading="lazy"><span><span class="kz">SF</span><span class="nm">San Francisco 49ers</span></span></a></li></ol></section>
 <details class="prov"><summary>Herkunft</summary><div class="prov">20260905-0122-nflverse-parquet-5b1a0a / payload/stats_player_week_2025.parquet · 2a461becaa9adb3c93a3074a3a31f1e960162a50163371a2d34e28393b5fff10<br>20260905-0122-nflverse-parquet-5b1a0a / payload/depth_charts_2026.parquet · 8f5f60a296c2947fcfcc1394b6ebb14b48783763b9d667f86be51045cbccdd3f<br>20260909-1015-nflverse-schedules-frueh-w01-ddc931 / payload/games.parquet · 74fb9dc04dc1c6ed99db4f532d173e543e0c0c7c36548b2ce3a7d64121bb2c32<br>Teamlogos 20260909-1847-nflverse-logos-1cb9bb (32 squared_logos, nflverse)</div></details>
-<p class="foot">Erzeugt 2026-09-12T02:07:09Z UTC. Manifeste beider Bündel geprüft. Konferenz, Division und Klubname
+<p class="foot">Erzeugt 2026-09-13T22:39:44Z UTC. Manifeste beider Bündel geprüft. Konferenz, Division und Klubname
 stehen im Schema (handgepflegt); die Divisionszugehörigkeit ist gegen die Spalte div_game des Spielplans geprüft.</p>
 
 </main>
 <dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seiten zeigen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Eine Übersicht und 32 Klubseiten. Auf jeder Klubseite stehen drei Kennzahlen der Offense mit ihrem Ligarang, der Spielplan der Saison 2026 und der Depth Chart.</p><h4>Buchhaltung, keine Vorschau</h4><p>Der Rang reagiert auf das gerade gespielte Spiel. Er ist Buchhaltung und keine Vorschau: er sagt, was war, und nicht, was kommt. Zwei Teams, die im Rang zehn Plätze auseinanderliegen, können in der nächsten Woche die Plätze tauschen, ohne dass sich an ihnen etwas geändert hat. (Befund vom 7. September 2026.)</p><h4>Was fehlt</h4><p>EPA je Spiel fehlt, ohne Ersatzgrösse. Expected Points Added entsteht Play für Play aus den Play-by-Play-Daten; stats_player_week führt nur Teilsummen je Spieler (passing_epa, rushing_epa, receiving_epa), die sich nicht zu einer Team-EPA je Spiel addieren lassen — Defense und Special Teams fehlen darin ganz. Eine Näherung daraus wäre eine erfundene Zahl mit einem bekannten Namen. Die Grösse kommt, wenn ein Play-by-Play-Bündel liegt, und vorher nicht.</p><h4>Konferenz und Division</h4><p>Die gelesenen Bündel führen weder Klubnamen noch Konferenz oder Division. Beides steht handgepflegt im Schema. Prüfbar ist davon die Divisionszugehörigkeit: im Spielplan trägt jedes Spiel die Spalte div_game, und die acht Vierergruppen daraus stimmen Team für Team mit den acht erklärten Divisionen überein. Konferenz und Klubname sind mit diesen Bündeln nicht prüfbar.</p></div></dialog>
 <script>
+// Die Höhe der klebenden Leiste als --leiste: davon hängen der Abstand der Sprungziele
+// (scroll-padding-top) und die Höhe ab, in der der Tabellenkopf klebt. Ohne Skript gilt der
+// Vorrat aus dem Stil; die Leiste selbst klebt auch ohne Skript, sie ist reines CSS.
+(function(){
+  const l = document.querySelector(".navleiste");
+  if (!l) return;
+  // Ein offener Aufklapper steht auf dem Handy in der Leiste und macht sie vorübergehend hoch
+  // (gemessen 383 px). Diese Höhe ist nicht die Leiste, deshalb wird dann nicht nachgemessen.
+  const setzen = () => {
+    if (document.querySelector("nav.haupt button.pfeil[aria-expanded='true']")) return;
+    document.documentElement.style.setProperty("--leiste", l.offsetHeight + "px");
+  };
+  setzen();
+  addEventListener("resize", setzen);
+  if (window.ResizeObserver) new ResizeObserver(setzen).observe(l);
+})();
+
 document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
   const d = document.getElementById(b.getAttribute("aria-controls"));
   b.addEventListener("click", ev => {
