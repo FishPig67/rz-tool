@@ -256,7 +256,7 @@
   "einheit": "Manager",
   "datei": "manager.json",
   "pfad": "kenn.n_manager",
-  "erzeugt_utc": "2026-09-13T22:42:15Z",
+  "erzeugt_utc": "2026-09-13T22:44:58Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
@@ -313,7 +313,7 @@
     },
     {
      "text": "Kaderstand 2026-09-09",
-     "wert": "2026-09-09T11:13:45Z",
+     "wert": "2026-09-09T11:15:23Z",
      "datei": "manager.json",
      "pfad": "zeitraeume.kader_stand",
      "vorwort": "Kaderstand"
