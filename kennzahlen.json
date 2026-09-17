@@ -344,6 +344,35 @@
    ]
   }
  },
+ "spielerwert": {
+  "wert": 447,
+  "einheit": "Spieler mit Leistungsnote",
+  "datei": "spielerwert.json",
+  "pfad": "kenn.n_mit_note",
+  "erzeugt_utc": "2026-09-17T14:28:49Z",
+  "buendel": [
+   "20260916-1952-yahoo-w02-mi-837db3"
+  ],
+  "stand": {
+   "text": "Leistung 2025 · Kaderstand 2026-09-16",
+   "teile": [
+    {
+     "text": "Leistung 2025",
+     "wert": 2025,
+     "datei": "spielerwert.json",
+     "pfad": "schema.saison_leistung",
+     "vorwort": "Leistung"
+    },
+    {
+     "text": "Kaderstand 2026-09-16",
+     "wert": "2026-09-16T19:52:42.997Z",
+     "datei": "spielerwert.json",
+     "pfad": "kaderstand_utc",
+     "vorwort": "Kaderstand"
+    }
+   ]
+  }
+ },
  "waiver-markt": {
   "wert": 408,
   "einheit": "Waiver-Preise",
