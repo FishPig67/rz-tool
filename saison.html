@@ -136,6 +136,12 @@ main{position:relative;z-index:1}
    Gemessen am 2026-09-10 in Chromium — sichtbar war das Untermenü, klickbar nicht. */
 .kopfzeile{position:relative;z-index:5}
 body.fenster-offen .feld{display:none}
+/* SEI-42: bei offenem Infofenster steht die Seite dahinter still. Die Klasse setzt das
+   Fensterskript ohnehin; gesperrt wird auf beiden möglichen Scrollbehältern, weil je nach
+   Seite html oder body scrollt. Das Fenster selbst scrollt innen weiter (dialog.fenster .fi
+   mit overflow:auto), es liegt im Top-Layer und nicht im Scrollfluss der Seite. */
+body.fenster-offen{overflow:hidden}
+html:has(body.fenster-offen){overflow:hidden}
 @media (max-width:760px){
   .kopf{padding:12px 14px 8px;gap:10px 16px}
   .navinner{padding:5px 12px 6px}
