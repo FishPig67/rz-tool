@@ -398,6 +398,28 @@
    ]
   }
  },
+ "team-analyzer": {
+  "wert": 12,
+  "einheit": "Teams mit eigener Seite",
+  "datei": "team_analyzer.json",
+  "pfad": "kenn.n_teams",
+  "erzeugt_utc": "2026-09-24T13:32:42Z",
+  "buendel": [
+   "20260924-1128-nflverse-schedules-frueh-w03-9c5200"
+  ],
+  "stand": {
+   "text": "Kaderstand 2026-09-24",
+   "teile": [
+    {
+     "text": "Kaderstand 2026-09-24",
+     "wert": "2026-09-24T11:14:55.572Z",
+     "datei": "team_analyzer.json",
+     "pfad": "kaderstand_utc",
+     "vorwort": "Kaderstand"
+    }
+   ]
+  }
+ },
  "waiver-markt": {
   "wert": 408,
   "einheit": "Waiver-Preise",

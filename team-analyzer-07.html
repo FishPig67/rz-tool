@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="de">
+<head>
+<title>Pietätlosi Pinguin · Team Analyzer</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta property="og:type" content="website"><meta property="og:site_name" content="FishPig RedZone"><meta property="og:locale" content="de_CH"><meta property="og:title" content="Pietätlosi Pinguin · Team Analyzer"><meta property="og:description" content="Alle zwölf Kader nach ihrer Stärke jetzt, und je Team eine eigene Seite: das nächste Duell, die Gruppen im Ligavergleich, die Empfehlung mit Begründung, Waiver-Tipp und FAB, Handelspartner, Spielplan und spielfreie Wochen."><meta property="og:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg"><meta property="og:url" content="https://fishpig67.github.io/rz-tool/team-analyzer-07.html"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Pietätlosi Pinguin · Team Analyzer"><meta name="twitter:description" content="Alle zwölf Kader nach ihrer Stärke jetzt, und je Team eine eigene Seite: das nächste Duell, die Gruppen im Ligavergleich, die Empfehlung mit Begründung, Waiver-Tipp und FAB, Handelspartner, Spielplan und spielfreie Wochen."><meta name="twitter:image" content="https://fishpig67.github.io/rz-tool/bilder/vorschau.jpg">
+<style>
+@font-face{font-family:"Anton";font-style:normal;font-weight:400;font-display:swap;src:url("schriften/anton.woff2") format("woff2")}
+@font-face{font-family:"Oswald";font-style:normal;font-weight:600;font-display:swap;src:url("schriften/oswald-600.woff2") format("woff2")}
+:root{--bg:#0a0e1a;--bg2:#111a2e;--bg3:#172238;--ink:#e8ecf5;--ink2:#b6bfd1;--mute:#7f8aa3;--line:#22304d;--accent:#2f6bff;--accent2:#5c8cff;
+  --pos:#4cc072;--neg:#ff6b6b;--start:#132444;--hint:#f0c060}
+*{box-sizing:border-box}
+html{background:var(--bg);scroll-padding-top:calc(var(--leiste, 52px) + 10px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;font-size:15px;line-height:1.45}
+.kopfzeile{background:linear-gradient(180deg,#0d1322,#0a0e1a)}
+.kopf{max-width:1180px;margin:0 auto;padding:18px 20px 12px;display:flex;flex-wrap:wrap;gap:14px 34px;align-items:center}
+/* Die klebende Leiste: nur die Navigation bleibt oben stehen, Logo, Wortmarke und Metazeile
+   scrollen weg. Der gestrichelte Strich sitzt jetzt hier, damit er die Leiste nach unten
+   abschliesst. Der Hintergrund muss deckend sein, sonst scheint der Inhalt durch. */
+.navleiste{position:sticky;top:0;z-index:6;background:linear-gradient(180deg,#0d1322,#0a0e1a);border-bottom:3px dashed var(--accent)}
+.navinner{max-width:1180px;margin:0 auto;padding:6px 20px 7px}
+.marke{display:flex;gap:14px;align-items:center;text-decoration:none;color:inherit}
+.marke .logo{width:56px;height:56px;border-radius:50%;flex:none;background:#000;overflow:hidden;box-shadow:0 0 0 2px var(--line)}
+.marke .logo img{width:100%;height:100%;display:block}
+.marke .logo.leer{background:var(--bg3)}
+.marke .wm{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;font-size:28px;letter-spacing:.05em;text-transform:uppercase;line-height:1;display:inline-block;transform:skew(-8deg)}
+.marke .wm b{color:var(--accent2);font-weight:400}
+.marke .meta{margin-top:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--mute)}
+nav.haupt{display:flex;flex-wrap:wrap;gap:4px 6px}
+nav.haupt a{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);text-decoration:none;padding:7px 12px;border-radius:5px}
+nav.haupt a:hover{color:var(--ink);background:var(--bg3)}
+nav.haupt a.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
+nav.haupt .mit-unter{position:relative;display:flex;align-items:stretch}
+nav.haupt button.pfeil{background:none;border:0;color:var(--ink2);font:inherit;font-size:12px;line-height:1;cursor:pointer;padding:7px 8px;border-radius:5px}
+nav.haupt button.pfeil:hover{color:var(--ink);background:var(--bg3)}
+nav.haupt button.pfeil:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+nav.haupt button.pfeil[aria-expanded="true"]{background:var(--bg3);color:var(--ink)}
+/* Ein Bereich ist ein reiner Knopf und sieht aus wie ein Menüpunkt: gleiche Schrift, gleiche
+   Masse wie nav.haupt a. Er führt auf keine Seite, es gibt keine. */
+nav.haupt button.bereich{display:inline-flex;align-items:center;gap:6px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:600;font-size:14.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink2);padding:7px 12px}
+nav.haupt button.bereich .pf{font-size:12px;letter-spacing:0}
+nav.haupt button.bereich.hier{background:var(--accent);color:#fff;box-shadow:0 0 18px rgba(47,107,255,.45)}
+nav.haupt .unter{position:absolute;top:100%;left:0;z-index:20;min-width:190px;margin-top:6px;padding:6px;display:flex;flex-direction:column;gap:2px;background:var(--bg2);border:1px solid var(--line);border-radius:8px;box-shadow:0 14px 40px rgba(0,0,0,.5)}
+nav.haupt .unter a{font-size:13.5px;letter-spacing:.1em;padding:8px 12px;white-space:nowrap}
+/* display:flex würde das hidden-Attribut überstimmen — gemessen am 2026-09-10: das Untermenü
+   stand ohne diese Zeile auf jeder Seite offen da. */
+nav.haupt .unter[hidden]{display:none}
+.rz-nav{display:none}
+main{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+h1,h2{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;font-weight:400;margin:0;line-height:1.05;letter-spacing:.06em;text-transform:uppercase}
+h3{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;margin:0;line-height:1.05;letter-spacing:.12em;text-transform:uppercase}
+h1{font-size:46px}h2{font-size:28px}h3{font-size:16px;font-weight:600;color:var(--ink2)}
+.eyebrow{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2);font-weight:700}
+.titel{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-bottom:8px}
+.lead{color:var(--ink2);max-width:80ch;margin:0 0 18px}
+.lead b{color:var(--ink)}
+.karte{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:18px}
+.karte.eng{padding:12px 16px}
+.controls{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center}
+.controls label{display:flex;gap:9px;align-items:center;cursor:pointer;font-weight:600}
+.controls input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent)}
+.controls select,.blaettern select{background:var(--bg3);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:5px 8px;font:inherit}
+section{margin-bottom:26px}
+.sec-kopf{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-bottom:10px}
+.sec-kopf .n{color:var(--mute);font-size:13px;flex-basis:100%}
+.kenn{display:flex;flex-wrap:wrap;align-items:center;gap:10px 28px;padding:12px 16px;border:1px solid var(--line);border-radius:10px;background:var(--bg3);margin-bottom:12px}
+.kenn .z{font-size:40px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-stretch:condensed;letter-spacing:.02em}
+.kenn .z small{font-size:13px;font-weight:600;color:var(--mute);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase}
+.kenn .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700}
+.kenn .kurz{color:var(--ink2);font-size:14px;flex:1 1 320px}
+.kenn .kurz b{color:var(--ink)}
+.kenn .neg{color:var(--neg)}.kenn .posv{color:var(--pos)}
+.info{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--accent2);color:var(--accent2);background:transparent;font:700 13px/1 Georgia,"Times New Roman",serif;font-style:italic;cursor:pointer;padding:0;flex:none;vertical-align:middle}
+.info:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
+.info:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--bg2)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:14.5px}
+th,td{padding:6px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:middle}
+/* Gemessen am 2026-09-13: dieses top:0 wirkt nirgends gegen das Fenster, weil jede Tabelle in
+   .tablewrap mit overflow-x:auto steht und dieser Kasten der Scrollbereich ist. Der Kopf klebt
+   also innerhalb des Kastens, der senkrecht nie scrollt. Deshalb bleibt es bei top:0: ein Wert
+   wie top:var(--leiste) würde den Kopf im Kasten nach unten schieben, sobald der Kasten doch
+   einmal senkrecht scrollt, und die klebende Leiste kann ihn ohnehin nicht verdecken. */
+th{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700;background:var(--bg3);position:sticky;top:0;z-index:1}
+th small{display:block;letter-spacing:.04em;text-transform:none;font-weight:500;color:var(--mute)}
+td.l,th.l{text-align:left}td.name{font-weight:600}
+tr:last-child td{border-bottom:none}
+tr.start td{background:var(--start)}
+tr.frei td.name .nm{color:var(--ink2);font-weight:500}
+.sp{display:flex;align-items:center;gap:10px;min-width:0}
+.av{width:36px;height:36px;border-radius:50%;flex:none;background:var(--bg3);border:1px solid var(--line);object-fit:cover;display:inline-block}
+img.av{background:var(--bg3)}
+.sp .txt{min-width:0}
+.sp .sub{display:none;font-size:12px;color:var(--mute);font-weight:400}
+.posv{color:var(--pos)}.negv{color:var(--neg)}.kd{color:var(--mute);font-style:italic}
+.warn{color:var(--neg);font-style:italic}
+.badge{display:inline-block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--accent2);border-radius:3px;padding:1px 5px;color:var(--accent2);margin-left:6px;vertical-align:middle;font-weight:700}
+.blaettern{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:10px;font-size:13.5px;color:var(--mute)}
+.blaettern .seiten{display:flex;flex-wrap:wrap;gap:4px}
+.blaettern button{background:var(--bg3);color:var(--ink2);border:1px solid var(--line);border-radius:6px;min-width:34px;height:32px;padding:0 8px;font:inherit;cursor:pointer}
+.blaettern button:hover{color:var(--ink);border-color:var(--accent2)}
+.blaettern button.hier{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+.blaettern button:disabled{opacity:.35;cursor:default}
+.blaettern .lab{margin-left:auto}
+.prov{margin-top:10px;font-size:12px;color:var(--mute);font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;line-height:1.6;overflow-wrap:anywhere}
+.prov b{color:var(--ink2);font-weight:600;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif}
+.foot{margin-top:34px;padding-top:16px;border-top:1px dashed var(--line);font-size:12.5px;color:var(--mute);max-width:95ch}
+dialog.fenster{background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:14px;padding:0;width:min(720px,calc(100vw - 24px));max-height:85vh;box-shadow:0 24px 80px rgba(0,0,0,.6)}
+dialog.fenster::backdrop{background:rgba(4,7,16,.72);backdrop-filter:blur(2px)}
+dialog.fenster .fk{position:sticky;top:0;display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--line);z-index:1}
+dialog.fenster .fk h3{flex:1;color:var(--ink);font-size:17px}
+dialog.fenster .zu{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--bg2);color:var(--ink);font-size:22px;line-height:1;cursor:pointer;flex:none}
+dialog.fenster .zu:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+dialog.fenster .fi{padding:14px 18px 18px;overflow:auto;max-height:calc(85vh - 70px);color:var(--ink2);line-height:1.55}
+dialog.fenster .fi h4{margin:14px 0 4px;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent2)}
+dialog.fenster .fi h4:first-child{margin-top:0}
+dialog.fenster .fi p{margin:0 0 10px}
+dialog.fenster .fi b{color:var(--ink)}
+dialog.fenster .fi .vb{border-left:3px solid var(--hint);padding:6px 12px;margin:8px 0;background:rgba(240,192,96,.06);border-radius:0 6px 6px 0}
+noscript p{color:var(--neg)}
+/* Das Spielfeld: Andeutung hinter dem Inhalt, nur Striche und Zahlen, keine Bilddatei. Fest im Fenster,
+   scrollt nicht mit; Karten und Tabellen liegen deckend darüber. Bei offenem Fenster ausgeblendet. */
+.feld{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
+  background:
+    repeating-linear-gradient(90deg,rgba(190,208,255,.075) 0 1px,transparent 1px 10%),
+    repeating-linear-gradient(90deg,rgba(190,208,255,.07) 0 1px,transparent 1px 2%) 0 38%/100% 9px repeat-x,
+    repeating-linear-gradient(90deg,rgba(190,208,255,.07) 0 1px,transparent 1px 2%) 0 62%/100% 9px repeat-x,
+    linear-gradient(rgba(190,208,255,.09),rgba(190,208,255,.09)) 0 6%/100% 2px no-repeat,
+    linear-gradient(rgba(190,208,255,.09),rgba(190,208,255,.09)) 0 94%/100% 2px no-repeat}
+.feld span::before{content:attr(data-n)}
+.feld span{position:absolute;top:9%;transform:translateX(-50%);font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:min(9vw,88px);line-height:1;color:rgba(190,208,255,.055);letter-spacing:.04em;user-select:none}
+.feld span.u{top:auto;bottom:9%;transform:translateX(-50%) rotate(180deg)}
+main{position:relative;z-index:1}
+/* Die Kopfzeile muss über dem Inhalt liegen, sonst fängt der Inhalt die Klicks auf das
+   aufgeklappte Untermenü ab: gleiche z-index-Stufe, und das spätere Element gewinnt.
+   Gemessen am 2026-09-10 in Chromium — sichtbar war das Untermenü, klickbar nicht. */
+.kopfzeile{position:relative;z-index:5}
+body.fenster-offen .feld{display:none}
+/* SEI-42: bei offenem Infofenster steht die Seite dahinter still. Die Klasse setzt das
+   Fensterskript ohnehin; gesperrt wird auf beiden möglichen Scrollbehältern, weil je nach
+   Seite html oder body scrollt. Das Fenster selbst scrollt innen weiter (dialog.fenster .fi
+   mit overflow:auto), es liegt im Top-Layer und nicht im Scrollfluss der Seite. */
+body.fenster-offen{overflow:hidden}
+html:has(body.fenster-offen){overflow:hidden}
+@media (max-width:760px){
+  .kopf{padding:12px 14px 8px;gap:10px 16px}
+  .navinner{padding:5px 12px 6px}
+  .marke .wm{font-size:21px}
+  nav.haupt{margin-left:0;width:100%;gap:2px 4px}
+  nav.haupt a{font-size:13.5px;padding:6px 9px;letter-spacing:.09em}
+  nav.haupt .mit-unter{flex-wrap:wrap}
+  nav.haupt .unter{position:static;margin-top:4px;flex-basis:100%;box-shadow:none;background:var(--bg3)}
+  main{padding:18px 12px 60px}
+  h1{font-size:34px}h2{font-size:22px}
+  .kenn .z{font-size:32px}
+  table{font-size:13px}
+  th,td{padding:5px 6px}
+  .sp .sub{display:block;white-space:normal;overflow-wrap:anywhere}
+  td.name{white-space:normal;min-width:120px}
+  .sp{gap:7px}
+  .badge{font-size:9px;padding:0 4px;margin-left:4px}
+  .av{width:30px;height:30px}
+  th small{display:none}
+  th{white-space:normal;letter-spacing:.05em;line-height:1.15}
+  td.name .nm{display:block}
+  td.name .txt{max-width:118px}
+  td.name .badge{margin-left:0;margin-right:4px}
+  .m1{display:none}
+  .blaettern .lab{margin-left:0;flex-basis:100%}
+}
+/* Unter 420 px bricht die Leiste sonst auf zwei Zeilen um und wird von 46 auf 79 px hoch
+   (gemessen am 2026-09-13 bei 375 px: 11,9 Prozent der Bildschirmhöhe statt 5,4). Enger gesetzt
+   bleibt sie bis 320 px einzeilig und 42 px hoch. */
+@media (max-width:420px){
+  nav.haupt a,nav.haupt button.bereich{font-size:12.5px;padding:5px 7px;letter-spacing:.06em}
+  nav.haupt button.pfeil{padding:5px 5px}
+}
+
+section{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:0 0 18px}
+.sec-head{margin-bottom:12px}.sec-head h2{display:inline}.sec-head .titel{margin-bottom:4px}
+.sec-head p{max-width:85ch;color:var(--ink2);margin:8px 0 0}
+.kenn-raster{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:14px 0}
+.kenn-raster>div{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--bg3)}
+.kenn-raster .z{font-size:40px;font-weight:400;font-variant-numeric:tabular-nums;line-height:1;font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;letter-spacing:.02em}
+.kenn-raster .z small{font-size:13px;font-weight:600;color:var(--mute);font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;letter-spacing:.06em}
+.kenn-raster .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700;margin-bottom:6px}
+.kenn-raster p{margin:6px 0 0;color:var(--ink2);font-size:13.5px}
+.beispiel{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:14px 0}
+.beispiel div{border-left:3px solid var(--accent);padding:6px 14px;color:var(--ink2);font-size:14.5px;line-height:1.5}
+.beispiel b{color:var(--ink);font-size:17px}
+.hint{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--line);border-left:3px solid var(--hint);color:var(--ink2);border-radius:0 8px 8px 0;padding:10px 14px;margin:10px 0 14px;background:rgba(240,192,96,.05)}
+.hint .tag{flex:none;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--hint);border:1px solid currentColor;border-radius:3px;padding:2px 7px;margin-top:2px}
+.n{color:var(--mute);font-size:13px}
+ul.luecken{max-width:85ch;color:var(--ink2);padding-left:20px}ul.luecken li{margin:4px 0}
+details.prov{margin-top:10px}details.prov summary{cursor:pointer;list-style:none;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);font-weight:700}
+details.prov summary::before{content:"▸ ";color:var(--accent2)}details.prov[open] summary::before{content:"▾ "}
+details.prov summary::-webkit-details-marker{display:none}
+details.prov .prov{margin-top:6px}
+td.name .sp .nm{font-weight:600}
+.av.wappen{border-radius:8px;object-fit:contain;background:#fff;padding:2px}
+.gruppe{margin-top:10px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute);font-weight:700}
+@media (max-width:760px){
+  section{padding:12px 12px;border-radius:10px}
+  .kenn-raster .z{font-size:32px}
+  .hint{flex-wrap:wrap}
+  .tablewrap table td.l:first-child,.tablewrap table th.l:first-child{position:sticky;left:0;background:var(--bg2);z-index:2}
+  .tablewrap table th.l:first-child{background:var(--bg3)}
+}
+
+.num{font-variant-numeric:tabular-nums;text-align:right}
+th.num{text-align:right}
+td.l.rang{text-align:right}
+td.rang{font-family:"Anton","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:18px;color:var(--accent2);text-align:right}
+th .d{display:block;margin-top:3px;font-size:10px;letter-spacing:.03em;text-transform:none;color:var(--mute);font-weight:400;line-height:1.25}
+tr.grenze td{border-bottom:2px solid var(--accent)}
+.plus{color:#5fd08a}.minus{color:#e06a7a}
+.kacheln{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0 0 18px}
+.kachel{border:1px solid var(--line);border-radius:10px;background:var(--bg2);padding:12px 14px}
+.kachel .w{font-family:"Anton","Avenir Next Condensed",Arial,sans-serif;font-size:28px;color:var(--ink)}
+.kachel .b{font-size:12px;color:var(--mute);line-height:1.35;margin-top:2px}
+.hinweis{border:1px solid var(--line);border-left:3px solid var(--hint);border-radius:0 8px 8px 0;padding:12px 16px;background:rgba(240,192,96,.05);color:var(--ink2);line-height:1.55;margin:0 0 18px}
+.hinweis b{color:var(--ink)}
+.divs{display:grid;grid-template-columns:minmax(0,1fr);gap:22px}
+.divs>div+div{border-top:1px solid var(--line);padding-top:18px}
+.divs h3{margin:0 0 8px}
+.plan{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.woche{border:1px solid var(--line);border-radius:10px;background:var(--bg2);padding:10px 12px}
+.woche .wk{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.woche .wk b{font-family:"Oswald","Avenir Next Condensed",Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--ink2)}
+.woche .wk span{font-size:11px;color:var(--mute)}
+.woche ol{list-style:none;margin:0;padding:0;display:grid;gap:3px}
+.woche li{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;font-size:13.5px;align-items:baseline}
+.woche li .r{text-align:right}
+.woche li .p{font-variant-numeric:tabular-nums;color:var(--ink2);font-size:12.5px}
+.woche li .vs{color:var(--mute);font-size:11px}
+ul.satz{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:10px}
+ul.satz li{border-left:3px solid var(--accent);padding:8px 14px;color:var(--ink2);font-size:15px;line-height:1.5}
+ul.satz li b{color:var(--ink)}
+@media (max-width:1000px){.plan{grid-template-columns:minmax(0,1fr)}.kacheln{grid-template-columns:minmax(0,1fr)}}
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+
+.inhalt{margin:0 0 18px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);font-size:14.5px}
+.inhalt ol{margin:6px 0 0;padding-left:22px;columns:2;column-gap:28px}
+.inhalt li{margin:2px 0;break-inside:avoid}
+.inhalt a{color:var(--accent);text-decoration:none;font-weight:600}.inhalt a:hover{text-decoration:underline}
+@media (max-width:640px){.inhalt ol{columns:1}}
+
+td.name a.mitlogo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}
+td.name a.mitlogo img{width:32px;height:32px;object-fit:contain;flex:none}
+td.name a.mitlogo span{border-bottom:1px dotted var(--mute)}
+td.name a.mitlogo:hover span{border-bottom-color:var(--accent)}
+.tmenue{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.tmenue a{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);padding:10px 12px;color:var(--ink);text-decoration:none}
+.tmenue a:hover,.tmenue a:focus-visible{border-color:var(--accent)}
+.tmenue img{width:48px;height:48px;object-fit:contain;flex:none}
+.tmenue .tn{font-weight:600;font-size:14px;line-height:1.25}
+.tmenue .tr{font-size:12px;color:var(--mute)}
+.tleiste{display:flex;gap:6px;overflow-x:auto;padding:4px 0 10px;margin:0 0 14px;scrollbar-width:thin}
+.tleiste a{flex:none;display:flex;flex-direction:column;align-items:center;gap:3px;width:64px;padding:6px 4px;border:1px solid var(--line);border-radius:10px;color:var(--ink2);text-decoration:none;font-size:10.5px;text-align:center;line-height:1.15}
+.tleiste a img{width:34px;height:34px;object-fit:contain}
+.tleiste a.hier{border-color:var(--accent);background:rgba(47,107,255,.12);color:var(--ink)}
+.tleiste a.uebersicht{justify-content:center;font-weight:600;letter-spacing:.04em}
+.tkopf{display:flex;align-items:center;gap:18px;margin:0 0 14px}
+.tkopf img{width:110px;height:110px;object-fit:contain;flex:none}
+.kacheln.vier{grid-template-columns:repeat(4,minmax(0,1fr))}
+.grafik{width:100%;height:auto;display:block}
+.grafik text{font-family:inherit}
+.legende{font-size:12px;color:var(--mute);margin:6px 0 0}
+.team ul,.liste{margin:8px 0 0;padding-left:18px;color:var(--ink2);font-size:14px;line-height:1.55}
+.klein{font-size:12px;color:var(--mute)}
+.tabelle-po .ds{font-size:12px;color:var(--mute)}
+.tabelle-po tr.grenze td{border-bottom:2px solid var(--accent2)}
+.liste a,.tabelle-plan a,.tabelle-po a,p.liste a{color:var(--accent2);text-decoration:none;border-bottom:1px dotted var(--accent2)}
+.felder{display:grid;grid-template-columns:auto minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr) auto;gap:6px}
+.felder .achse{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.felder .oben{grid-column:2;grid-row:1}.felder .unten{grid-column:2;grid-row:3}
+.felder .links{grid-column:1;grid-row:2;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+.felder .rechts{grid-column:3;grid-row:2;writing-mode:vertical-rl;text-align:center}
+.fraster{grid-column:2;grid-row:2;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.feldbox{border:1px solid var(--line);border-radius:12px;background:var(--bg2);padding:12px 14px;min-height:120px}
+.feldbox .fn{font-family:"Anton","Avenir Next Condensed",Arial,sans-serif;font-size:22px;color:var(--ink);text-transform:uppercase;letter-spacing:.02em}
+.feldbox .ft{font-size:12px;color:var(--mute);margin:2px 0 10px}
+.fteams{display:flex;flex-wrap:wrap;gap:8px}
+.fteams a{display:flex;flex-direction:column;align-items:center;width:78px;font-size:11px;line-height:1.2;text-align:center;color:var(--ink2);text-decoration:none;padding:4px;border-radius:8px;border:1px solid transparent}
+.fteams a img{width:40px;height:40px;object-fit:contain;margin-bottom:3px}
+.fteams a.hier{border-color:var(--accent);background:rgba(47,107,255,.12);color:var(--ink)}
+.feldbox{opacity:.45}.feldbox.hier{opacity:1;border-color:var(--accent);background:rgba(47,107,255,.10)}
+.feldbox{min-height:96px;position:relative}.felddot{width:56px;height:56px;object-fit:contain;display:block;margin-top:6px}
+.gruppen{display:grid;gap:4px}
+.gz{display:grid;grid-template-columns:62px minmax(0,1fr) 92px;align-items:center;gap:8px}
+.gl{color:var(--ink2);font-size:14px}.gw{text-align:right;font-size:15px;color:var(--ink);font-variant-numeric:tabular-nums}
+.spur{width:100%;display:block;overflow:visible}
+.byes{display:grid;grid-template-columns:repeat(17,minmax(0,1fr));gap:4px;align-items:end;height:150px}
+.bw{display:flex;flex-direction:column;align-items:center;height:100%}
+.bw.po{background:rgba(255,255,255,.04);border-radius:6px}
+.bt{flex:1;width:100%;display:flex;flex-direction:column;justify-content:flex-end;align-items:center}
+.bt .n{font-size:13px;color:var(--ink);margin-bottom:3px}
+.bt .s{display:block;width:70%;background:var(--mute);border-radius:4px 4px 0 0}
+.bt .s.hoch{background:var(--accent)}
+.bw .wk{font-size:11px;color:var(--mute);margin-top:4px}
+.marke-s{color:#5fd08a}.marke-w{color:#e06a7a}
+@media (max-width:1000px){.tmenue{grid-template-columns:repeat(2,minmax(0,1fr))}.kacheln.vier{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.tabelle-team td:nth-child(3),.tabelle-team th:nth-child(3),.tabelle-team td:nth-child(6),.tabelle-team th:nth-child(6){display:none}.gz{grid-template-columns:52px minmax(0,1fr) 78px}.tmenue a{flex-direction:column;text-align:center;gap:6px;padding:10px 6px}.tmenue a>span{display:block}.tmenue .lang{display:none}.tabelle-plan td:nth-child(4),.tabelle-plan th:nth-child(4){display:none}.tabelle-po td:nth-child(5),.tabelle-po th:nth-child(5){display:none}.tabelle-po td,.tabelle-po th{padding-left:6px;padding-right:6px}.tabelle-po.mit-p td:nth-child(4),.tabelle-po.mit-p th:nth-child(4){display:none}.tabelle-plan td,.tabelle-plan th{padding-left:6px;padding-right:6px}.feldbox{padding:10px 8px}.feldbox .fn{font-size:17px}.fteams a{width:62px}.tabelle-team td,.tabelle-team th{padding-left:6px;padding-right:6px}.tkopf img{width:72px;height:72px}}
+</style>
+</head>
+<body><!--rz-rahmen--><style>
+:root{--rz-bg:#f6f5f1;--rz-bg2:#ecebe5;--rz-ink:#191c20;--rz-ink2:#4c5259;--rz-mute:#7d838b;--rz-line:#d9d7cf;--rz-accent:#b3261e}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}}
+:root[data-theme="dark"]{--rz-bg:#16181b;--rz-bg2:#1f2226;--rz-ink:#e9e7e1;--rz-ink2:#b9b6ad;--rz-mute:#8b8f95;--rz-line:#33363b;--rz-accent:#e0625a}
+:where(.rz-nav){display:flex}
+.rz-nav{flex-wrap:wrap;gap:6px 20px;align-items:baseline;
+  padding:10px 20px;background:var(--rz-bg2);border-bottom:1px solid var(--rz-line);
+  font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue","Segoe UI",Arial,sans-serif;
+  font-size:14px;color:var(--rz-mute)}
+.rz-nav a{color:var(--rz-accent);text-decoration:none;font-weight:600}
+.rz-nav a:hover{text-decoration:underline}
+.rz-nav .rz-bereich{color:var(--rz-mute);font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+.rz-nav .rz-hier{color:var(--rz-ink2);font-weight:600}
+.rz-nav a.rz-hier{color:var(--rz-ink2)}
+.rz-nav a.rz-unter{font-weight:400;font-size:13px;opacity:.85}
+</style><nav class="rz-nav"><a href="index.html">Home</a><span class="rz-bereich rz-hier">Playbook</span><a href="kader.html" class="rz-unter">Fantasy-Teams</a><a href="nfl-teams.html" class="rz-unter">NFL-Teams</a><a href="spielerwert.html" class="rz-unter">Spielerwert</a><a href="saison.html" class="rz-unter">Saison</a><a href="team-analyzer.html" class="rz-hier rz-unter" aria-current="page">Team-Analyzer</a><a href="voraussagen.html" class="rz-unter">Voraussagen</a><span class="rz-bereich">Statistik</span><a href="liga-in-zahlen.html" class="rz-unter">Zahlen</a><a href="benotung.html" class="rz-unter">Spieler</a><a href="waiver-markt.html" class="rz-unter">Waiver</a><a href="handel.html" class="rz-unter">Handel</a><a href="griffe-fehlgriffe.html" class="rz-unter">Drops</a><a href="ewige-tabelle.html" class="rz-unter">Ewig</a><a href="manager.html" class="rz-unter">Manager</a><a href="gegner.html" class="rz-unter">Gegner</a><a href="grundlagen.html">Wissen</a></nav><!--/rz-rahmen-->
+<div class="feld" aria-hidden="true"><span style="left:10%" data-n="10"></span><span class="u" style="left:10%" data-n="10"></span><span style="left:20%" data-n="20"></span><span class="u" style="left:20%" data-n="20"></span><span style="left:30%" data-n="30"></span><span class="u" style="left:30%" data-n="30"></span><span style="left:40%" data-n="40"></span><span class="u" style="left:40%" data-n="40"></span><span style="left:50%" data-n="50"></span><span class="u" style="left:50%" data-n="50"></span><span style="left:60%" data-n="40"></span><span class="u" style="left:60%" data-n="40"></span><span style="left:70%" data-n="30"></span><span class="u" style="left:70%" data-n="30"></span><span style="left:80%" data-n="20"></span><span class="u" style="left:80%" data-n="20"></span><span style="left:90%" data-n="10"></span><span class="u" style="left:90%" data-n="10"></span></div>
+<div class="kopfzeile"><div class="kopf">
+  <a class="marke" href="index.html"><span class="logo"><img src="bilder/logo.png" alt="FishPig RedZone" width="56" height="56"></span><span><span class="wm">FishPigs <b>RedZone</b></span><div class="meta">Team Analyzer · Kader vom 24.09.2026 · Leistung 2025</div></span></a>
+</div></div>
+<div class="navleiste"><div class="navinner">
+  <nav class="haupt" aria-label="Seiten"><a href="index.html">Home</a><span class="mit-unter"><button class="pfeil bereich hier" type="button" aria-expanded="false" aria-controls="um-playbook" aria-label="Bereich Playbook">Playbook<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-playbook" hidden><a href="kader.html">Fantasy-Teams</a><a href="nfl-teams.html">NFL-Teams</a><a href="spielerwert.html">Spielerwert</a><a href="saison.html">Saison</a><a href="team-analyzer.html" class="hier" aria-current="page">Team-Analyzer</a><a href="voraussagen.html">Voraussagen</a></div></span><span class="mit-unter"><button class="pfeil bereich" type="button" aria-expanded="false" aria-controls="um-statistik" aria-label="Bereich Statistik">Statistik<span class="pf" aria-hidden="true">&#9662;</span></button><div class="unter" id="um-statistik" hidden><a href="liga-in-zahlen.html">Zahlen</a><a href="benotung.html">Spieler</a><a href="waiver-markt.html">Waiver</a><a href="handel.html">Handel</a><a href="griffe-fehlgriffe.html">Drops</a><a href="ewige-tabelle.html">Ewig</a><a href="manager.html">Manager</a><a href="gegner.html">Gegner</a></div></span><a href="grundlagen.html">Wissen</a></nav>
+</div></div>
+<main>
+
+<nav class="tleiste" aria-label="Teams"><a class="uebersicht" href="team-analyzer.html">Alle<br>Teams</a><a href="team-analyzer-01.html"><img src="bilder/fantasy/01.png" alt="" loading="lazy">Raging Unicorns</a><a href="team-analyzer-02.html"><img src="bilder/fantasy/02.png" alt="" loading="lazy">CrapTree Luckers</a><a href="team-analyzer-03.html"><img src="bilder/fantasy/03.png" alt="" loading="lazy">Dom's hand-picked AP</a><a href="team-analyzer-04.html"><img src="bilder/fantasy/04.png" alt="" loading="lazy">FishPig Tackles</a><a href="team-analyzer-05.html"><img src="bilder/fantasy/05.png" alt="" loading="lazy">Fumble Fiesta Zürich</a><a href="team-analyzer-06.html"><img src="bilder/fantasy/06.png" alt="" loading="lazy">Minnesota youngsters</a><a href="team-analyzer-07.html" class="hier" aria-current="page"><img src="bilder/fantasy/07.png" alt="" loading="lazy">Pietätlosi Pinguin</a><a href="team-analyzer-08.html"><img src="bilder/fantasy/08.png" alt="" loading="lazy">Stettlers</a><a href="team-analyzer-09.html"><img src="bilder/fantasy/09.png" alt="" loading="lazy">Säm Frän</a><a href="team-analyzer-10.html"><img src="bilder/fantasy/10.png" alt="" loading="lazy">Team Sgt. Hartman</a><a href="team-analyzer-11.html"><img src="bilder/fantasy/11.png" alt="" loading="lazy">Wakanda Meerkats</a><a href="team-analyzer-12.html"><img src="bilder/fantasy/12.png" alt="" loading="lazy">Wehntal Cows</a></nav>
+<div class="tkopf"><img src="bilder/fantasy/07.png" alt="Logo Pietätlosi Pinguin">
+<div class="sec-head"><div class="eyebrow">Team Analyzer · Kader vom 24.09.2026</div>
+<div class="titel"><h1>Pietätlosi Pinguin</h1></div></div></div>
+<div class="hinweis"><b>Stand: Kader vom 24.09.2026.</b> Die Stärke ist ein Rückblick: die Leistung der Saison 2025, gelegt auf die Kader von heute. Rookies und Spieler ohne Note zählen nicht. Kicker und Defense stehen mit ihren Yahoo-Punkten 2025 daneben, bis drei Wochen der Saison 2026 gespielt sind.</div>
+<div class="kacheln vier"><div class="kachel"><div class="w">4.</div><div class="b">Rang von 12 nach Stärke der Starter</div></div><div class="kachel"><div class="w">86,7</div><div class="b">Punkte je Spiel, sieben Starter</div></div><div class="kachel"><div class="w">+6,6</div><div class="b">zum Ligaschnitt von 80,1</div></div><div class="kachel"><div class="w">106,3</div><div class="b">mit K und DEF</div></div></div>
+
+<nav class='inhalt' aria-label='Inhalt'><div class='eyebrow'>Inhalt</div><ol><li><a href='#woche'>Das nächste Duell</a></li><li><a href='#playoff'>Das Playoff-Rennen</a></li><li><a href='#gruppen'>Im Ligavergleich</a></li><li><a href='#empfehlung'>Die Empfehlung</a></li><li><a href='#starter'>Die Starter</a></li><li><a href='#waiver'>Waiver-Tipp</a></li><li><a href='#handel'>Handelspartner</a></li><li><a href='#spielplan'>Der Spielplan</a></li><li><a href='#bye'>Spielfreie Wochen</a></li><li><a href='#punkte'>Punkte und Streuung</a></li><li><a href='#verlauf'>Der Verlauf</a></li><li><a href='#ohne'>Ohne Note im Kader</a></li></ol></nav>
+<section id="woche">
+  <div class="sec-head"><div class="eyebrow">Block 1 · diese Woche</div>
+  <div class="titel"><h2>Das nächste Duell</h2></div></div>
+  <p class="liste" style="padding:0">Woche 3 gegen <a href="team-analyzer-03.html">Dom's hand-picked AP</a>. Grün steht, wer in der Gruppe vorne liegt. Das ist ein Vergleich der Stärke, keine Prognose des Spiels.</p><div class="tablewrap"><table><thead><tr><th class="l">Gruppe<span class="d">Punkte je Spiel 2025</span></th><th class="num">Eigenes Team<span class="d"></span></th><th class="num">Dom's hand-picked AP<span class="d">Gegner</span></th></tr></thead><tbody><tr><td class="l">QB</td><td class="num">21,1</td><td class="num">21,1</td></tr><tr><td class="l">RB (2)</td><td class="num marke-s">29,0</td><td class="num">22,3</td></tr><tr><td class="l">WR (3)</td><td class="num">27,1</td><td class="num marke-s">27,4</td></tr><tr><td class="l">TE</td><td class="num marke-s">9,5</td><td class="num">7,2</td></tr><tr><td class="l">K</td><td class="num marke-s">9,9</td><td class="num">9,2</td></tr><tr><td class="l">DEF</td><td class="num marke-s">9,6</td><td class="num">7,5</td></tr><tr><td class="l"><b>Starter</b></td><td class="num"><b>86,7</b></td><td class="num"><b>78,0</b></td></tr></tbody></table></div>
+</section>
+
+<section id="playoff">
+  <div class="sec-head"><div class="eyebrow">Block 2 · Tabelle und Playoffs</div>
+  <div class="titel"><h2>Das Playoff-Rennen</h2><button class="info" type="button" data-fenster="f-playoff" aria-label="Erklärung" title="Erklärung">i</button></div></div>
+  <p class="liste" style="padding:0">Nach 2 gespielten Wochen steht das Team auf Platz 2 von 12, auf einem Playoffplatz. Playoff-Prozente kommen ab 8 gespielten Wochen. Vorher trifft der Tabellenstand gleich gut oder besser als die Simulation, gemessen an den Saisons 2021 bis 2025.</p><div class="tablewrap"><table class="tabelle-po"><thead><tr><th class="num">Platz<span class="d"></span></th><th class="l">Team<span class="d"></span></th><th class="num">Bilanz<span class="d">Siege, Niederlagen</span></th><th class="num">Punkte<span class="d">Punkte für</span></th><th class="l">Division<span class="d"></span></th></tr></thead><tbody><tr><td class="num">1</td><td class="l"><a href="team-analyzer-11.html">Wakanda Meerkats</a><br><span class="ds">Divisionssieger</span></td><td class="num">2-0</td><td class="num">246,68</td><td class="l">Catlake</td></tr><tr><td class="num">2</td><td class="l"><b><a href="team-analyzer-07.html">Pietätlosi Pinguin</a><br><span class="ds">Divisionssieger</span></b></td><td class="num">2-0</td><td class="num">203,98</td><td class="l">Downtown</td></tr><tr><td class="num">3</td><td class="l"><a href="team-analyzer-12.html">Wehntal Cows</a><br><span class="ds">Divisionssieger</span></td><td class="num">1-1</td><td class="num">210,34</td><td class="l">Wastelands</td></tr><tr><td class="num">4</td><td class="l"><a href="team-analyzer-04.html">FishPig Tackles</a></td><td class="num">1-1</td><td class="num">206,68</td><td class="l">Wastelands</td></tr><tr><td class="num">5</td><td class="l"><a href="team-analyzer-10.html">Team Sgt. Hartman</a></td><td class="num">1-1</td><td class="num">192,20</td><td class="l">Wastelands</td></tr><tr><td class="num">6</td><td class="l"><a href="team-analyzer-09.html">Säm Frän</a></td><td class="num">1-1</td><td class="num">174,18</td><td class="l">Downtown</td></tr><tr><td class="num">7</td><td class="l"><a href="team-analyzer-02.html">CrapTree Luckers</a></td><td class="num">1-1</td><td class="num">171,86</td><td class="l">Catlake</td></tr><tr class="grenze"><td class="num">8</td><td class="l"><a href="team-analyzer-01.html">Raging Unicorns</a></td><td class="num">1-1</td><td class="num">149,06</td><td class="l">Downtown</td></tr><tr><td class="num">9</td><td class="l"><a href="team-analyzer-06.html">Minnesota youngsters</a></td><td class="num">1-1</td><td class="num">143,96</td><td class="l">Catlake</td></tr><tr><td class="num">10</td><td class="l"><a href="team-analyzer-08.html">Stettlers</a></td><td class="num">1-1</td><td class="num">129,86</td><td class="l">Wastelands</td></tr><tr><td class="num">11</td><td class="l"><a href="team-analyzer-03.html">Dom's hand-picked AP</a></td><td class="num">0-2</td><td class="num">213,34</td><td class="l">Downtown</td></tr><tr><td class="num">12</td><td class="l"><a href="team-analyzer-05.html">Fumble Fiesta Zürich</a></td><td class="num">0-2</td><td class="num">109,34</td><td class="l">Catlake</td></tr></tbody></table></div><p class="hint">Die drei Divisionssieger stehen vorne, dann die übrigen nach Siegen und Punkten für. Die Linie unter Platz 8 ist die Playoff-Grenze.</p>
+</section>
+
+<section id="gruppen">
+  <div class="sec-head"><div class="eyebrow">Block 3 · sechs Gruppen</div>
+  <div class="titel"><h2>Im Ligavergleich</h2><button class="info" type="button" data-fenster="f-regeln" aria-label="Erklärung" title="Erklärung">i</button></div></div>
+  <div class="gruppen"><div class="gz"><span class="gl">QB</span><svg class="spur" height="28" role="img" aria-label="QB im Ligavergleich"><line x1="3%" x2="97%" y1="14" y2="14" stroke="var(--line)" stroke-width="1"/><line x1="41.10%" x2="41.10%" y1="4" y2="24" stroke="var(--mute)" stroke-width="2"><title>Ligaschnitt 19,5</title></line><circle cx="35.76%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Säm Frän: 19,1</title></circle><circle cx="97.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wakanda Meerkats: 23,4</title></circle><circle cx="34.33%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>FishPig Tackles: 19,0</title></circle><circle cx="11.55%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Fumble Fiesta Zürich: 17,4</title></circle><circle cx="30.06%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wehntal Cows: 18,7</title></circle><circle cx="3.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Team Sgt. Hartman: 16,8</title></circle><circle cx="64.24%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Dom's hand-picked AP: 21,1</title></circle><circle cx="28.64%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Minnesota youngsters: 18,6</title></circle><circle cx="7.27%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>CrapTree Luckers: 17,1</title></circle><circle cx="59.97%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Raging Unicorns: 20,8</title></circle><circle cx="57.12%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Stettlers: 20,6</title></circle><circle cx="64.24%" cy="14" r="8" fill="var(--accent)" stroke="var(--bg2)" stroke-width="2"><title>Pietätlosi Pinguin: 21,1</title></circle></svg><span class="gw">21,1 <span class="klein">Rang 2</span></span></div><div class="gz"><span class="gl">RB (2)</span><svg class="spur" height="28" role="img" aria-label="RB im Ligavergleich"><line x1="3%" x2="97%" y1="14" y2="14" stroke="var(--line)" stroke-width="1"/><line x1="63.88%" x2="63.88%" y1="4" y2="24" stroke="var(--mute)" stroke-width="2"><title>Ligaschnitt 25,1</title></line><circle cx="97.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Säm Frän: 31,8</title></circle><circle cx="96.01%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wakanda Meerkats: 31,6</title></circle><circle cx="93.52%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>FishPig Tackles: 31,1</title></circle><circle cx="58.70%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Fumble Fiesta Zürich: 24,1</title></circle><circle cx="78.10%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wehntal Cows: 28,0</title></circle><circle cx="55.72%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Team Sgt. Hartman: 23,5</title></circle><circle cx="49.75%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Dom's hand-picked AP: 22,3</title></circle><circle cx="80.09%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Minnesota youngsters: 28,4</title></circle><circle cx="39.31%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>CrapTree Luckers: 20,2</title></circle><circle cx="32.34%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Raging Unicorns: 18,8</title></circle><circle cx="3.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Stettlers: 12,9</title></circle><circle cx="83.07%" cy="14" r="8" fill="var(--accent)" stroke="var(--bg2)" stroke-width="2"><title>Pietätlosi Pinguin: 29,0</title></circle></svg><span class="gw">29,0 <span class="klein">Rang 4</span></span></div><div class="gz"><span class="gl">WR (3)</span><svg class="spur" height="28" role="img" aria-label="WR im Ligavergleich"><line x1="3%" x2="97%" y1="14" y2="14" stroke="var(--line)" stroke-width="1"/><line x1="47.84%" x2="47.84%" y1="4" y2="24" stroke="var(--mute)" stroke-width="2"><title>Ligaschnitt 27,5</title></line><circle cx="61.13%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Säm Frän: 30,4</title></circle><circle cx="49.32%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wakanda Meerkats: 27,8</title></circle><circle cx="58.86%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>FishPig Tackles: 29,9</title></circle><circle cx="97.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Fumble Fiesta Zürich: 38,3</title></circle><circle cx="44.32%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wehntal Cows: 26,7</title></circle><circle cx="82.47%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Team Sgt. Hartman: 35,1</title></circle><circle cx="47.50%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Dom's hand-picked AP: 27,4</title></circle><circle cx="30.70%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Minnesota youngsters: 23,7</title></circle><circle cx="27.52%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>CrapTree Luckers: 23,0</title></circle><circle cx="26.16%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Raging Unicorns: 22,7</title></circle><circle cx="3.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Stettlers: 17,6</title></circle><circle cx="46.14%" cy="14" r="8" fill="var(--accent)" stroke="var(--bg2)" stroke-width="2"><title>Pietätlosi Pinguin: 27,1</title></circle></svg><span class="gw">27,1 <span class="klein">Rang 7</span></span></div><div class="gz"><span class="gl">TE</span><svg class="spur" height="28" role="img" aria-label="TE im Ligavergleich"><line x1="3%" x2="97%" y1="14" y2="14" stroke="var(--line)" stroke-width="1"/><line x1="43.99%" x2="43.99%" y1="4" y2="24" stroke="var(--mute)" stroke-width="2"><title>Ligaschnitt 8,0</title></line><circle cx="66.79%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Säm Frän: 9,4</title></circle><circle cx="31.54%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wakanda Meerkats: 7,3</title></circle><circle cx="48.32%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>FishPig Tackles: 8,3</title></circle><circle cx="21.46%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Fumble Fiesta Zürich: 6,7</title></circle><circle cx="88.61%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wehntal Cows: 10,7</title></circle><circle cx="33.21%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Team Sgt. Hartman: 7,4</title></circle><circle cx="29.86%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Dom's hand-picked AP: 7,2</title></circle><circle cx="9.71%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Minnesota youngsters: 6,0</title></circle><circle cx="97.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>CrapTree Luckers: 11,2</title></circle><circle cx="29.86%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Raging Unicorns: 7,2</title></circle><circle cx="3.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Stettlers: 5,6</title></circle><circle cx="68.46%" cy="14" r="8" fill="var(--accent)" stroke="var(--bg2)" stroke-width="2"><title>Pietätlosi Pinguin: 9,5</title></circle></svg><span class="gw">9,5 <span class="klein">Rang 3</span></span></div><div class="gz"><span class="gl">K</span><svg class="spur" height="28" role="img" aria-label="K im Ligavergleich"><line x1="3%" x2="97%" y1="14" y2="14" stroke="var(--line)" stroke-width="1"/><line x1="49.85%" x2="49.85%" y1="4" y2="24" stroke="var(--mute)" stroke-width="2"><title>Ligaschnitt 9,9</title></line><circle cx="28.79%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wakanda Meerkats: 8,5</title></circle><circle cx="46.44%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>FishPig Tackles: 9,6</title></circle><circle cx="3.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Fumble Fiesta Zürich: 6,8</title></circle><circle cx="97.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wehntal Cows: 12,9</title></circle><circle cx="34.68%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Team Sgt. Hartman: 8,9</title></circle><circle cx="39.20%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Dom's hand-picked AP: 9,2</title></circle><circle cx="67.80%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Minnesota youngsters: 11,0</title></circle><circle cx="80.83%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Raging Unicorns: 11,9</title></circle><circle cx="50.91%" cy="14" r="8" fill="var(--accent)" stroke="var(--bg2)" stroke-width="2"><title>Pietätlosi Pinguin: 9,9</title></circle></svg><span class="gw">9,9 <span class="klein">Rang 4</span></span></div><div class="gz"><span class="gl">DEF</span><svg class="spur" height="28" role="img" aria-label="DEF im Ligavergleich"><line x1="3%" x2="97%" y1="14" y2="14" stroke="var(--line)" stroke-width="1"/><line x1="53.46%" x2="53.46%" y1="4" y2="24" stroke="var(--mute)" stroke-width="2"><title>Ligaschnitt 7,6</title></line><circle cx="3.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Säm Frän: 4,6</title></circle><circle cx="67.32%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wakanda Meerkats: 8,4</title></circle><circle cx="97.00%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>FishPig Tackles: 10,2</title></circle><circle cx="59.40%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Fumble Fiesta Zürich: 7,9</title></circle><circle cx="68.31%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Wehntal Cows: 8,5</title></circle><circle cx="34.66%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Team Sgt. Hartman: 6,5</title></circle><circle cx="51.48%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Dom's hand-picked AP: 7,5</title></circle><circle cx="61.38%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Minnesota youngsters: 8,1</title></circle><circle cx="3.99%" cy="14" r="5" fill="var(--mute)" fill-opacity=".55"><title>Stettlers: 4,6</title></circle><circle cx="88.09%" cy="14" r="8" fill="var(--accent)" stroke="var(--bg2)" stroke-width="2"><title>Pietätlosi Pinguin: 9,6</title></circle></svg><span class="gw">9,6 <span class="klein">Rang 2</span></span></div></div><p class="legende">Blauer Punkt: dieses Team. Graue Punkte: die übrigen elf. Strich: Ligaschnitt. Jede Zeile hat ihre eigene Skala, von der schwächsten bis zur stärksten Gruppe der Liga; RB und WR sind die Summe der zwei beziehungsweise drei Starter. Punkte je Spiel.</p><ul class="liste"><li><b>Stärken:</b> QB (Rang 2), TE (Rang 3), DEF (Rang 2)</li><li><b>Schwächen:</b> keine</li></ul>
+</section>
+
+<section id="empfehlung">
+  <div class="sec-head"><div class="eyebrow">Block 4 · vier Felder</div>
+  <div class="titel"><h2>Die Empfehlung</h2><button class="info" type="button" data-fenster="f-empf" aria-label="Erklärung" title="Erklärung">i</button></div></div>
+  <div class="hinweis"><b>Fenster schliesst:</b> noch einmal angreifen, dann umbauen.</div><div class="felder"><span class="achse oben">stark jetzt</span><span class="achse unten">schwach jetzt</span><span class="achse links">hält 2027</span><span class="achse rechts">hält nicht</span><div class="fraster"><div class="feldbox"><div class="fn">Win Now</div><div class="ft">jetzt angreifen</div></div><div class="feldbox hier"><div class="fn">Fenster schliesst</div><div class="ft">noch einmal angreifen, dann umbauen</div><img src="bilder/fantasy/07.png" alt="" class="felddot"></div><div class="feldbox"><div class="fn">Soft Rebuild</div><div class="ft">sanft umbauen</div></div><div class="feldbox"><div class="fn">Hard Rebuild</div><div class="ft">radikal umbauen</div></div></div></div><h3 style="margin:16px 0 4px">Warum</h3><ul class="liste"><li><b>Stark jetzt:</b> Rang 4 von 12 bei der Stärke der Starter (86,7 Punkte je Spiel). Zur oberen Hälfte gehört, wer mindestens 84,1 hat, also Rang 1 bis 6.</li><li><b>Hält nicht:</b> von den sieben Startern stehen 2027 voraussichtlich noch 5,68 in einem NFL-Kader, Rang 11 von 12. Zur oberen Hälfte gehört, wer mindestens 6,37 hat; es fehlen 0,69.</li><li><b>Wie viel jeder Starter abzieht</b> (voll haltbar zählt 1, grösster Abzug zuerst):<ul><li>Tyreek Hill (WR, 31 Jahre, Note C+): <b>−1,00</b>, nicht gemessen und keine A-Note, zählt nach der Regel als nicht haltbar</li><li>Kyren Williams (RB, 25 Jahre, Note A-): <b>−0,16</b>, gemessen 84 Prozent</li><li>Justin Jefferson (WR, 26 Jahre, Note D+): <b>−0,09</b>, gemessen 91 Prozent</li><li>Rashee Rice (WR, 25 Jahre, Note A+): <b>−0,07</b>, gemessen 93 Prozent</li></ul></li><li><b>Nach der Regel für Topspieler als haltbar gezählt:</b> Matthew Stafford (Note A), Derrick Henry (Note A-), George Kittle (Note A-). Das ist eine Festlegung, keine Messung.</li></ul><details class="prov"><summary>Alle sieben Starter</summary><ul class="liste"><li>Matthew Stafford (QB, Note A): nicht gemessen, Note A zählt als haltbar</li><li>Derrick Henry (RB, Note A-): nicht gemessen, Note A- zählt als haltbar</li><li>Kyren Williams (RB, Note A-): drei von vier, 84 Prozent</li><li>Rashee Rice (WR, Note A+): neun von zehn, 93 Prozent</li><li>Tyreek Hill (WR, Note C+): nicht gemessen, Note C+ zählt als nicht haltbar</li><li>Justin Jefferson (WR, Note D+): neun von zehn, 91 Prozent</li><li>George Kittle (TE, Note A-): nicht gemessen, Note A- zählt als haltbar</li></ul></details>
+</section>
+
+<section id="starter">
+  <div class="sec-head"><div class="eyebrow">Block 5 · neun Startplätze</div>
+  <div class="titel"><h2>Die Starter</h2></div></div>
+  <div class="tablewrap"><table class="tabelle-team"><thead><tr><th class="l">Pos<span class="d"></span></th><th class="l">Spieler<span class="d"></span></th><th class="l">NFL<span class="d"></span></th><th class="l">Note<span class="d">2025</span></th><th class="num">Pkt/Spiel<span class="d">2025</span></th><th class="num">Alter<span class="d"></span></th><th class="num">Bye<span class="d">Woche</span></th></tr></thead><tbody><tr><td class="l">QB</td><td class="l">Matthew Stafford</td><td class="l">LAR</td><td class="l">A</td><td class="num">21,1</td><td class="num">37</td><td class="num">11</td></tr><tr><td class="l">RB</td><td class="l">Derrick Henry</td><td class="l">BAL</td><td class="l">A-</td><td class="num">15,6</td><td class="num">31</td><td class="num">13</td></tr><tr><td class="l">RB</td><td class="l">Kyren Williams</td><td class="l">LAR</td><td class="l">A-</td><td class="num">13,4</td><td class="num">25</td><td class="num">11</td></tr><tr><td class="l">WR</td><td class="l">Rashee Rice</td><td class="l">KC</td><td class="l">A+</td><td class="num">12,1</td><td class="num">25</td><td class="num">5</td></tr><tr><td class="l">WR</td><td class="l">Tyreek Hill</td><td class="l">MIA</td><td class="l">C+</td><td class="num">8,1</td><td class="num">31</td><td class="num">6</td></tr><tr><td class="l">WR</td><td class="l">Justin Jefferson</td><td class="l">MIN</td><td class="l">D+</td><td class="num">6,9</td><td class="num">26</td><td class="num">6</td></tr><tr><td class="l">TE</td><td class="l">George Kittle</td><td class="l">SF</td><td class="l">A-</td><td class="num">9,5</td><td class="num">31</td><td class="num">8</td></tr><tr><td class="l">K</td><td class="l">Will Reichard</td><td class="l">MIN</td><td class="l">Yahoo 2025</td><td class="num">9,9</td><td class="num">·</td><td class="num">6</td></tr><tr><td class="l">DEF</td><td class="l">Texans</td><td class="l">HOU</td><td class="l">Yahoo 2025</td><td class="num">9,6</td><td class="num">·</td><td class="num">8</td></tr></tbody></table></div><ul class="liste"><li><b>QB:</b> Patrick Mahomes (A, 21,1), 0,0 Punkte je Spiel unter dem schwächsten Starter.</li><li><b>RB:</b> Aaron Jones Sr. (D, 7,6), 5,8 Punkte je Spiel unter dem schwächsten Starter.</li><li><b>WR:</b> Mike Evans (D+, 6,9), 0,0 Punkte je Spiel unter dem schwächsten Starter.</li><li><b>TE:</b> Tyler Warren (D+, 6,6), 2,9 Punkte je Spiel unter dem schwächsten Starter.</li></ul>
+</section>
+
+<section id="waiver">
+  <div class="sec-head"><div class="eyebrow">Block 6 · freier Markt und FAB</div>
+  <div class="titel"><h2>Waiver-Tipp</h2></div></div>
+  <p class="liste" style="padding:0"><b>FAB-Budget:</b> $210, Rang 6 von 12, Ligaschnitt $203. Stand 24.09.2026 (Bündel 20260924-1114-yahoo-w03-mi-c8c118); das Budget wird mit jedem Mittwochsabgriff nach dem Waiver-Durchgang neu gelesen.</p><ul class="liste"><li><b>WR:</b> Jauan Jennings (MIN, C, 7,9) ist frei und 1,0 Punkte je Spiel besser als dein schwächster Starter Justin Jefferson (6,9).</li></ul>
+</section>
+
+<section id="handel">
+  <div class="sec-head"><div class="eyebrow">Block 7 · eins gegen eins</div>
+  <div class="titel"><h2>Handelspartner</h2><button class="info" type="button" data-fenster="f-handel" aria-label="Erklärung" title="Erklärung">i</button></div></div>
+  <ul class="liste"><li>Mit <a href="team-analyzer-10.html">Team Sgt. Hartman</a>: du gibst Matthew Stafford (QB, A), du bekommst Chris Olave (WR, A-). Deine Starter +3,7, ihre Starter +3,5 Punkte je Spiel.</li><li>Mit <a href="team-analyzer-10.html">Team Sgt. Hartman</a>: du gibst Patrick Mahomes (QB, A), du bekommst Chris Olave (WR, A-). Deine Starter +3,7, ihre Starter +3,5 Punkte je Spiel.</li><li>Mit <a href="team-analyzer-10.html">Team Sgt. Hartman</a>: du gibst Matthew Stafford (QB, A), du bekommst Nico Collins (WR, A-). Deine Starter +3,4, ihre Starter +3,8 Punkte je Spiel.</li></ul><p class="legende">22 Tausche eins gegen eins machen beide Seiten stärker; gezeigt sind die drei, bei denen die schwächer bediente Seite am meisten gewinnt. Alter, Haltbarkeit und Marktwert zählen hier nicht.</p>
+</section>
+
+<section id="spielplan">
+  <div class="sec-head"><div class="eyebrow">Block 8 · Wochen 1 bis 14</div>
+  <div class="titel"><h2>Der Spielplan</h2></div></div>
+  <p class="liste" style="padding:0">Restprogramm: die kommenden Gegner haben im Schnitt 78,2 Punkte je Spiel, Rang 11 von 12 (1 ist das härteste). Der Spielplan geht nicht in die Empfehlung ein: als Vorhersage war er in der eigenen Messung schlechter als die Auskunft, alle Programme seien gleich hart.</p><div class="tablewrap"><table class="tabelle-plan"><thead><tr><th class="num">Woche<span class="d"></span></th><th class="l">Gegner<span class="d"></span></th><th class="num">Rang<span class="d">Stärke jetzt</span></th><th class="num">Stärke<span class="d">Punkte je Spiel</span></th><th class="l">Ergebnis<span class="d">nur gespielte Wochen</span></th></tr></thead><tbody><tr><td class="num">1</td><td class="l"><a href="team-analyzer-05.html">Fumble Fiesta Zürich</a></td><td class="num">5</td><td class="num">86,5</td><td class="l">106,20 : 61,86<br>Sieg</td></tr><tr><td class="num">2</td><td class="l"><a href="team-analyzer-04.html">FishPig Tackles</a></td><td class="num">3</td><td class="num">88,3</td><td class="l">97,78 : 82,72<br>Sieg</td></tr><tr><td class="num">3</td><td class="l"><a href="team-analyzer-03.html">Dom's hand-picked AP</a></td><td class="num">8</td><td class="num">78,0</td><td class="l">·</td></tr><tr><td class="num">4</td><td class="l"><a href="team-analyzer-09.html">Säm Frän</a></td><td class="num">1</td><td class="num">90,7</td><td class="l">·</td></tr><tr><td class="num">5</td><td class="l"><a href="team-analyzer-08.html">Stettlers</a></td><td class="num">12</td><td class="num">56,7</td><td class="l">·</td></tr><tr><td class="num">6</td><td class="l"><a href="team-analyzer-10.html">Team Sgt. Hartman</a></td><td class="num">7</td><td class="num">82,8</td><td class="l">·</td></tr><tr><td class="num">7</td><td class="l"><a href="team-analyzer-01.html">Raging Unicorns</a></td><td class="num">11</td><td class="num">69,5</td><td class="l">·</td></tr><tr><td class="num">8</td><td class="l"><a href="team-analyzer-11.html">Wakanda Meerkats</a></td><td class="num">2</td><td class="num">90,1</td><td class="l">·</td></tr><tr><td class="num">9</td><td class="l"><a href="team-analyzer-06.html">Minnesota youngsters</a></td><td class="num">9</td><td class="num">76,7</td><td class="l">·</td></tr><tr><td class="num">10</td><td class="l"><a href="team-analyzer-02.html">CrapTree Luckers</a></td><td class="num">10</td><td class="num">71,5</td><td class="l">·</td></tr><tr><td class="num">11</td><td class="l"><a href="team-analyzer-12.html">Wehntal Cows</a></td><td class="num">6</td><td class="num">84,1</td><td class="l">·</td></tr><tr><td class="num">12</td><td class="l"><a href="team-analyzer-01.html">Raging Unicorns</a></td><td class="num">11</td><td class="num">69,5</td><td class="l">·</td></tr><tr><td class="num">13</td><td class="l"><a href="team-analyzer-09.html">Säm Frän</a></td><td class="num">1</td><td class="num">90,7</td><td class="l">·</td></tr><tr><td class="num">14</td><td class="l"><a href="team-analyzer-03.html">Dom's hand-picked AP</a></td><td class="num">8</td><td class="num">78,0</td><td class="l">·</td></tr></tbody></table></div>
+</section>
+
+<section id="bye">
+  <div class="sec-head"><div class="eyebrow">Block 9 · Wochen 1 bis 17</div>
+  <div class="titel"><h2>Spielfreie Wochen</h2></div></div>
+  <div class="byes" role="img" aria-label="Spielfreie Starter je Woche"><div class="bw" title="Woche 1, Sonntag 13.09.: 0 spielfrei"><div class="bt"></div><span class="wk">1</span></div><div class="bw" title="Woche 2, Sonntag 20.09.: 0 spielfrei"><div class="bt"></div><span class="wk">2</span></div><div class="bw" title="Woche 3, Sonntag 27.09.: 0 spielfrei"><div class="bt"></div><span class="wk">3</span></div><div class="bw" title="Woche 4, Sonntag 04.10.: 0 spielfrei"><div class="bt"></div><span class="wk">4</span></div><div class="bw" title="Woche 5, Sonntag 11.10.: 1 spielfrei"><div class="bt"><span class="n">1</span><span class="s" style="height:33%"></span></div><span class="wk">5</span></div><div class="bw" title="Woche 6, Sonntag 18.10.: 3 spielfrei"><div class="bt"><span class="n">3</span><span class="s hoch" style="height:100%"></span></div><span class="wk">6</span></div><div class="bw" title="Woche 7, Sonntag 25.10.: 0 spielfrei"><div class="bt"></div><span class="wk">7</span></div><div class="bw" title="Woche 8, Sonntag 01.11.: 2 spielfrei"><div class="bt"><span class="n">2</span><span class="s hoch" style="height:67%"></span></div><span class="wk">8</span></div><div class="bw" title="Woche 9, Sonntag 08.11.: 0 spielfrei"><div class="bt"></div><span class="wk">9</span></div><div class="bw" title="Woche 10, Sonntag 15.11.: 0 spielfrei"><div class="bt"></div><span class="wk">10</span></div><div class="bw" title="Woche 11, Sonntag 22.11.: 2 spielfrei"><div class="bt"><span class="n">2</span><span class="s hoch" style="height:67%"></span></div><span class="wk">11</span></div><div class="bw" title="Woche 12, Sonntag 29.11.: 0 spielfrei"><div class="bt"></div><span class="wk">12</span></div><div class="bw" title="Woche 13, Sonntag 06.12.: 1 spielfrei"><div class="bt"><span class="n">1</span><span class="s" style="height:33%"></span></div><span class="wk">13</span></div><div class="bw" title="Woche 14, Sonntag 13.12.: 0 spielfrei"><div class="bt"></div><span class="wk">14</span></div><div class="bw po" title="Woche 15, Sonntag 20.12.: 0 spielfrei"><div class="bt"></div><span class="wk">15</span></div><div class="bw po" title="Woche 16, Sonntag 27.12.: 0 spielfrei"><div class="bt"></div><span class="wk">16</span></div><div class="bw po" title="Woche 17, Sonntag 03.01.: 0 spielfrei"><div class="bt"></div><span class="wk">17</span></div></div><p class="legende">Zahl über der Säule: spielfreie Starter der Woche (von neun, mit K und DEF). Blau ab 2. Unten die Woche; die Wochen 15 bis 17 (hinterlegt) sind die Playoffs.</p><ul class="liste"><li>Woche 6 (Sonntag 18.10.): 3 spielfrei, Tyreek Hill, Justin Jefferson, Will Reichard.</li><li>Woche 8 (Sonntag 01.11.): 2 spielfrei, George Kittle, Texans.</li><li>Woche 11 (Sonntag 22.11.): 2 spielfrei, Matthew Stafford, Kyren Williams.</li></ul>
+</section>
+
+<section id="punkte">
+  <div class="sec-head"><div class="eyebrow">Block 10 · Saison 2026</div>
+  <div class="titel"><h2>Punkte und Streuung</h2></div></div>
+  <p class="liste" style="padding:0">Kommt ab 4 gespielten Wochen, heute sind es 2. Dann steht hier, wie viele Punkte je Spiel das Team 2026 tatsächlich holt, wie stark sie von Woche zu Woche schwanken, und ob es mehr oder weniger punktet, als der Rang seiner Stärke erwarten lässt. Mit weniger Wochen sagen die Zahlen nichts.</p>
+</section>
+
+<section id="verlauf">
+  <div class="sec-head"><div class="eyebrow">Block 11 · je Woche</div>
+  <div class="titel"><h2>Der Verlauf</h2></div></div>
+  <div class="kacheln vier"><div class="kachel"><div class="w">4.</div><div class="b">Woche 1 · 86,7 Punkte je Spiel</div></div><div class="kachel"><div class="w">4.</div><div class="b">Woche 2 · 86,7 Punkte je Spiel</div></div><div class="kachel"><div class="w">4.</div><div class="b">Woche 3 · 86,7 Punkte je Spiel</div></div></div><p class="legende">Je Woche der jüngste Kaderstand, gelegt auf dieselben Noten. Ab mehr Wochen steht hier eine Linie.</p>
+</section>
+
+<section id="ohne">
+  <div class="sec-head"><div class="eyebrow">Block 12 · zählen nicht</div>
+  <div class="titel"><h2>Ohne Note im Kader</h2></div></div>
+  <ul class="liste"><li>MarShawn Lloyd, RB: ohne Zeile 2025</li></ul>
+</section>
+
+<details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Leistungsnote und Kader über das Paket spielerwert 20260905-0122-nflverse-parquet-5b1a0a (30 Dateien) · 20260907-0636-nflverse-schedules-05d152 (2 Dateien) · 20260904-1721-yahoo-voll-227e9b (18 Dateien) · 20260907-2042-player-ids-zweifach-93d97c (7 Dateien) · 20260911-0553-bruecke-korrektur-9d6d24 (2 Dateien) · 20260911-0927-bruecke-ergaenzung-01392e (2 Dateien) · Kader 20260924-1114-yahoo-w03-mi-c8c118 · Spielplan 20260924-1128-nflverse-schedules-frueh-w03-9c5200 · 20260904-1721-yahoo-voll-227e9b (18 Dateien) · 20260905-0122-nflverse-parquet-5b1a0a (30 Dateien) · 20260907-0636-nflverse-schedules-05d152 (2 Dateien) · 20260907-2042-player-ids-zweifach-93d97c (7 Dateien) · 20260911-0553-bruecke-korrektur-9d6d24 (2 Dateien) · 20260911-0927-bruecke-ergaenzung-01392e (2 Dateien) · Teamlogos 20260921-1241-teamlogos-55ea3f (13 Dateien im Manifest, 12 Logos, auf 160 px verkleinert). Jedes Manifest vor dem Lesen nachgerechnet.</div></details>
+
+</main>
+<dialog class="fenster" id="f-regeln" aria-labelledby="f-regeln-t"><div class="fk"><h3 id="f-regeln-t">Wie die Stärke entsteht</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p><b>Starter.</b> Je Kader die sieben besten Spieler nach Leistungsnote 2025: ein QB, zwei RB, drei WR, ein TE (die Liga hat keinen Flex). Die Stärke ist die Summe ihrer Punkte je Spiel nach den Regeln der Liga, je Spieler auf eine Stelle gerundet. Wer die Note nicht hat, zählt nicht. Fehlt auf einer Position ein Spieler mit Note, bekommt der Platz den Wert des freien Markts (QB 14,9, RB 5,7, WR 4,4, TE 5,1).</p><p><b>Gemessen.</b> An 60 Kadern der Saisons 2021 bis 2025 ordnet diese Zahl die Teams der Folgesaison mindestens so gut wie die Punkte der Vorsaison (Rangkorrelation 0,52 gegen 0,46, der Unterschied ist nicht belegt), und als Zahl trifft sie die Punkte der Folgesaison genauer (mittlerer Fehler 6,9 gegen 7,8 Punkte je Spiel).</p><p><b>Kicker und Defense</b> haben keine Leistungsnote. Hier stehen die Yahoo-Punkte der Saison 2025 je Spiel, für die Kicker und Defenses, die am 4. September 2026 in einem Kader standen. Kicker: geteilt durch die Spiele mit Kickversuch, Defense: durch 17. Wer damals in keinem Kader stand, hat keinen Wert; dann steht auch keine Summe „mit K und DEF“. Ab drei gespielten Wochen der Saison 2026 gelten die Yahoo-Punkte 2026: die Summe der Wochenpunkte aus den Dienstagsabgriffen, geteilt durch die Wochen, in denen sein NFL-Team gespielt hat. Heute gilt 2025.</p><p><b>Stärken und Schwächen.</b> Feste Regel: je Gruppe (QB, RB, WR, TE, K, DEF) der Rang in der Liga. Rang 1 bis 3 ist eine Stärke, Rang 10 bis 12 eine Schwäche.</p></div></dialog><dialog class="fenster" id="f-empf" aria-labelledby="f-empf-t"><div class="fk"><h3 id="f-empf-t">Wie die Empfehlung entsteht</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Zwei Zahlen, die nicht verrechnet werden. <b>Stärke jetzt:</b> die sieben Starter, wie oben. <b>Haltbarkeit:</b> wie viele der sieben Starter 2027 voraussichtlich noch in einem NFL-Kader stehen, die Summe der Anteile von der Seite Spielerwert (gemessen an Spielern gleichen Alters, gleicher Position und ähnlicher Leistung). Kicker und Defense zählen hier nicht.</p><p><b>Festlegung, keine Messung:</b> für Starter jenseits der Messgrenze (dort steht „nicht gemessen“) gilt: mit der Note A+, A oder A− zählt er als haltbar, mit jeder anderen Note als nicht haltbar. Grund: ein Spieler, der auf diesem Niveau punktet, spielt sehr wahrscheinlich noch ein Jahr.</p><p><b>Obere Hälfte</b> heisst je Zahl: mindestens so hoch wie der sechsthöchste Wert der Liga. Stark und haltbar ist Win Now, stark und nicht haltbar Fenster schliesst, schwach und haltbar Soft Rebuild, schwach und nicht haltbar Hard Rebuild.</p><p><b>Vorsicht:</b> die Haltbarkeit liegt bei den meisten Teams eng beieinander (Spanne 4,5 bis 6,7, die Mitte der Liga zwischen 6,3 und 6,4 Startern). Kleine Unterschiede entscheiden deshalb über das Feld; die Zahl selbst steht bei jedem Team daneben.</p></div></dialog><dialog class="fenster" id="f-handel" aria-labelledby="f-handel-t"><div class="fk"><h3 id="f-handel-t">Wie die Handelspartner entstehen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Geprüft wird jeder Tausch eines Spielers gegen einen Spieler eines anderen Teams. Gezeigt wird ein Tausch nur, wenn danach beide Teams nach der Stärke-Regel stärker sind, also die Summe der Punkte je Spiel ihrer sieben Starter steigt. Sortiert wird nach dem kleineren der beiden Gewinne: ein Tausch, bei dem beide etwas bekommen, steht vor einem, bei dem eine Seite fast leer ausgeht.</p><p>Nicht berücksichtigt: Alter, Haltbarkeit, Rookies ohne Note, Draft-Picks und wie ein Manager handelt. Es ist ein Vorschlag aus den Zahlen, kein Angebot.</p></div></dialog><dialog class="fenster" id="f-playoff" aria-labelledby="f-playoff-t"><div class="fk"><h3 id="f-playoff-t">Wie die Playoff-Zahl entsteht</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Bis 7 gespielte Wochen steht nur der Tabellenstand nach den Ligaregeln: Siege, bei Gleichstand Punkte für, die drei Divisionssieger gesetzt, acht von zwölf Teams kommen weiter.</p><p>Ab 8 gespielten Wochen spielt der Rechner den Rest der Saison 10'000 Mal durch. Jedes Team startet mit einem Wert aus seiner Stärke im Draft und seinen bisherigen Punkten; je mehr Wochen gespielt sind, desto mehr zählen die Punkte. Die Prozentzahl ist der Anteil der Durchläufe, in denen das Team unter den acht landet.</p><p>Gemessen an den Saisons 2022 bis 2025: über die Wochen 8, 10 und 12 trifft die Simulation besser als die Quote, wie oft ein Team auf demselben Platz durchkam. Vorher nicht. Die Grenze bei Woche 8 wurde gewählt, nachdem die Ergebnisse bekannt waren; der Vorsprung ist knapp belegt. Die Stärke 2026 kommt aus dem Draft, nicht aus dem Kader am Anpfiff wie in der Messung.</p></div></dialog>
+<script>
+// Die Höhe der klebenden Leiste als --leiste: davon hängen der Abstand der Sprungziele
+// (scroll-padding-top) und die Höhe ab, in der der Tabellenkopf klebt. Ohne Skript gilt der
+// Vorrat aus dem Stil; die Leiste selbst klebt auch ohne Skript, sie ist reines CSS.
+(function(){
+  const l = document.querySelector(".navleiste");
+  if (!l) return;
+  // Ein offener Aufklapper steht auf dem Handy in der Leiste und macht sie vorübergehend hoch
+  // (gemessen 383 px). Diese Höhe ist nicht die Leiste, deshalb wird dann nicht nachgemessen.
+  const setzen = () => {
+    if (document.querySelector("nav.haupt button.pfeil[aria-expanded='true']")) return;
+    document.documentElement.style.setProperty("--leiste", l.offsetHeight + "px");
+  };
+  setzen();
+  addEventListener("resize", setzen);
+  if (window.ResizeObserver) new ResizeObserver(setzen).observe(l);
+})();
+
+document.querySelectorAll("nav.haupt button.pfeil").forEach(b => {
+  const d = document.getElementById(b.getAttribute("aria-controls"));
+  b.addEventListener("click", ev => {
+    ev.stopPropagation();
+    const auf = b.getAttribute("aria-expanded") === "true";
+    document.querySelectorAll("nav.haupt button.pfeil").forEach(x => {
+      x.setAttribute("aria-expanded", "false");
+      document.getElementById(x.getAttribute("aria-controls")).hidden = true;
+    });
+    b.setAttribute("aria-expanded", auf ? "false" : "true");
+    d.hidden = auf;
+  });
+});
+document.addEventListener("click", ev => {
+  if (ev.target.closest("nav.haupt .mit-unter")) return;
+  document.querySelectorAll("nav.haupt button.pfeil[aria-expanded='true']").forEach(b => {
+    b.setAttribute("aria-expanded", "false");
+    document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+  });
+});
+document.addEventListener("keydown", ev => {
+  if (ev.key !== "Escape") return;
+  document.querySelectorAll("nav.haupt button.pfeil[aria-expanded='true']").forEach(b => {
+    b.setAttribute("aria-expanded", "false");
+    document.getElementById(b.getAttribute("aria-controls")).hidden = true;
+    b.focus();
+  });
+});
+
+document.addEventListener("click", ev => {
+  const i = ev.target.closest("button.info");
+  if (i){
+    const d = document.getElementById(i.dataset.fenster);
+    if (d && typeof d.showModal === "function") d.showModal(); else if (d) d.setAttribute("open", "");
+    document.body.classList.add("fenster-offen");
+    return;
+  }
+  const zu = ev.target.closest("button.zu");
+  if (zu){ zu.closest("dialog").close(); return; }
+  if (ev.target.tagName === "DIALOG" && ev.target.open) ev.target.close();
+});
+document.querySelectorAll("dialog.fenster").forEach(d => d.addEventListener("close", () => {
+  if (!document.querySelector("dialog.fenster[open]")) document.body.classList.remove("fenster-offen");
+}));
+</script>
+</body>
+</html>
