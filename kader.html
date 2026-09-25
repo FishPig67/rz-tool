@@ -219,6 +219,9 @@ a.teamkarte .n{font-size:12.5px;color:var(--mute)}
 .teamkopf{margin-bottom:8px}
 .teamkopf .mgr{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent2)}
 .teamkopf h1{font-size:38px}
+.teamkopf h1 .mitbild{gap:12px}
+.teamkopf h1 .mitbild .av{width:44px;height:44px}
+a.teamkarte h3 .mitbild .av{width:28px;height:28px}
 .knoepfe{display:flex;flex-wrap:wrap;align-items:center;gap:8px 16px;margin:0 0 18px}
 .knopf-gruppe{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
 .knopf-gruppe .lab{font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-weight:600;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
@@ -262,27 +265,62 @@ a.knopf.zurueck:hover{background:var(--accent);border-color:var(--accent);color:
 @media (max-width:760px){
   ol.teamkarten{grid-template-columns:1fr}
   .teamkopf h1{font-size:28px}
+  .teamkopf h1 .mitbild .av{width:34px;height:34px}
   .aufstellung tbody tr:not(.trenner){height:56px}
   .aufstellung thead tr{height:56px}
   .aufstellung table{font-size:13px}
   .aufstellung td,.aufstellung th{padding:0 5px}
   .grund .sub{display:block}
   .grund .av{width:26px;height:26px}
-  .m1{display:none}
+  /* NFL und Bye stehen auf dem Handy in der Unterzeile. Die Zellen bleiben als Spalten mit
+     Breite 0 stehen: mit display:none (gestalt blendet .m1 auf dem Handy aus) rutschten Leistung und Abstand unter die Spalten, die der
+     Kopf „Aufstellung“ (colspan 4) überspannt, und die Tabelle lief über die Statistik (gemessen
+     2026-09-24 bei 390 px, auch am veröffentlichten Stand). */
+  .grund .m1{display:table-cell;width:0;padding:0;font-size:0;border:0;overflow:hidden}
   /* Auf dem Handy bekommt die Grundtabelle feste Spaltenbreiten und rund drei Viertel der
      Breite: so bleibt sie ganz sichtbar (sie klebt links), und rechts steht ein Streifen
      des Statistikblocks, der geschoben wird. Ohne feste Breiten zog sie sich auf 423 px
      und hätte den Statistikblock vollständig verdeckt (gemessen bei 390 px). */
-  .grund{width:74%;max-width:272px}
-  .grund table{table-layout:fixed;width:100%}
+  .grund{width:auto;max-width:74%}
+  .grund table{width:100%}
   .grund td,.grund th{overflow:hidden}
   .grund th:first-child,.grund td.slot{width:30px;font-size:10.5px}
   .grund th:nth-child(5),.grund th:nth-child(6){width:54px}
-  .grund .nm{max-width:none}
+  .grund td:nth-child(2){max-width:116px}
+  .grund .nm{max-width:none;white-space:normal;overflow-wrap:anywhere;line-height:1.05;font-size:12px}
+  .grund .sub{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:78px;font-size:11px;line-height:1.2}
   .aufstellung thead th{font-size:10px;letter-spacing:.05em}
   .aufstellung thead tr.b th{white-space:normal}
   .grund td.kd{white-space:normal;font-size:10.5px;line-height:1.12}
 }
+
+.inhalt.knoepfe ol{columns:auto;list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.inhalt.knoepfe li{margin:0}
+.inhalt.knoepfe a{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg3);color:var(--ink);font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
+.inhalt.knoepfe a:hover,.inhalt.knoepfe a:focus-visible{border-color:var(--accent);background:var(--accent);color:#fff;text-decoration:none}
+@media (max-width:640px){.inhalt.knoepfe a{padding:6px 11px;font-size:12px}}
+
+details.erkl{margin:10px 0 14px;border:1px solid var(--line);border-left:3px solid var(--hint);border-radius:0 8px 8px 0;background:rgba(240,192,96,.05)}
+details.erkl>summary{cursor:pointer;list-style:none;padding:8px 14px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:700}
+details.erkl>summary::-webkit-details-marker{display:none}
+details.erkl>summary::before{content:"▸ ";color:var(--hint)}
+details.erkl[open]>summary::before{content:"▾ "}
+details.erkl .erkl-i{padding:0 14px 10px;color:var(--ink2);line-height:1.55;font-size:14px}
+details.erkl .erkl-i>:first-child{margin-top:0}
+details.erkl .erkl-i>:last-child{margin-bottom:0}
+
+.mitbild{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;max-width:100%}
+.mitbild>span:last-child{min-width:0}
+.mitbild .av{width:22px;height:22px}
+td .mitbild .av{width:30px;height:30px}
+.mitbild img.logo{border:0;border-radius:0;background:none;object-fit:contain}
+a.mitbild{color:inherit;text-decoration:none}
+a.mitbild>span:last-child{border-bottom:1px dotted currentColor}
+.sp .sub .mitbild{display:inline;gap:0}
+.sp .sub .mitbild .av{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+
+.rz-weg{display:none!important}
+nav.blaettern[hidden]{display:none}
 </style>
 </head>
 <body><!--rz-rahmen--><style>
@@ -315,11 +353,11 @@ a.knopf.zurueck:hover{background:var(--accent);border-color:var(--accent);color:
 Kaderstand vom 2026-09-24 11:28 UTC, Bündel 20260924-1114-yahoo-w03-mi-c8c118; er ändert sich mit jeder Waiver-Runde.
 Jede Karte führt auf die Aufstellung des Teams. Leistung ist die der <b>Vorsaison 2025</b>, nicht der laufenden.</p>
 <div class="kenn-raster"><div><div class="lab">Teams</div><div class="z">12</div><p>je eine eigene Seite</p></div><div><div class="lab">Kaderplätze</div><div class="z">213</div><p>108 aufgestellt, 96 Bank, 9 IR</p></div><div><div class="lab">Ohne Vorsaisondaten</div><div class="z">28</div><p>von 200 Spielern; Rookies und Spieler ohne Statistikzeile 2025</p></div><div><div class="lab">Team-Defenses</div><div class="z">13</div><p>ohne Punkte: Wertungsregeln nicht gebaut</p></div></div>
-<section><div class="sec-head"><div class="titel"><h2>Die zwölf Teams</h2><button class="info" type="button" data-fenster="f-verteilung" aria-label="Positionsverteilung und Plätze" title="Positionsverteilung und Plätze">i</button></div>
-<p>Manager, Teamname, Positionsverteilung. Der Klick führt auf die Aufstellung.</p></div>
-<ol class="teamkarten"><li><a class="teamkarte" href="kader-01.html"><div class="mgr">Tobias</div><h3>Raging Unicorns</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-02.html"><div class="mgr">Cyril</div><h3>CrapTree Luckers</h3><div class="vert">QB <b>1</b> · RB <b>6</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 3 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-03.html"><div class="mgr">Dominik</div><h3>Dom's hand-picked AP</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-04.html"><div class="mgr">Simon</div><h3>FishPig Tackles</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>6</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-05.html"><div class="mgr">Jarno</div><h3>Fumble Fiesta Zürich</h3><div class="vert">QB <b>1</b> · RB <b>7</b> · WR <b>6</b> · TE <b>1</b> · K <b>1</b> · DEF <b>2</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 4 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-06.html"><div class="mgr">Matthias</div><h3>Minnesota youngsters</h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>8</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-07.html"><div class="mgr">Michael</div><h3>Pietätlosi Pinguin</h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>8</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-08.html"><div class="mgr">Dominique</div><h3>Stettlers</h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>8</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 5 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-09.html"><div class="mgr">Samuel</div><h3>Säm Frän</h3><div class="vert">QB <b>1</b> · RB <b>6</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-10.html"><div class="mgr">Mutzi</div><h3>Team Sgt. Hartman</h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-11.html"><div class="mgr">Jake</div><h3>Wakanda Meerkats</h3><div class="vert">QB <b>1</b> · RB <b>7</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-12.html"><div class="mgr">Tanju</div><h3>Wehntal Cows</h3><div class="vert">QB <b>3</b> · RB <b>5</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 5 ohne Vorsaisondaten</div></a></li></ol></section>
+<section><div class="sec-head"><div class="titel"><h2>Die zwölf Teams</h2><button class="info" type="button" data-fenster="f-verteilung" aria-label="Positionsverteilung und Plätze" title="Positionsverteilung und Plätze">i</button></div></div>
+<details class="erkl"><summary>So liest du die Karten</summary><div class="erkl-i"><p>Manager, Teamname, Positionsverteilung. Der Klick führt auf die Aufstellung.</p></div></details>
+<ol class="teamkarten" data-blaettern="25"><li><a class="teamkarte" href="kader-01.html"><div class="mgr">Tobias</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/01.png" alt="" loading="lazy" width="30" height="30"><span>Raging Unicorns</span></span></h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-02.html"><div class="mgr">Cyril</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/02.png" alt="" loading="lazy" width="30" height="30"><span>CrapTree Luckers</span></span></h3><div class="vert">QB <b>1</b> · RB <b>6</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 3 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-03.html"><div class="mgr">Dominik</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/03.png" alt="" loading="lazy" width="30" height="30"><span>Dom's hand-picked AP</span></span></h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-04.html"><div class="mgr">Simon</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/04.png" alt="" loading="lazy" width="30" height="30"><span>FishPig Tackles</span></span></h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>6</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-05.html"><div class="mgr">Jarno</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/05.png" alt="" loading="lazy" width="30" height="30"><span>Fumble Fiesta Zürich</span></span></h3><div class="vert">QB <b>1</b> · RB <b>7</b> · WR <b>6</b> · TE <b>1</b> · K <b>1</b> · DEF <b>2</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 4 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-06.html"><div class="mgr">Matthias</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/06.png" alt="" loading="lazy" width="30" height="30"><span>Minnesota youngsters</span></span></h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>8</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-07.html"><div class="mgr">Michael</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/07.png" alt="" loading="lazy" width="30" height="30"><span>Pietätlosi Pinguin</span></span></h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>8</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-08.html"><div class="mgr">Dominique</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/08.png" alt="" loading="lazy" width="30" height="30"><span>Stettlers</span></span></h3><div class="vert">QB <b>2</b> · RB <b>4</b> · WR <b>8</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 5 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-09.html"><div class="mgr">Samuel</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/09.png" alt="" loading="lazy" width="30" height="30"><span>Säm Frän</span></span></h3><div class="vert">QB <b>1</b> · RB <b>6</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-10.html"><div class="mgr">Mutzi</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/10.png" alt="" loading="lazy" width="30" height="30"><span>Team Sgt. Hartman</span></span></h3><div class="vert">QB <b>2</b> · RB <b>5</b> · WR <b>7</b> · TE <b>2</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 2 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-11.html"><div class="mgr">Jake</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/11.png" alt="" loading="lazy" width="30" height="30"><span>Wakanda Meerkats</span></span></h3><div class="vert">QB <b>1</b> · RB <b>7</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 1 ohne Vorsaisondaten</div></a></li><li><a class="teamkarte" href="kader-12.html"><div class="mgr">Tanju</div><h3><span class="mitbild team"><img class="av logo" src="bilder/fantasy/12.png" alt="" loading="lazy" width="30" height="30"><span>Wehntal Cows</span></span></h3><div class="vert">QB <b>3</b> · RB <b>5</b> · WR <b>7</b> · TE <b>1</b> · K <b>1</b> · DEF <b>1</b></div><div class="n">9 aufgestellt · 8 Bank · 1 IR · 5 ohne Vorsaisondaten</div></a></li></ol></section>
 <details class="prov"><summary>Herkunft</summary><div class="prov">20260924-1114-yahoo-w03-mi-c8c118 / payload/rosters_2026_week03.csv · fb80bf9590c0ba134463ed043eab57067daa44ab0af82d211ebb3a6a8fe1453e<br>20260924-1114-yahoo-w03-mi-c8c118 / payload/free_agents_2026_week03.csv · d8a6a86efb687dd60793bb68056844a01c50003295c79fde0f32db218662f104<br>20260904-1721-yahoo-voll-227e9b / payload/league_settings_2026.json · 4b07a6671a5b7dee3019f9fce470b418dc6e7634084ce67a933f771809ac88af<br>20260904-1721-yahoo-voll-227e9b / payload/teams_2019_2026.csv · d8ef0dc58408b9496ac2461a9ec14555b83bd82e1f182045ff4fa4510de6a105<br>20260905-0122-nflverse-parquet-5b1a0a / payload/stats_player_week_2025.parquet · 2a461becaa9adb3c93a3074a3a31f1e960162a50163371a2d34e28393b5fff10<br>20260907-2042-player-ids-zweifach-93d97c / payload/spieler_ids.csv · d1475e5a795e1ab5891232ed83242a03bf1c129d814f7a309e8a2f032aadc999<br>20260907-2042-player-ids-zweifach-93d97c / payload/freie_ids.csv · 1ddfcc5594d1dd9dbb9d7a54c7bf13b3456d7e62f4bf596a8612e672df025718<br>20260907-2042-player-ids-zweifach-93d97c / payload/nicht_aufgeloest.csv · a5341861288d7d01b96eeef302daa848c37c14ec9c1af1f0ea3d3d5e2d3be3bc<br>20260924-1128-nflverse-schedules-frueh-w03-9c5200 / payload/games.parquet · 9f0f05ca8518c2984764fb67ee0f3c13b223681b62515f8d23227e867ab9c90a<br>20260911-0553-bruecke-korrektur-9d6d24 / payload/bruecke_korrektur.csv · 9d6d2443f6696b60a54e3f76082b0efdf952d6bc8fcb6e48d1c4c497680d5d36<br>20260911-0927-bruecke-ergaenzung-01392e / payload/bruecke_ergaenzung.csv · fcde2161f99ddd5033cf8e6e0c216048aa718eec9bd3e350f0a61db136a99c9c</div></details>
-<p class="foot">Erzeugt 2026-09-24T12:15:14Z UTC. Manifeste aller fünf Bündel geprüft; Herkunft je Zeile auf der Teamseite.</p>
+<p class="foot">Erzeugt 2026-09-25T00:52:14Z UTC. Manifeste aller fünf Bündel geprüft; Herkunft je Zeile auf der Teamseite.</p>
 
 </main>
 <dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seiten zeigen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Die zwölf Fantasy-Teams der Liga, Saison 2026, Woche 3: eine Übersicht und je Team eine Seite mit der Aufstellung.</p><h4>Kaderstand</h4><p>Der Kaderstand gilt für Woche 3 und ändert sich mit jeder Waiver-Runde. Datum und Bündel stehen im Kopf der Seite; eine spätere Woche ist ein neuer Abgriff und ein neuer Lauf. Stand 2026-09-24 11:28 UTC, Bündel 20260924-1114-yahoo-w03-mi-c8c118, Datei payload/rosters_2026_week03.csv.</p><h4>Leistung</h4><p>Die Leistung ist die der Vorsaison 2025 (Regular Season, Woche 1 bis 18), nicht der laufenden: stats_player_week_2026 gibt es in nflverse erst nach den ersten Spielen. Punkte pro Saisonwoche = Saisonsumme geteilt durch 18, gerechnet nach den Regeln dieser Liga, gleich wie auf der Seite „Spielerleistung 2025“.</p><h4>Manager</h4><p>Die Manager kommen aus teams_2019_2026.csv (Saison 2026). Yahoo hängt dem Kommissar das Wort „Commissioner“ ohne Trennzeichen an den Namen; es wird abgetrennt: „TobiasCommissioner“ wird „Tobias“ (Raging Unicorns). Sonst stehen die Namen, wie Yahoo sie führt.</p></div></dialog><dialog class="fenster" id="f-verteilung" aria-labelledby="f-verteilung-t"><div class="fk"><h3 id="f-verteilung-t">Positionsverteilung und Plätze</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Die Reihe zählt die Kaderplätze je Position (QB · RB · WR · TE · K · DEF); Bank und IR zählen mit. Ligaweit: QB 21 · RB 63 · WR 85 · TE 19 · K 12 · DEF 13.</p><h4>Aufgestellt, Bank, IR</h4><p>Aufgestellt heisst: der Spieler steht in diesem Team auf einem Startplatz (Yahoo-Spalte slot). Das ist nicht der Startbereich der Seite „Spielerleistung 2025“; der meint die ligaweit besten Spieler je Position mit Daten, unabhängig davon, wer sie aufstellt. Bank ist slot BN, IR ist slot IR. Ligaweit 108 aufgestellt, 96 auf der Bank, 9 auf IR.</p><h4>Ohne Vorsaisondaten</h4><p>Rookies und Spieler ohne Statistikzeile 2025 bekommen keinen Nullwert, sondern „keine Daten“. Sie zählen je Team gesondert. Ein Spieler ohne Daten ist nicht schlecht, er ist ungemessen. Ligaweit 28 von 200 Spielern.</p></div></dialog>
@@ -391,6 +429,97 @@ document.querySelectorAll(".saisonwahl button").forEach(b => b.addEventListener(
   document.querySelectorAll(".saisonwahl button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
   document.querySelectorAll("[data-saison-block]").forEach(x => { x.hidden = x.dataset.saisonBlock !== s; });
 }));
+
+function rzSeitenfolge(s, seiten){
+  const zeigen = new Set([1, seiten, s - 1, s, s + 1]);
+  const aus = [];
+  let letzte = 0;
+  for (let i = 1; i <= seiten; i++){
+    if (!zeigen.has(i)) continue;
+    if (i - letzte > 1) aus.push(0);
+    aus.push(i);
+    letzte = i;
+  }
+  return aus;
+}
+function rzBereich(gesamt, n, s){
+  const seiten = Math.max(1, Math.ceil(gesamt / n));
+  s = Math.min(Math.max(Math.floor(Number(s)) || 1, 1), seiten);
+  return {s: s, seiten: seiten, von: gesamt ? (s - 1) * n : 0, bis: Math.min(s * n, gesamt)};
+}
+
+(function(){
+  function eintraege(c){
+    if (c.tagName === "TABLE"){
+      let a = [];
+      for (const b of c.tBodies) a = a.concat(Array.from(b.rows));
+      return a;
+    }
+    return Array.from(c.children);
+  }
+  function zeichnen(c){
+    const n = Number(c.dataset.blaettern) || 25;
+    const alle = eintraege(c);
+    const sicht = alle.filter(x => !x.hidden && !x.hasAttribute("data-aus"));
+    const b = rzBereich(sicht.length, n, c.dataset.seite);
+    c.dataset.seite = b.s;
+    alle.forEach(x => x.classList.remove("rz-weg"));
+    sicht.forEach((x, i) => { if (i < b.von || i >= b.bis) x.classList.add("rz-weg"); });
+    let l = c._rzLeiste;
+    if (!l){
+      l = document.createElement("nav");
+      l.className = "blaettern";
+      l.setAttribute("aria-label", "Seiten");
+      (c.closest(".tablewrap") || c).after(l);
+      c._rzLeiste = l;
+      l.addEventListener("click", ev => {
+        const k = ev.target.closest("button[data-seite]");
+        if (!k || k.disabled) return;
+        c.dataset.seite = k.dataset.seite;
+        zeichnen(c);
+        const oben = (c.closest(".tablewrap") || c).getBoundingClientRect().top;
+        if (oben < 0) (c.closest(".tablewrap") || c).scrollIntoView({block: "start"});
+      });
+    }
+    // Die Leiste wird aus Elementen gebaut, nicht aus HTML-Text: so schreibt das
+    // Skript nie Markup in die Seite, auch dort, wo eine Seite genau das prüft (profil, Sortierung).
+    l.hidden = b.seiten <= 1;
+    l.replaceChildren();
+    if (l.hidden) return;
+    function knopf(seite, text, aus, label){
+      const k = document.createElement("button");
+      k.type = "button";
+      k.dataset.seite = seite;
+      k.textContent = text;
+      if (aus) k.disabled = true;
+      if (label) k.setAttribute("aria-label", label);
+      return k;
+    }
+    const seiten = document.createElement("div");
+    seiten.className = "seiten";
+    seiten.append(knopf(b.s - 1, "‹", b.s <= 1, "zurück"));
+    for (const i of rzSeitenfolge(b.s, b.seiten)){
+      if (!i){ const x = document.createElement("span"); x.textContent = "…"; seiten.append(x); continue; }
+      const k = knopf(i, String(i), false, null);
+      if (i === b.s){ k.className = "hier"; k.setAttribute("aria-current", "page"); }
+      seiten.append(k);
+    }
+    seiten.append(knopf(b.s + 1, "›", b.s >= b.seiten, "weiter"));
+    const lab = document.createElement("span");
+    lab.className = "lab";
+    lab.textContent = `${b.von + 1} bis ${b.bis} von ${sicht.length}`;
+    l.append(seiten, lab);
+  }
+  function einrichten(c){
+    if (c._rz) return;
+    c._rz = true;
+    zeichnen(c);
+    new MutationObserver(() => { c.dataset.seite = 1; zeichnen(c); })
+      .observe(c, {childList: true, subtree: true, attributes: true, attributeFilter: ["hidden", "data-aus"]});
+  }
+  window.rzBlaettern = root => (root || document).querySelectorAll("[data-blaettern]").forEach(einrichten);
+  window.rzBlaettern();
+})();
 </script>
 </body>
 </html>
