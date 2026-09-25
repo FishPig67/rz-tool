@@ -229,7 +229,8 @@ tr.grenze td{border-bottom:2px solid var(--accent)}
 .woche .wk b{font-family:"Oswald","Avenir Next Condensed",Arial,sans-serif;letter-spacing:.1em;text-transform:uppercase;font-size:12px;color:var(--ink2)}
 .woche .wk span{font-size:11px;color:var(--mute)}
 .woche ol{list-style:none;margin:0;padding:0;display:grid;gap:3px}
-.woche li{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;font-size:13.5px;align-items:baseline}
+.woche li{display:grid;grid-template-columns:minmax(0,1fr) 3.4em auto 3.4em minmax(0,1fr);gap:6px;font-size:13.5px;align-items:center}
+.woche li .pa{text-align:right}.woche li .pb{text-align:left}
 .woche li .r{text-align:right}
 .woche li .p{font-variant-numeric:tabular-nums;color:var(--ink2);font-size:12.5px}
 .woche li .vs{color:var(--mute);font-size:11px}
@@ -245,10 +246,40 @@ ul.satz li b{color:var(--ink)}
 .inhalt a{color:var(--accent);text-decoration:none;font-weight:600}.inhalt a:hover{text-decoration:underline}
 @media (max-width:640px){.inhalt ol{columns:1}}
 
-td.name a.mitlogo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}
-td.name a.mitlogo img{width:32px;height:32px;object-fit:contain;flex:none}
-td.name a.mitlogo span{border-bottom:1px dotted var(--mute)}
-td.name a.mitlogo:hover span{border-bottom-color:var(--accent)}
+.inhalt.knoepfe ol{columns:auto;list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.inhalt.knoepfe li{margin:0}
+.inhalt.knoepfe a{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg3);color:var(--ink);font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
+.inhalt.knoepfe a:hover,.inhalt.knoepfe a:focus-visible{border-color:var(--accent);background:var(--accent);color:#fff;text-decoration:none}
+@media (max-width:640px){.inhalt.knoepfe a{padding:6px 11px;font-size:12px}}
+
+details.erkl{margin:10px 0 14px;border:1px solid var(--line);border-left:3px solid var(--hint);border-radius:0 8px 8px 0;background:rgba(240,192,96,.05)}
+details.erkl>summary{cursor:pointer;list-style:none;padding:8px 14px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:700}
+details.erkl>summary::-webkit-details-marker{display:none}
+details.erkl>summary::before{content:"▸ ";color:var(--hint)}
+details.erkl[open]>summary::before{content:"▾ "}
+details.erkl .erkl-i{padding:0 14px 10px;color:var(--ink2);line-height:1.55;font-size:14px}
+details.erkl .erkl-i>:first-child{margin-top:0}
+details.erkl .erkl-i>:last-child{margin-bottom:0}
+
+.mitbild{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;max-width:100%}
+.mitbild>span:last-child{min-width:0}
+.mitbild .av{width:22px;height:22px}
+td .mitbild .av{width:30px;height:30px}
+.mitbild img.logo{border:0;border-radius:0;background:none;object-fit:contain}
+a.mitbild{color:inherit;text-decoration:none}
+a.mitbild>span:last-child{border-bottom:1px dotted currentColor}
+.sp .sub .mitbild{display:inline;gap:0}
+.sp .sub .mitbild .av{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+
+.rz-weg{display:none!important}
+nav.blaettern[hidden]{display:none}
+
+td.name a.mitbild{gap:10px;color:var(--ink)}
+td.name a.mitbild img.logo{width:32px;height:32px}
+td.name a.mitbild>span:last-child{border-bottom-color:var(--mute)}
+td.name a.mitbild:hover>span:last-child{border-bottom-color:var(--accent)}
+.urteil{border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:12px 16px;background:rgba(47,107,255,.06);color:var(--ink2);line-height:1.55;margin:0 0 14px}
+.urteil b{color:var(--ink)}
 .tmenue{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
 .tmenue a{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);padding:10px 12px;color:var(--ink);text-decoration:none}
 .tmenue a:hover,.tmenue a:focus-visible{border-color:var(--accent)}
@@ -330,24 +361,24 @@ td.name a.mitlogo:hover span{border-bottom-color:var(--accent)}
 
 <div class="sec-head"><div class="eyebrow">Playbook · Kader vom 24.09.2026</div>
 <div class="titel"><h1>Team Analyzer</h1><button class="info" type="button" data-fenster="f-seite" aria-label="Was diese Seite zeigt" title="Was diese Seite zeigt">i</button></div></div>
-<div class="hinweis"><b>Stand: Kader vom 24.09.2026.</b> Die Stärke ist ein Rückblick: die Leistung der Saison 2025, gelegt auf die Kader von heute. Rookies und Spieler ohne Note zählen nicht. Kicker und Defense stehen mit ihren Yahoo-Punkten 2025 daneben, bis drei Wochen der Saison 2026 gespielt sind.</div>
+<details class="erkl"><summary>Stand: Kader vom 24.09.2026</summary><div class="erkl-i">Die Stärke ist ein Rückblick: die Leistung der Saison 2025, gelegt auf die Kader von heute. Rookies und Spieler ohne Note zählen nicht. Kicker und Defense stehen mit ihren Yahoo-Punkten 2025 daneben, bis drei Wochen der Saison 2026 gespielt sind.</div></details>
 <div class="kacheln"><div class="kachel"><div class="w">80,1</div><div class="b">Ligaschnitt der Starter, Punkte je Spiel</div></div><div class="kachel"><div class="w">34,0</div><div class="b">Punkte je Spiel zwischen stärkstem und schwächstem Kader</div></div><div class="kachel"><div class="w">2</div><div class="b">Wochen 2026 gespielt; K und DEF wechseln ab 3 auf 2026</div></div></div>
 
-<nav class='inhalt' aria-label='Inhalt'><div class='eyebrow'>Inhalt</div><ol><li><a href='#staerke'>Die Stärke jetzt</a></li><li><a href='#offen'>Was hier noch nicht steht</a></li></ol></nav>
+<nav class='inhalt knoepfe' aria-label='Inhalt'><div class='eyebrow'>Inhalt</div><ol><li><a href='#staerke'>Die Stärke jetzt</a></li><li><a href='#offen'>Was hier noch nicht steht</a></li></ol></nav>
 <section id="staerke">
   <div class="sec-head"><div class="eyebrow">Block 1 · alle zwölf</div>
   <div class="titel"><h2>Die Stärke jetzt</h2><button class="info" type="button" data-fenster="f-regeln" aria-label="Wie die Stärke entsteht" title="Wie die Stärke entsteht">i</button></div></div>
-  <p class="legende" style="margin:0 0 10px">Logo oder Name antippen führt auf die Seite des Teams, mit Empfehlung, Spielplan, Handelspartnern und mehr.</p>
-  <div class="tablewrap"><table><thead><tr><th class="l">#<span class="d">Rang</span></th><th class="l">Team<span class="d">zur Teamseite</span></th><th class="num">Starter<span class="d">Punkte je Spiel 2025, sieben Starter</span></th><th class="num">zum Schnitt<span class="d">Abstand zum Ligaschnitt</span></th><th class="num">K<span class="d">Yahoo 2025 je Spiel</span></th><th class="num">DEF<span class="d">Yahoo 2025 je Spiel</span></th><th class="num">mit K und DEF<span class="d">Summe, nur wenn beide Werte da sind</span></th><th class="l">Stärken<span class="d">Rang 1 bis 3 der Gruppe</span></th><th class="l">Schwächen<span class="d">Rang 10 bis 12 der Gruppe</span></th></tr></thead><tbody><tr><td class="l rang">1</td><td class="l name"><a class="mitlogo" href="team-analyzer-09.html"><img src="bilder/fantasy/09.png" alt="" loading="lazy"><span>Säm Frän</span></a></td><td class="num">90,7</td><td class="num">+10,6</td><td class="num">·</td><td class="num">4,6</td><td class="num">·</td><td class="l marke-s">RB (1.), WR (3.)</td><td class="l marke-w">DEF (10.)</td></tr><tr><td class="l rang">2</td><td class="l name"><a class="mitlogo" href="team-analyzer-11.html"><img src="bilder/fantasy/11.png" alt="" loading="lazy"><span>Wakanda Meerkats</span></a></td><td class="num">90,1</td><td class="num">+10,0</td><td class="num">8,5</td><td class="num">8,4</td><td class="num">107,0</td><td class="l marke-s">QB (1.), RB (2.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">3</td><td class="l name"><a class="mitlogo" href="team-analyzer-04.html"><img src="bilder/fantasy/04.png" alt="" loading="lazy"><span>FishPig Tackles</span></a></td><td class="num">88,3</td><td class="num">+8,2</td><td class="num">9,6</td><td class="num">10,2</td><td class="num">108,1</td><td class="l marke-s">RB (3.), DEF (1.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">4</td><td class="l name"><a class="mitlogo" href="team-analyzer-07.html"><img src="bilder/fantasy/07.png" alt="" loading="lazy"><span>Pietätlosi Pinguin</span></a></td><td class="num">86,7</td><td class="num">+6,6</td><td class="num">9,9</td><td class="num">9,6</td><td class="num">106,3</td><td class="l marke-s">QB (2.), TE (3.), DEF (2.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">5</td><td class="l name"><a class="mitlogo" href="team-analyzer-05.html"><img src="bilder/fantasy/05.png" alt="" loading="lazy"><span>Fumble Fiesta Zürich</span></a></td><td class="num">86,5</td><td class="num">+6,4</td><td class="num">6,8</td><td class="num">7,9</td><td class="num">101,3</td><td class="l marke-s">WR (1.)</td><td class="l marke-w">QB (10.), TE (10.)</td></tr><tr><td class="l rang">6</td><td class="l name"><a class="mitlogo" href="team-analyzer-12.html"><img src="bilder/fantasy/12.png" alt="" loading="lazy"><span>Wehntal Cows</span></a></td><td class="num">84,1</td><td class="num">+4,0</td><td class="num">12,9</td><td class="num">8,5</td><td class="num">105,5</td><td class="l marke-s">TE (2.), K (1.), DEF (3.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">7</td><td class="l name"><a class="mitlogo" href="team-analyzer-10.html"><img src="bilder/fantasy/10.png" alt="" loading="lazy"><span>Team Sgt. Hartman</span></a></td><td class="num">82,8</td><td class="num">+2,7</td><td class="num">8,9</td><td class="num">6,5</td><td class="num">98,2</td><td class="l marke-s">WR (2.)</td><td class="l marke-w">QB (12.)</td></tr><tr><td class="l rang">8</td><td class="l name"><a class="mitlogo" href="team-analyzer-03.html"><img src="bilder/fantasy/03.png" alt="" loading="lazy"><span>Dom's hand-picked AP</span></a></td><td class="num">78,0</td><td class="num">−2,1</td><td class="num">9,2</td><td class="num">7,5</td><td class="num">94,6</td><td class="l marke-s">QB (2.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">9</td><td class="l name"><a class="mitlogo" href="team-analyzer-06.html"><img src="bilder/fantasy/06.png" alt="" loading="lazy"><span>Minnesota youngsters</span></a></td><td class="num">76,7</td><td class="num">−3,4</td><td class="num">11,0</td><td class="num">8,1</td><td class="num">95,8</td><td class="l marke-s">K (3.)</td><td class="l marke-w">TE (11.)</td></tr><tr><td class="l rang">10</td><td class="l name"><a class="mitlogo" href="team-analyzer-02.html"><img src="bilder/fantasy/02.png" alt="" loading="lazy"><span>CrapTree Luckers</span></a></td><td class="num">71,5</td><td class="num">−8,6</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="l marke-s">TE (1.)</td><td class="l marke-w">QB (11.), RB (10.), WR (10.)</td></tr><tr><td class="l rang">11</td><td class="l name"><a class="mitlogo" href="team-analyzer-01.html"><img src="bilder/fantasy/01.png" alt="" loading="lazy"><span>Raging Unicorns</span></a></td><td class="num">69,5</td><td class="num">−10,6</td><td class="num">11,9</td><td class="num">·</td><td class="num">·</td><td class="l marke-s">K (2.)</td><td class="l marke-w">RB (11.), WR (11.)</td></tr><tr><td class="l rang">12</td><td class="l name"><a class="mitlogo" href="team-analyzer-08.html"><img src="bilder/fantasy/08.png" alt="" loading="lazy"><span>Stettlers</span></a></td><td class="num">56,7</td><td class="num">−23,4</td><td class="num">·</td><td class="num">4,6</td><td class="num">·</td><td class="l marke-s">keine</td><td class="l marke-w">RB (12.), WR (12.), TE (12.)</td></tr></tbody></table></div>
+  <details class="erkl"><summary>So liest du die Tabelle</summary><div class="erkl-i">Logo oder Name antippen führt auf die Seite des Teams, mit Empfehlung, Spielplan, Handelspartnern und mehr.</div></details>
+  <div class="tablewrap"><table data-blaettern="25"><thead><tr><th class="l">#<span class="d">Rang</span></th><th class="l">Team<span class="d">zur Teamseite</span></th><th class="num">Starter<span class="d">Punkte je Spiel 2025, sieben Starter</span></th><th class="num">zum Schnitt<span class="d">Abstand zum Ligaschnitt</span></th><th class="num">K<span class="d">Yahoo 2025 je Spiel</span></th><th class="num">DEF<span class="d">Yahoo 2025 je Spiel</span></th><th class="num">mit K und DEF<span class="d">Summe, nur wenn beide Werte da sind</span></th><th class="l">Stärken<span class="d">Rang 1 bis 3 der Gruppe</span></th><th class="l">Schwächen<span class="d">Rang 10 bis 12 der Gruppe</span></th></tr></thead><tbody><tr><td class="l rang">1</td><td class="l name"><a class="mitbild team" href="team-analyzer-09.html"><img class="av logo" src="bilder/fantasy/09.png" alt="" loading="lazy" width="30" height="30"><span>Säm Frän</span></a></td><td class="num">90,7</td><td class="num">+10,6</td><td class="num">·</td><td class="num">4,6</td><td class="num">·</td><td class="l marke-s">RB (1.), WR (3.)</td><td class="l marke-w">DEF (10.)</td></tr><tr><td class="l rang">2</td><td class="l name"><a class="mitbild team" href="team-analyzer-11.html"><img class="av logo" src="bilder/fantasy/11.png" alt="" loading="lazy" width="30" height="30"><span>Wakanda Meerkats</span></a></td><td class="num">90,1</td><td class="num">+10,0</td><td class="num">8,5</td><td class="num">8,4</td><td class="num">107,0</td><td class="l marke-s">QB (1.), RB (2.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">3</td><td class="l name"><a class="mitbild team" href="team-analyzer-04.html"><img class="av logo" src="bilder/fantasy/04.png" alt="" loading="lazy" width="30" height="30"><span>FishPig Tackles</span></a></td><td class="num">88,3</td><td class="num">+8,2</td><td class="num">9,6</td><td class="num">10,2</td><td class="num">108,1</td><td class="l marke-s">RB (3.), DEF (1.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">4</td><td class="l name"><a class="mitbild team" href="team-analyzer-07.html"><img class="av logo" src="bilder/fantasy/07.png" alt="" loading="lazy" width="30" height="30"><span>Pietätlosi Pinguin</span></a></td><td class="num">86,7</td><td class="num">+6,6</td><td class="num">9,9</td><td class="num">9,6</td><td class="num">106,3</td><td class="l marke-s">QB (2.), TE (3.), DEF (2.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">5</td><td class="l name"><a class="mitbild team" href="team-analyzer-05.html"><img class="av logo" src="bilder/fantasy/05.png" alt="" loading="lazy" width="30" height="30"><span>Fumble Fiesta Zürich</span></a></td><td class="num">86,5</td><td class="num">+6,4</td><td class="num">6,8</td><td class="num">7,9</td><td class="num">101,3</td><td class="l marke-s">WR (1.)</td><td class="l marke-w">QB (10.), TE (10.)</td></tr><tr><td class="l rang">6</td><td class="l name"><a class="mitbild team" href="team-analyzer-12.html"><img class="av logo" src="bilder/fantasy/12.png" alt="" loading="lazy" width="30" height="30"><span>Wehntal Cows</span></a></td><td class="num">84,1</td><td class="num">+4,0</td><td class="num">12,9</td><td class="num">8,5</td><td class="num">105,5</td><td class="l marke-s">TE (2.), K (1.), DEF (3.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">7</td><td class="l name"><a class="mitbild team" href="team-analyzer-10.html"><img class="av logo" src="bilder/fantasy/10.png" alt="" loading="lazy" width="30" height="30"><span>Team Sgt. Hartman</span></a></td><td class="num">82,8</td><td class="num">+2,7</td><td class="num">8,9</td><td class="num">6,5</td><td class="num">98,2</td><td class="l marke-s">WR (2.)</td><td class="l marke-w">QB (12.)</td></tr><tr><td class="l rang">8</td><td class="l name"><a class="mitbild team" href="team-analyzer-03.html"><img class="av logo" src="bilder/fantasy/03.png" alt="" loading="lazy" width="30" height="30"><span>Dom's hand-picked AP</span></a></td><td class="num">78,0</td><td class="num">−2,1</td><td class="num">9,2</td><td class="num">7,5</td><td class="num">94,6</td><td class="l marke-s">QB (2.)</td><td class="l marke-w">keine</td></tr><tr><td class="l rang">9</td><td class="l name"><a class="mitbild team" href="team-analyzer-06.html"><img class="av logo" src="bilder/fantasy/06.png" alt="" loading="lazy" width="30" height="30"><span>Minnesota youngsters</span></a></td><td class="num">76,7</td><td class="num">−3,4</td><td class="num">11,0</td><td class="num">8,1</td><td class="num">95,8</td><td class="l marke-s">K (3.)</td><td class="l marke-w">TE (11.)</td></tr><tr><td class="l rang">10</td><td class="l name"><a class="mitbild team" href="team-analyzer-02.html"><img class="av logo" src="bilder/fantasy/02.png" alt="" loading="lazy" width="30" height="30"><span>CrapTree Luckers</span></a></td><td class="num">71,5</td><td class="num">−8,6</td><td class="num">·</td><td class="num">·</td><td class="num">·</td><td class="l marke-s">TE (1.)</td><td class="l marke-w">QB (11.), RB (10.), WR (10.)</td></tr><tr><td class="l rang">11</td><td class="l name"><a class="mitbild team" href="team-analyzer-01.html"><img class="av logo" src="bilder/fantasy/01.png" alt="" loading="lazy" width="30" height="30"><span>Raging Unicorns</span></a></td><td class="num">69,5</td><td class="num">−10,6</td><td class="num">11,9</td><td class="num">·</td><td class="num">·</td><td class="l marke-s">K (2.)</td><td class="l marke-w">RB (11.), WR (11.)</td></tr><tr><td class="l rang">12</td><td class="l name"><a class="mitbild team" href="team-analyzer-08.html"><img class="av logo" src="bilder/fantasy/08.png" alt="" loading="lazy" width="30" height="30"><span>Stettlers</span></a></td><td class="num">56,7</td><td class="num">−23,4</td><td class="num">·</td><td class="num">4,6</td><td class="num">·</td><td class="l marke-s">keine</td><td class="l marke-w">RB (12.), WR (12.), TE (12.)</td></tr></tbody></table></div>
 </section>
 
 <section id="offen">
   <div class="sec-head"><div class="eyebrow">Block 2 · bewusst offen</div>
   <div class="titel"><h2>Was hier noch nicht steht</h2></div></div>
-  <ul class="satz"><li><b>Playoff-Wahrscheinlichkeit.</b> Wird als Simulation gerechnet, aber erst, wenn gemessen ist, dass sie besser trifft als eine einfache Grundlinie.</li><li><b>Rookie-Draft-Picks.</b> Welche Picks welchem Team gehören, ist aus den Abgriffen nicht sicher zu bestimmen; zuerst wird die Datenlage geprüft.</li><li><b>Punkte 2026 und Streuung.</b> Stehen auf den Teamseiten ab 4 gespielten Wochen.</li></ul>
+  <details class="erkl"><summary>3 Punkte, bewusst offen</summary><div class="erkl-i"><ul class="satz"><li><b>Playoff-Wahrscheinlichkeit.</b> Wird als Simulation gerechnet, aber erst, wenn gemessen ist, dass sie besser trifft als eine einfache Grundlinie.</li><li><b>Rookie-Draft-Picks.</b> Welche Picks welchem Team gehören, ist aus den Abgriffen nicht sicher zu bestimmen; zuerst wird die Datenlage geprüft.</li><li><b>Punkte 2026 und Streuung.</b> Stehen auf den Teamseiten ab 4 gespielten Wochen.</li></ul></div></details>
 </section>
 
-<details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Leistungsnote und Kader über das Paket spielerwert 20260905-0122-nflverse-parquet-5b1a0a (30 Dateien) · 20260907-0636-nflverse-schedules-05d152 (2 Dateien) · 20260904-1721-yahoo-voll-227e9b (18 Dateien) · 20260907-2042-player-ids-zweifach-93d97c (7 Dateien) · 20260911-0553-bruecke-korrektur-9d6d24 (2 Dateien) · 20260911-0927-bruecke-ergaenzung-01392e (2 Dateien) · Kader 20260924-1114-yahoo-w03-mi-c8c118 · Spielplan 20260924-1128-nflverse-schedules-frueh-w03-9c5200 · 20260904-1721-yahoo-voll-227e9b (18 Dateien) · 20260905-0122-nflverse-parquet-5b1a0a (30 Dateien) · 20260907-0636-nflverse-schedules-05d152 (2 Dateien) · 20260907-2042-player-ids-zweifach-93d97c (7 Dateien) · 20260911-0553-bruecke-korrektur-9d6d24 (2 Dateien) · 20260911-0927-bruecke-ergaenzung-01392e (2 Dateien) · Teamlogos 20260921-1241-teamlogos-55ea3f (13 Dateien im Manifest, 12 Logos, auf 160 px verkleinert). Jedes Manifest vor dem Lesen nachgerechnet.</div></details>
+<details class="prov"><summary>Herkunft</summary><div class="prov"><b>Herkunft</b> Leistungsnote und Kader über das Paket spielerwert 20260905-0122-nflverse-parquet-5b1a0a (30 Dateien) · 20260907-0636-nflverse-schedules-05d152 (2 Dateien) · 20260904-1721-yahoo-voll-227e9b (18 Dateien) · 20260907-2042-player-ids-zweifach-93d97c (7 Dateien) · 20260911-0553-bruecke-korrektur-9d6d24 (2 Dateien) · 20260911-0927-bruecke-ergaenzung-01392e (2 Dateien) · Kader 20260924-1114-yahoo-w03-mi-c8c118 · Spielplan 20260924-1128-nflverse-schedules-frueh-w03-9c5200 · 20260904-1721-yahoo-voll-227e9b (18 Dateien) · 20260905-0122-nflverse-parquet-5b1a0a (30 Dateien) · 20260907-0636-nflverse-schedules-05d152 (2 Dateien) · 20260907-2042-player-ids-zweifach-93d97c (7 Dateien) · 20260911-0553-bruecke-korrektur-9d6d24 (2 Dateien) · 20260911-0927-bruecke-ergaenzung-01392e (2 Dateien) · Teamlogos 20260921-1241-teamlogos-55ea3f (13 Dateien im Manifest, 12 Logos, auf 160 px verkleinert) · Bilder 20260909-2010-nfl-spielerbilder-w200-ebbda3 (165 Kopfbilder, w_200, NFL Media). Jedes Manifest vor dem Lesen nachgerechnet.</div></details>
 
 </main>
 <dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seite zeigt</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Alle zwölf Kader der Liga nach ihrer Stärke jetzt, und je Team eine eigene Seite mit der Empfehlung für dieses Team. Die Seite trägt einen Stand, kein Urteil: jede Zahl steht neben dem Ligavergleich, und jede Deutung folgt einer festen Regel, die hier steht.</p></div></dialog><dialog class="fenster" id="f-regeln" aria-labelledby="f-regeln-t"><div class="fk"><h3 id="f-regeln-t">Wie die Stärke entsteht</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p><b>Starter.</b> Je Kader die sieben besten Spieler nach Leistungsnote 2025: ein QB, zwei RB, drei WR, ein TE (die Liga hat keinen Flex). Die Stärke ist die Summe ihrer Punkte je Spiel nach den Regeln der Liga, je Spieler auf eine Stelle gerundet. Wer die Note nicht hat, zählt nicht. Fehlt auf einer Position ein Spieler mit Note, bekommt der Platz den Wert des freien Markts (QB 14,9, RB 5,7, WR 4,4, TE 5,1).</p><p><b>Gemessen.</b> An 60 Kadern der Saisons 2021 bis 2025 ordnet diese Zahl die Teams der Folgesaison mindestens so gut wie die Punkte der Vorsaison (Rangkorrelation 0,52 gegen 0,46, der Unterschied ist nicht belegt), und als Zahl trifft sie die Punkte der Folgesaison genauer (mittlerer Fehler 6,9 gegen 7,8 Punkte je Spiel).</p><p><b>Kicker und Defense</b> haben keine Leistungsnote. Hier stehen die Yahoo-Punkte der Saison 2025 je Spiel, für die Kicker und Defenses, die am 4. September 2026 in einem Kader standen. Kicker: geteilt durch die Spiele mit Kickversuch, Defense: durch 17. Wer damals in keinem Kader stand, hat keinen Wert; dann steht auch keine Summe „mit K und DEF“. Ab drei gespielten Wochen der Saison 2026 gelten die Yahoo-Punkte 2026: die Summe der Wochenpunkte aus den Dienstagsabgriffen, geteilt durch die Wochen, in denen sein NFL-Team gespielt hat. Heute gilt 2025.</p><p><b>Stärken und Schwächen.</b> Feste Regel: je Gruppe (QB, RB, WR, TE, K, DEF) der Rang in der Liga. Rang 1 bis 3 ist eine Stärke, Rang 10 bis 12 eine Schwäche.</p></div></dialog>
@@ -413,6 +444,97 @@ document.addEventListener("click", ev => {
 document.querySelectorAll("dialog.fenster").forEach(d => d.addEventListener("close", () => {
   if (!document.querySelector("dialog.fenster[open]")) document.body.classList.remove("fenster-offen");
 }));
+
+function rzSeitenfolge(s, seiten){
+  const zeigen = new Set([1, seiten, s - 1, s, s + 1]);
+  const aus = [];
+  let letzte = 0;
+  for (let i = 1; i <= seiten; i++){
+    if (!zeigen.has(i)) continue;
+    if (i - letzte > 1) aus.push(0);
+    aus.push(i);
+    letzte = i;
+  }
+  return aus;
+}
+function rzBereich(gesamt, n, s){
+  const seiten = Math.max(1, Math.ceil(gesamt / n));
+  s = Math.min(Math.max(Math.floor(Number(s)) || 1, 1), seiten);
+  return {s: s, seiten: seiten, von: gesamt ? (s - 1) * n : 0, bis: Math.min(s * n, gesamt)};
+}
+
+(function(){
+  function eintraege(c){
+    if (c.tagName === "TABLE"){
+      let a = [];
+      for (const b of c.tBodies) a = a.concat(Array.from(b.rows));
+      return a;
+    }
+    return Array.from(c.children);
+  }
+  function zeichnen(c){
+    const n = Number(c.dataset.blaettern) || 25;
+    const alle = eintraege(c);
+    const sicht = alle.filter(x => !x.hidden && !x.hasAttribute("data-aus"));
+    const b = rzBereich(sicht.length, n, c.dataset.seite);
+    c.dataset.seite = b.s;
+    alle.forEach(x => x.classList.remove("rz-weg"));
+    sicht.forEach((x, i) => { if (i < b.von || i >= b.bis) x.classList.add("rz-weg"); });
+    let l = c._rzLeiste;
+    if (!l){
+      l = document.createElement("nav");
+      l.className = "blaettern";
+      l.setAttribute("aria-label", "Seiten");
+      (c.closest(".tablewrap") || c).after(l);
+      c._rzLeiste = l;
+      l.addEventListener("click", ev => {
+        const k = ev.target.closest("button[data-seite]");
+        if (!k || k.disabled) return;
+        c.dataset.seite = k.dataset.seite;
+        zeichnen(c);
+        const oben = (c.closest(".tablewrap") || c).getBoundingClientRect().top;
+        if (oben < 0) (c.closest(".tablewrap") || c).scrollIntoView({block: "start"});
+      });
+    }
+    // Die Leiste wird aus Elementen gebaut, nicht aus HTML-Text: so schreibt das
+    // Skript nie Markup in die Seite, auch dort, wo eine Seite genau das prüft (profil, Sortierung).
+    l.hidden = b.seiten <= 1;
+    l.replaceChildren();
+    if (l.hidden) return;
+    function knopf(seite, text, aus, label){
+      const k = document.createElement("button");
+      k.type = "button";
+      k.dataset.seite = seite;
+      k.textContent = text;
+      if (aus) k.disabled = true;
+      if (label) k.setAttribute("aria-label", label);
+      return k;
+    }
+    const seiten = document.createElement("div");
+    seiten.className = "seiten";
+    seiten.append(knopf(b.s - 1, "‹", b.s <= 1, "zurück"));
+    for (const i of rzSeitenfolge(b.s, b.seiten)){
+      if (!i){ const x = document.createElement("span"); x.textContent = "…"; seiten.append(x); continue; }
+      const k = knopf(i, String(i), false, null);
+      if (i === b.s){ k.className = "hier"; k.setAttribute("aria-current", "page"); }
+      seiten.append(k);
+    }
+    seiten.append(knopf(b.s + 1, "›", b.s >= b.seiten, "weiter"));
+    const lab = document.createElement("span");
+    lab.className = "lab";
+    lab.textContent = `${b.von + 1} bis ${b.bis} von ${sicht.length}`;
+    l.append(seiten, lab);
+  }
+  function einrichten(c){
+    if (c._rz) return;
+    c._rz = true;
+    zeichnen(c);
+    new MutationObserver(() => { c.dataset.seite = 1; zeichnen(c); })
+      .observe(c, {childList: true, subtree: true, attributes: true, attributeFilter: ["hidden", "data-aus"]});
+  }
+  window.rzBlaettern = root => (root || document).querySelectorAll("[data-blaettern]").forEach(einrichten);
+  window.rzBlaettern();
+})();
 </script>
 </body>
 </html>
