@@ -426,16 +426,16 @@
   "einheit": "Spieler mit Voraussage für Woche 3",
   "datei": "voraussagen.json",
   "pfad": "kenn.n_mit_voraussage",
-  "erzeugt_utc": "2026-09-24T13:33:02Z",
+  "erzeugt_utc": "2026-09-25T01:01:58Z",
   "buendel": [
-   "20260923-2229-formel-voraussagen-d43250"
+   "20260924-2202-formel-voraussagen-84fac6"
   ],
   "stand": {
    "text": "Datenstand 2026-09-23",
    "teile": [
     {
      "text": "Datenstand 2026-09-23",
-     "wert": "2026-09-23 13:31:55",
+     "wert": "2026-09-23 11:31:55",
      "datei": "voraussagen.json",
      "pfad": "stand_anzeige",
      "vorwort": "Datenstand"
