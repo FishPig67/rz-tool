@@ -256,6 +256,40 @@ dl.glossar dd{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.55;max-w
   .themakopf h1{font-size:30px}
   .lehr .text{font-size:14.5px}
 }
+
+.inhalt.knoepfe ol{columns:auto;list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.inhalt.knoepfe li{margin:0}
+.inhalt.knoepfe a{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg3);color:var(--ink);font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
+.inhalt.knoepfe a:hover,.inhalt.knoepfe a:focus-visible{border-color:var(--accent);background:var(--accent);color:#fff;text-decoration:none}
+@media (max-width:640px){.inhalt.knoepfe a{padding:6px 11px;font-size:12px}}
+
+details.erkl{margin:10px 0 14px;border:1px solid var(--line);border-left:3px solid var(--hint);border-radius:0 8px 8px 0;background:rgba(240,192,96,.05)}
+details.erkl>summary{cursor:pointer;list-style:none;padding:8px 14px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:700}
+details.erkl>summary::-webkit-details-marker{display:none}
+details.erkl>summary::before{content:"▸ ";color:var(--hint)}
+details.erkl[open]>summary::before{content:"▾ "}
+details.erkl .erkl-i{padding:0 14px 10px;color:var(--ink2);line-height:1.55;font-size:14px}
+details.erkl .erkl-i>:first-child{margin-top:0}
+details.erkl .erkl-i>:last-child{margin-bottom:0}
+
+.mitbild{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;max-width:100%}
+.mitbild>span:last-child{min-width:0}
+.mitbild .av{width:22px;height:22px}
+td .mitbild .av{width:30px;height:30px}
+.mitbild img.logo{border:0;border-radius:0;background:none;object-fit:contain}
+a.mitbild{color:inherit;text-decoration:none}
+a.mitbild>span:last-child{border-bottom:1px dotted currentColor}
+.sp .sub .mitbild{display:inline;gap:0}
+.sp .sub .mitbild .av{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+
+.rz-weg{display:none!important}
+nav.blaettern[hidden]{display:none}
+
+.inhalt{margin:0 0 18px;padding:12px 16px;border:1px solid var(--line);border-radius:12px;background:var(--bg2);font-size:14.5px}
+.inhalt ol{margin:6px 0 0;padding-left:22px;columns:2;column-gap:28px}
+.inhalt li{margin:2px 0;break-inside:avoid}
+.inhalt a{color:var(--accent);text-decoration:none;font-weight:600}.inhalt a:hover{text-decoration:underline}
+@media (max-width:640px){.inhalt ol{columns:1}}
 </style>
 </head>
 <body><!--rz-rahmen--><style>
@@ -286,9 +320,10 @@ dl.glossar dd{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.55;max-w
 <div class="themakopf"><div class="eyebrow">Grundlagen · Thema 8 von 9</div><div class="titel"><h1>Die Positionen</h1><button class="info" type="button" data-fenster="f-thema-8" aria-label="Zu diesem Thema" title="Zu diesem Thema">i</button></div></div>
 <p class="lead">Quarterback, Running Back, Wide Receiver, Tight End, Kicker, Team-Defense: was jede Position auf dem Feld tut, womit sie Fantasy-Punkte macht und warum sie verschieden knapp ist.</p>
 <div class="knoepfe"><a class="knopf zurueck" href="grundlagen.html">← Alle Grundlagen</a><a class="knopf" href="grundlagen-glossar.html">← Glossar</a><a class="knopf" href="grundlagen-handel.html">Wie ein Handel abläuft →</a></div>
-<section><div class="lehr mit-zeichnung"><div class="text"><p>Fantasy zählt nur die Spieler, die den Ball tragen, werfen, fangen oder kicken, und die Verteidigung eines Klubs als Ganzes. Die fünf Blocker der Offensive Line, die Hälfte der Männer auf dem Feld, kommen nicht vor. Wer neu zuschaut, muss also nur sechs Sorten von Spielern auseinanderhalten.</p><p>In dieser Liga stehen je Woche 1 Quarterback, 2 Running Backs, 3 Receiver, 1 Tight End, 1 Kicker und 1 Team-Defense in der Aufstellung (Thema 1). Die Zahl der Plätze je Position ist der Grund, warum dieselbe Position in verschiedenen Ligen verschieden viel wert ist.</p></div><figure class="zeichnung"><svg viewBox="0 0 520 250" role="img" aria-label="Die Offense in Grundaufstellung: Quarterback, Running Back, drei Receiver, Tight End, dazu Kicker und die Defense als Block" xmlns="http://www.w3.org/2000/svg"><title>Die Offense in Grundaufstellung: Quarterback, Running Back, drei Receiver, Tight End, dazu Kicker und die Defense als Block</title><rect x="20" y="30" width="480" height="200" rx="8" fill="var(--bg3)" stroke="var(--line)" stroke-width="1" /><line x1="20" y1="70" x2="500" y2="70" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="110" x2="500" y2="110" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="150" x2="500" y2="150" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="190" x2="500" y2="190" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="130" x2="500" y2="130" stroke="var(--mute)" stroke-width="2" stroke-linecap="round"/><text x="24" y="124" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >Line of Scrimmage</text><rect x="120" y="44" width="280" height="44" rx="8" fill="var(--bg3)" stroke="var(--neg)" stroke-width="1.5" stroke-dasharray="5 4" /><text x="260" y="62" font-size="13" fill="var(--neg)" text-anchor="middle" font-weight="bold" >DEF</text><text x="260" y="78" font-size="9.5" fill="var(--ink2)" text-anchor="middle" font-weight="normal" >elf Spieler, im Fantasy ein einziger Eintrag</text><circle cx="200" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="230" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="260" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="290" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="320" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><text x="190" y="178" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >O-Line: fünf Blocker, keine Fantasy-Punkte</text><circle cx="260" cy="200" r="14" fill="var(--start)" stroke="var(--pos)" stroke-width="2"/><text x="260" y="204" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >QB</text><text x="260" y="230" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >wirft</text><circle cx="300" cy="222" r="14" fill="var(--start)" stroke="var(--neg)" stroke-width="2"/><text x="300" y="226" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >RB</text><text x="330" y="226" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >läuft, fängt</text><circle cx="350" cy="150" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="350" y="154" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >TE</text><text x="368" y="154" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >blockt, fängt</text><circle cx="60" cy="150" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="60" y="154" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >WR</text><text x="60" y="180" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >fängt</text><circle cx="110" cy="160" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="110" y="164" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >WR</text><circle cx="460" cy="150" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="460" y="154" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >WR</text><text x="460" y="180" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >fängt</text><circle cx="60" cy="60" r="14" fill="var(--start)" stroke="var(--hint)" stroke-width="2"/><text x="60" y="64" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >K</text><text x="60" y="90" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >Field Goals</text></svg><figcaption>Die Offense in einer Grundaufstellung. Die Farben trennen die Fantasy-Positionen; wo ein Spieler genau steht, wechselt von Spielzug zu Spielzug.</figcaption></figure></div></section><section><div class="sec-head"><div class="titel"><h2>Quarterback (QB)</h2></div></div><div class="lehr"><div class="text"><p>Der Spielmacher. Er bekommt bei jedem Spielzug den Ball und wirft ihn, übergibt ihn oder läuft selbst. Fantasy-Punkte macht er vor allem mit Passyards und Pass-Touchdowns, dazu mit eigenen Läufen; Interceptions kosten Punkte. Weil er an jedem Spielzug beteiligt ist, macht ein Quarterback in einer Woche mehr Punkte als jede andere Position.</p><p>Trotzdem ist er hier nicht die wichtigste Position: die Liga hat nur 1 QB-Platz, und es gibt in der NFL mehr brauchbare Quarterbacks als Manager. Als Faustregel gilt: der Abstand zwischen einem guten und einem sehr guten Quarterback ist kleiner als der Abstand, den ein Spitzen-Running-Back zu seinem Ersatz hat. In Ligen mit zwei QB-Plätzen oder einem Superflex wäre das anders; diese Liga hat einen QB-Platz und keinen Flex-Platz.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Running Back (RB)</h2></div></div><div class="lehr"><div class="text"><p>Der Läufer. Er bekommt den Ball übergeben und trägt ihn durch die Verteidigung; viele fangen auch kurze Pässe. Punkte kommen aus Laufyards, Lauf-Touchdowns und Fangyards. Running Backs stehen nahe an der Endzone oft in der Rolle, die den Touchdown bekommt, und ein Touchdown bringt in dieser Liga so viel wie sechzig Laufyards (Thema 1).</p><p>Running Backs gelten als knapp. Die Liga stellt 2 auf, aber nur ein Teil der NFL-Klubs hat einen Ballträger, der die meisten Läufe bekommt; viele teilen die Arbeit auf zwei oder drei. Dazu kommt die kurze Blüte (Thema 2). Ein Running Back, der die volle Arbeit eines Klubs bekommt, ist deshalb ein seltenes Gut, und sein Ersatzmann (der Handcuff) gilt als wertvoller als bei jeder anderen Position.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Wide Receiver (WR)</h2></div></div><div class="lehr"><div class="text"><p>Der Passempfänger. Er läuft eine Route, der Quarterback wirft, er fängt. Punkte aus Fangyards und Fang-Touchdowns. In PPR-Ligen bringt jeder Fang zusätzlich einen Punkt, was Receiver dort zur wertvollsten Position macht; in dieser Liga gibt es diesen Punkt nicht, und ein Receiver zählt nur, was er mit dem Ball erreicht.</p><p>Die Liga stellt 3 Receiver auf, mehr als von jeder anderen Position. Receiver gibt es viele, und sie halten ihre Blüte lang; die Spitze gilt trotzdem als schmal, weil nur wenige Klubs einen Receiver haben, der Woche für Woche das erste Ziel seines Quarterbacks ist.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Tight End (TE)</h2></div></div><div class="lehr"><div class="text"><p>Der Zwitter: gross wie ein Blocker, gebraucht wie ein Receiver. Ein Tight End blockt bei Laufspielzügen und fängt bei Passspielzügen, und wie viel von beidem, entscheidet sein Klub. Punkte wie beim Receiver, aus Fangyards und Touchdowns.</p><p>Die Position gilt als die ungleichste im Fantasy. Eine Handvoll Tight Ends wird wie ein Receiver eingesetzt und macht entsprechend Punkte; die grosse Mehrheit blockt und fängt drei Bälle. Wer einen aus der Handvoll hat, hat auf dem TE-Platz Woche für Woche einen Vorsprung, den es sonst nirgends gibt.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Kicker (K)</h2></div></div><div class="lehr"><div class="text"><p>Der Spezialist für Field Goals und Extrapunkte. Er steht selten auf dem Feld und macht trotzdem verlässlich Punkte, weil fast jeder Drive, der nicht in der Endzone endet, mit einem Kickversuch endet. In dieser Liga gibt es für weite Field Goals mehr Punkte als für kurze (Thema 1).</p><p>Kicker gelten als austauschbar. Ihre Punkte hängen mehr davon ab, wie oft ihre Offense in Kickreichweite kommt, als von ihnen selbst, und ein Kicker der Spitze bringt gegenüber dem Durchschnitt wenig. Deshalb werden Kicker in vielen Ligen wöchentlich gewechselt (Streaming) und selten gehandelt.</p></div></div></section><section><div class="sec-head"><div class="titel"><h2>Team-Defense (DEF)</h2></div></div><div class="lehr"><div class="text"><p>Die ganze Verteidigung eines Klubs, samt Special Teams, als ein einziger Eintrag. Punkte gibt es für Sacks, Interceptions, eroberte Fumbles, Touchdowns der Verteidigung und für wenig zugelassene Punkte des Gegners; wer viel zulässt, verliert Punkte (Thema 1).</p><p>Wie beim Kicker hängt die Ausbeute stark am Gegner der Woche: dieselbe Verteidigung macht gegen eine schwache Offense viel und gegen eine starke wenig. Auf den Kaderseiten dieses Projekts stehen Team-Defenses mit ihrem Logo, aber ohne Punkte, weil die Wertungsregeln für sie dort nicht nachgerechnet werden.</p></div></div></section>
+<section><div class="lehr mit-zeichnung"><div class="text"><p>Fantasy zählt nur die Spieler, die den Ball tragen, werfen, fangen oder kicken, und die Verteidigung eines Klubs als Ganzes. Die fünf Blocker der Offensive Line, die Hälfte der Männer auf dem Feld, kommen nicht vor. Wer neu zuschaut, muss also nur sechs Sorten von Spielern auseinanderhalten.</p><p>In dieser Liga stehen je Woche 1 Quarterback, 2 Running Backs, 3 Receiver, 1 Tight End, 1 Kicker und 1 Team-Defense in der Aufstellung (Thema 1). Die Zahl der Plätze je Position ist der Grund, warum dieselbe Position in verschiedenen Ligen verschieden viel wert ist.</p></div><figure class="zeichnung"><svg viewBox="0 0 520 250" role="img" aria-label="Die Offense in Grundaufstellung: Quarterback, Running Back, drei Receiver, Tight End, dazu Kicker und die Defense als Block" xmlns="http://www.w3.org/2000/svg"><title>Die Offense in Grundaufstellung: Quarterback, Running Back, drei Receiver, Tight End, dazu Kicker und die Defense als Block</title><rect x="20" y="30" width="480" height="200" rx="8" fill="var(--bg3)" stroke="var(--line)" stroke-width="1" /><line x1="20" y1="70" x2="500" y2="70" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="110" x2="500" y2="110" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="150" x2="500" y2="150" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="190" x2="500" y2="190" stroke="var(--line)" stroke-width="1" stroke-linecap="round" stroke-dasharray="4 4"/><line x1="20" y1="130" x2="500" y2="130" stroke="var(--mute)" stroke-width="2" stroke-linecap="round"/><text x="24" y="124" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >Line of Scrimmage</text><rect x="120" y="44" width="280" height="44" rx="8" fill="var(--bg3)" stroke="var(--neg)" stroke-width="1.5" stroke-dasharray="5 4" /><text x="260" y="62" font-size="13" fill="var(--neg)" text-anchor="middle" font-weight="bold" >DEF</text><text x="260" y="78" font-size="9.5" fill="var(--ink2)" text-anchor="middle" font-weight="normal" >elf Spieler, im Fantasy ein einziger Eintrag</text><circle cx="200" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="230" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="260" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="290" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><circle cx="320" cy="150" r="9" fill="var(--line)" stroke="var(--mute)" stroke-width="1"/><text x="190" y="178" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >O-Line: fünf Blocker, keine Fantasy-Punkte</text><circle cx="260" cy="200" r="14" fill="var(--start)" stroke="var(--pos)" stroke-width="2"/><text x="260" y="204" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >QB</text><text x="260" y="230" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >wirft</text><circle cx="300" cy="222" r="14" fill="var(--start)" stroke="var(--neg)" stroke-width="2"/><text x="300" y="226" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >RB</text><text x="330" y="226" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >läuft, fängt</text><circle cx="350" cy="150" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="350" y="154" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >TE</text><text x="368" y="154" font-size="9.5" fill="var(--mute)" text-anchor="start" font-weight="normal" >blockt, fängt</text><circle cx="60" cy="150" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="60" y="154" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >WR</text><text x="60" y="180" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >fängt</text><circle cx="110" cy="160" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="110" y="164" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >WR</text><circle cx="460" cy="150" r="14" fill="var(--start)" stroke="var(--accent2)" stroke-width="2"/><text x="460" y="154" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >WR</text><text x="460" y="180" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >fängt</text><circle cx="60" cy="60" r="14" fill="var(--start)" stroke="var(--hint)" stroke-width="2"/><text x="60" y="64" font-size="10.5" fill="var(--ink)" text-anchor="middle" font-weight="bold" >K</text><text x="60" y="90" font-size="9.5" fill="var(--mute)" text-anchor="middle" font-weight="normal" >Field Goals</text></svg><figcaption>Die Offense in einer Grundaufstellung. Die Farben trennen die Fantasy-Positionen; wo ein Spieler genau steht, wechselt von Spielzug zu Spielzug.</figcaption></figure></div></section><nav class='inhalt knoepfe' aria-label='Inhalt'><div class='eyebrow'>Inhalt</div><ol><li><a href='#quarterback-qb'>Quarterback (QB)</a></li><li><a href='#running-back-rb'>Running Back (RB)</a></li><li><a href='#wide-receiver-wr'>Wide Receiver (WR)</a></li><li><a href='#tight-end-te'>Tight End (TE)</a></li><li><a href='#kicker-k'>Kicker (K)</a></li><li><a href='#team-defense-def'>Team-Defense (DEF)</a></li></ol></nav>
+<section id="quarterback-qb"><div class="sec-head"><div class="titel"><h2>Quarterback (QB)</h2></div></div><div class="lehr"><div class="text"><p>Der Spielmacher. Er bekommt bei jedem Spielzug den Ball und wirft ihn, übergibt ihn oder läuft selbst. Fantasy-Punkte macht er vor allem mit Passyards und Pass-Touchdowns, dazu mit eigenen Läufen; Interceptions kosten Punkte. Weil er an jedem Spielzug beteiligt ist, macht ein Quarterback in einer Woche mehr Punkte als jede andere Position.</p><p>Trotzdem ist er hier nicht die wichtigste Position: die Liga hat nur 1 QB-Platz, und es gibt in der NFL mehr brauchbare Quarterbacks als Manager. Als Faustregel gilt: der Abstand zwischen einem guten und einem sehr guten Quarterback ist kleiner als der Abstand, den ein Spitzen-Running-Back zu seinem Ersatz hat. In Ligen mit zwei QB-Plätzen oder einem Superflex wäre das anders; diese Liga hat einen QB-Platz und keinen Flex-Platz.</p></div></div></section><section id="running-back-rb"><div class="sec-head"><div class="titel"><h2>Running Back (RB)</h2></div></div><div class="lehr"><div class="text"><p>Der Läufer. Er bekommt den Ball übergeben und trägt ihn durch die Verteidigung; viele fangen auch kurze Pässe. Punkte kommen aus Laufyards, Lauf-Touchdowns und Fangyards. Running Backs stehen nahe an der Endzone oft in der Rolle, die den Touchdown bekommt, und ein Touchdown bringt in dieser Liga so viel wie sechzig Laufyards (Thema 1).</p><p>Running Backs gelten als knapp. Die Liga stellt 2 auf, aber nur ein Teil der NFL-Klubs hat einen Ballträger, der die meisten Läufe bekommt; viele teilen die Arbeit auf zwei oder drei. Dazu kommt die kurze Blüte (Thema 2). Ein Running Back, der die volle Arbeit eines Klubs bekommt, ist deshalb ein seltenes Gut, und sein Ersatzmann (der Handcuff) gilt als wertvoller als bei jeder anderen Position.</p></div></div></section><section id="wide-receiver-wr"><div class="sec-head"><div class="titel"><h2>Wide Receiver (WR)</h2></div></div><div class="lehr"><div class="text"><p>Der Passempfänger. Er läuft eine Route, der Quarterback wirft, er fängt. Punkte aus Fangyards und Fang-Touchdowns. In PPR-Ligen bringt jeder Fang zusätzlich einen Punkt, was Receiver dort zur wertvollsten Position macht; in dieser Liga gibt es diesen Punkt nicht, und ein Receiver zählt nur, was er mit dem Ball erreicht.</p><p>Die Liga stellt 3 Receiver auf, mehr als von jeder anderen Position. Receiver gibt es viele, und sie halten ihre Blüte lang; die Spitze gilt trotzdem als schmal, weil nur wenige Klubs einen Receiver haben, der Woche für Woche das erste Ziel seines Quarterbacks ist.</p></div></div></section><section id="tight-end-te"><div class="sec-head"><div class="titel"><h2>Tight End (TE)</h2></div></div><div class="lehr"><div class="text"><p>Der Zwitter: gross wie ein Blocker, gebraucht wie ein Receiver. Ein Tight End blockt bei Laufspielzügen und fängt bei Passspielzügen, und wie viel von beidem, entscheidet sein Klub. Punkte wie beim Receiver, aus Fangyards und Touchdowns.</p><p>Die Position gilt als die ungleichste im Fantasy. Eine Handvoll Tight Ends wird wie ein Receiver eingesetzt und macht entsprechend Punkte; die grosse Mehrheit blockt und fängt drei Bälle. Wer einen aus der Handvoll hat, hat auf dem TE-Platz Woche für Woche einen Vorsprung, den es sonst nirgends gibt.</p></div></div></section><section id="kicker-k"><div class="sec-head"><div class="titel"><h2>Kicker (K)</h2></div></div><div class="lehr"><div class="text"><p>Der Spezialist für Field Goals und Extrapunkte. Er steht selten auf dem Feld und macht trotzdem verlässlich Punkte, weil fast jeder Drive, der nicht in der Endzone endet, mit einem Kickversuch endet. In dieser Liga gibt es für weite Field Goals mehr Punkte als für kurze (Thema 1).</p><p>Kicker gelten als austauschbar. Ihre Punkte hängen mehr davon ab, wie oft ihre Offense in Kickreichweite kommt, als von ihnen selbst, und ein Kicker der Spitze bringt gegenüber dem Durchschnitt wenig. Deshalb werden Kicker in vielen Ligen wöchentlich gewechselt (Streaming) und selten gehandelt.</p></div></div></section><section id="team-defense-def"><div class="sec-head"><div class="titel"><h2>Team-Defense (DEF)</h2></div></div><div class="lehr"><div class="text"><p>Die ganze Verteidigung eines Klubs, samt Special Teams, als ein einziger Eintrag. Punkte gibt es für Sacks, Interceptions, eroberte Fumbles, Touchdowns der Verteidigung und für wenig zugelassene Punkte des Gegners; wer viel zulässt, verliert Punkte (Thema 1).</p><p>Wie beim Kicker hängt die Ausbeute stark am Gegner der Woche: dieselbe Verteidigung macht gegen eine schwache Offense viel und gegen eine starke wenig. Auf den Kaderseiten dieses Projekts stehen Team-Defenses mit ihrem Logo, aber ohne Punkte, weil die Wertungsregeln für sie dort nicht nachgerechnet werden.</p></div></div></section>
 
-<p class="foot">Erklärtext ohne Messung. Wo die Seite eine Regel dieser Liga nennt, stammt sie aus Thema 1; nichts ist aus den Daten des Projekts gerechnet. Erzeugt 2026-09-24T13:31:38Z UTC.</p>
+<p class="foot">Erklärtext ohne Messung. Wo die Seite eine Regel dieser Liga nennt, stammt sie aus Thema 1; nichts ist aus den Daten des Projekts gerechnet. Erzeugt 2026-09-25T00:53:51Z UTC.</p>
 
 </main>
 <dialog class="fenster" id="f-thema-8" aria-labelledby="f-thema-8-t"><div class="fk"><h3 id="f-thema-8-t">Zu diesem Thema</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><p>Quarterback, Running Back, Wide Receiver, Tight End, Kicker, Team-Defense: was jede Position auf dem Feld tut, womit sie Fantasy-Punkte macht und warum sie verschieden knapp ist.</p><h4>Was hier steht und was nicht</h4><p>Dieser Bereich erklärt. Er misst nichts, er prognostiziert nichts, und er empfiehlt nichts. Die Zahlen aus den Daten der Liga stehen auf den anderen Seiten; hier steht, was die Begriffe dort bedeuten.</p><h4>Zeichnungen</h4><p>Die Zeichnungen zeigen Zusammenhänge, keine gemessenen Werte. Wo eine Kurve steigt oder fällt, ist die Richtung gemeint, nicht die Höhe.</p><h4>Herkunft</h4><p>Erklärtext ohne Datenquelle. Nichts auf dieser Seite ist aus den Daten des Projekts gerechnet.</p></div></dialog>
@@ -354,6 +389,97 @@ document.addEventListener("click", ev => {
 document.querySelectorAll("dialog.fenster").forEach(d => d.addEventListener("close", () => {
   if (!document.querySelector("dialog.fenster[open]")) document.body.classList.remove("fenster-offen");
 }));
+
+function rzSeitenfolge(s, seiten){
+  const zeigen = new Set([1, seiten, s - 1, s, s + 1]);
+  const aus = [];
+  let letzte = 0;
+  for (let i = 1; i <= seiten; i++){
+    if (!zeigen.has(i)) continue;
+    if (i - letzte > 1) aus.push(0);
+    aus.push(i);
+    letzte = i;
+  }
+  return aus;
+}
+function rzBereich(gesamt, n, s){
+  const seiten = Math.max(1, Math.ceil(gesamt / n));
+  s = Math.min(Math.max(Math.floor(Number(s)) || 1, 1), seiten);
+  return {s: s, seiten: seiten, von: gesamt ? (s - 1) * n : 0, bis: Math.min(s * n, gesamt)};
+}
+
+(function(){
+  function eintraege(c){
+    if (c.tagName === "TABLE"){
+      let a = [];
+      for (const b of c.tBodies) a = a.concat(Array.from(b.rows));
+      return a;
+    }
+    return Array.from(c.children);
+  }
+  function zeichnen(c){
+    const n = Number(c.dataset.blaettern) || 25;
+    const alle = eintraege(c);
+    const sicht = alle.filter(x => !x.hidden && !x.hasAttribute("data-aus"));
+    const b = rzBereich(sicht.length, n, c.dataset.seite);
+    c.dataset.seite = b.s;
+    alle.forEach(x => x.classList.remove("rz-weg"));
+    sicht.forEach((x, i) => { if (i < b.von || i >= b.bis) x.classList.add("rz-weg"); });
+    let l = c._rzLeiste;
+    if (!l){
+      l = document.createElement("nav");
+      l.className = "blaettern";
+      l.setAttribute("aria-label", "Seiten");
+      (c.closest(".tablewrap") || c).after(l);
+      c._rzLeiste = l;
+      l.addEventListener("click", ev => {
+        const k = ev.target.closest("button[data-seite]");
+        if (!k || k.disabled) return;
+        c.dataset.seite = k.dataset.seite;
+        zeichnen(c);
+        const oben = (c.closest(".tablewrap") || c).getBoundingClientRect().top;
+        if (oben < 0) (c.closest(".tablewrap") || c).scrollIntoView({block: "start"});
+      });
+    }
+    // Die Leiste wird aus Elementen gebaut, nicht aus HTML-Text: so schreibt das
+    // Skript nie Markup in die Seite, auch dort, wo eine Seite genau das prüft (profil, Sortierung).
+    l.hidden = b.seiten <= 1;
+    l.replaceChildren();
+    if (l.hidden) return;
+    function knopf(seite, text, aus, label){
+      const k = document.createElement("button");
+      k.type = "button";
+      k.dataset.seite = seite;
+      k.textContent = text;
+      if (aus) k.disabled = true;
+      if (label) k.setAttribute("aria-label", label);
+      return k;
+    }
+    const seiten = document.createElement("div");
+    seiten.className = "seiten";
+    seiten.append(knopf(b.s - 1, "‹", b.s <= 1, "zurück"));
+    for (const i of rzSeitenfolge(b.s, b.seiten)){
+      if (!i){ const x = document.createElement("span"); x.textContent = "…"; seiten.append(x); continue; }
+      const k = knopf(i, String(i), false, null);
+      if (i === b.s){ k.className = "hier"; k.setAttribute("aria-current", "page"); }
+      seiten.append(k);
+    }
+    seiten.append(knopf(b.s + 1, "›", b.s >= b.seiten, "weiter"));
+    const lab = document.createElement("span");
+    lab.className = "lab";
+    lab.textContent = `${b.von + 1} bis ${b.bis} von ${sicht.length}`;
+    l.append(seiten, lab);
+  }
+  function einrichten(c){
+    if (c._rz) return;
+    c._rz = true;
+    zeichnen(c);
+    new MutationObserver(() => { c.dataset.seite = 1; zeichnen(c); })
+      .observe(c, {childList: true, subtree: true, attributes: true, attributeFilter: ["hidden", "data-aus"]});
+  }
+  window.rzBlaettern = root => (root || document).querySelectorAll("[data-blaettern]").forEach(einrichten);
+  window.rzBlaettern();
+})();
 </script>
 </body>
 </html>
