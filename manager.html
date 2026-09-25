@@ -216,6 +216,7 @@ ul.punkte{margin:8px 0 0;padding-left:0;list-style:none;display:grid;gap:6px;col
 ul.punkte li b{color:var(--ink)}
 .kz{color:var(--mute);font-size:12px;letter-spacing:.06em}
 td.rek{text-align:left;white-space:normal}
+@media (max-width:700px){td.rek{min-width:170px}}
 .reihe{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:baseline;margin:6px 0 0;color:var(--ink2)}
 .reihe b{color:var(--ink)}
 a.weiter{color:var(--accent2);font-weight:600;text-decoration:none}a.weiter:hover{text-decoration:underline}
@@ -250,6 +251,34 @@ table#uebersicht thead th small{display:block;white-space:nowrap;margin-top:3px}
    8 px statt 10 px je Seite 44 px, und damit passt die Tabelle in die 1100 px, die auf der Seite
    zur Verfügung stehen (mit 40 px Reserve). Ohne das fehlten 4 px. */
 table#uebersicht th,table#uebersicht td{padding:6px 8px}
+
+.inhalt.knoepfe ol{columns:auto;list-style:none;padding:0;margin:8px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.inhalt.knoepfe li{margin:0}
+.inhalt.knoepfe a{display:inline-block;padding:7px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg3);color:var(--ink);font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;line-height:1.2}
+.inhalt.knoepfe a:hover,.inhalt.knoepfe a:focus-visible{border-color:var(--accent);background:var(--accent);color:#fff;text-decoration:none}
+@media (max-width:640px){.inhalt.knoepfe a{padding:6px 11px;font-size:12px}}
+
+details.erkl{margin:10px 0 14px;border:1px solid var(--line);border-left:3px solid var(--hint);border-radius:0 8px 8px 0;background:rgba(240,192,96,.05)}
+details.erkl>summary{cursor:pointer;list-style:none;padding:8px 14px;font-family:"Oswald","Avenir Next Condensed","Arial Narrow",Arial,sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:700}
+details.erkl>summary::-webkit-details-marker{display:none}
+details.erkl>summary::before{content:"▸ ";color:var(--hint)}
+details.erkl[open]>summary::before{content:"▾ "}
+details.erkl .erkl-i{padding:0 14px 10px;color:var(--ink2);line-height:1.55;font-size:14px}
+details.erkl .erkl-i>:first-child{margin-top:0}
+details.erkl .erkl-i>:last-child{margin-bottom:0}
+
+.mitbild{display:inline-flex;align-items:center;gap:6px;vertical-align:middle;max-width:100%}
+.mitbild>span:last-child{min-width:0}
+.mitbild .av{width:22px;height:22px}
+td .mitbild .av{width:30px;height:30px}
+.mitbild img.logo{border:0;border-radius:0;background:none;object-fit:contain}
+a.mitbild{color:inherit;text-decoration:none}
+a.mitbild>span:last-child{border-bottom:1px dotted currentColor}
+.sp .sub .mitbild{display:inline;gap:0}
+.sp .sub .mitbild .av{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:4px}
+
+.rz-weg{display:none!important}
+nav.blaettern[hidden]{display:none}
 </style>
 </head>
 <body><!--rz-rahmen--><style>
@@ -281,11 +310,11 @@ table#uebersicht th,table#uebersicht td{padding:6px 8px}
 <p class="lead">Zwölf Manager, je eine Seite mit neun Blöcken: Bilanz und Erfolge, ewige Kennzahlen, Rekorde, Kopf an Kopf, Waiver, Handel, Drops, der Kader heute und die Teamnamen. <b>Zusammengeführt aus den anderen Seiten, nichts gedeutet.</b> Zeiträume: Bilanzen 2019 bis 2025, Titel und Podest bis 2025, Waiver 2022 bis 2025, Handel 2019 bis 2025, Drops 2020 bis 2025, Kaderstand 2026-09-24. Die Zahl vor dem Namen ist die Yahoo-Teamnummer, dieselbe wie auf den Kaderseiten; sie sagt nichts über den Platz in der Tabelle.</p>
 <section id="b1">
   <div class="sec-head"><div class="eyebrow">Übersicht · nach Siegen, bei Gleichstand nach Punkten für, dann nach dem Namen · jede Spalte selbst sortierbar</div><h2>Alle Manager</h2></div>
-  <div class="tablewrap"><table id="uebersicht"><thead><tr><th class="l " data-k="manager" data-a="text">Manager<span class="ri" aria-hidden="true">▾</span><small>mit Teamnummer</small></th><th class="l " data-k="team" data-a="text">Team 2026<span class="ri" aria-hidden="true">▾</span></th><th class="" data-k="titel" data-a="zahl">Titel<span class="ri" aria-hidden="true">▾</span></th><th class="" data-k="podest" data-a="zahl">Podest<span class="ri" aria-hidden="true">▾</span><small>mit Titeln</small></th><th class="" data-k="playoffs" data-a="zahl">Playoffs<span class="ri" aria-hidden="true">▾</span><small>von 7</small></th><th class="sortiert" data-k="bilanz" data-a="zahl" aria-sort="descending">Bilanz<span class="ri" aria-hidden="true">▾</span><small>ewig</small></th><th class="" data-k="pf" data-a="zahl">Punkte<span class="ri" aria-hidden="true">▾</span><small>je Spiel</small></th><th class="" data-k="pa" data-a="zahl">Gegenpunkte<span class="ri" aria-hidden="true">▾</span><small>je Spiel</small></th><th class="" data-k="anteil" data-a="zahl">All-Play<span class="ri" aria-hidden="true">▾</span><small>gegen alle elf</small></th><th class="" data-k="waiver" data-a="zahl">Waiver<span class="ri" aria-hidden="true">▾</span><small>Käufe</small></th><th class="" data-k="handel" data-a="zahl">Handel<span class="ri" aria-hidden="true">▾</span><small>Geschäfte</small></th><th class="" data-k="drops" data-a="zahl">Drops<span class="ri" aria-hidden="true">▾</span><small>gleiche Position</small></th></tr></thead><tbody><tr><td class="l name" data-v="Jake"><span class="marke-nr">11</span><a class="weiter" href="manager-11.html">Jake</a></td><td class="l" data-v="Wakanda Meerkats">Wakanda Meerkats</td><td data-v="2">2</td><td data-v="2">2</td><td data-v="5">5</td><td data-v="60">60-38-0</td><td class="num" data-v="97.53">97,53</td><td class="num" data-v="93.03">93,03</td><td class="num" data-v="0.5826">58,3 %</td><td data-v="20">20</td><td data-v="7">7</td><td data-v="40">40</td></tr><tr><td class="l name" data-v="Michael"><span class="marke-nr">07</span><a class="weiter" href="manager-07.html">Michael</a></td><td class="l" data-v="Pietätlosi Pinguin">Pietätlosi Pinguin</td><td data-v="1">1</td><td data-v="5">5</td><td data-v="7">7</td><td data-v="56">56-41-1</td><td class="num" data-v="100.14">100,14</td><td class="num" data-v="92.38">92,38</td><td class="num" data-v="0.6044">60,4 %</td><td data-v="37">37</td><td data-v="6">6</td><td data-v="35">35</td></tr><tr><td class="l name" data-v="Cyril"><span class="marke-nr">02</span><a class="weiter" href="manager-02.html">Cyril</a></td><td class="l" data-v="CrapTree Luckers">CrapTree Luckers</td><td data-v="0">0</td><td data-v="2">2</td><td data-v="7">7</td><td data-v="55">55-43-0</td><td class="num" data-v="91.42">91,42</td><td class="num" data-v="88.09">88,09</td><td class="num" data-v="0.4898">49,0 %</td><td data-v="46">46</td><td data-v="3">3</td><td data-v="51">51</td></tr><tr><td class="l name" data-v="Samuel"><span class="marke-nr">09</span><a class="weiter" href="manager-09.html">Samuel</a></td><td class="l" data-v="Säm Frän">Säm Frän</td><td data-v="1">1</td><td data-v="2">2</td><td data-v="4">4</td><td data-v="54">54-43-1</td><td class="num" data-v="95.15">95,15</td><td class="num" data-v="92.23">92,23</td><td class="num" data-v="0.5543">55,4 %</td><td data-v="19">19</td><td data-v="1">1</td><td data-v="26">26</td></tr><tr><td class="l name" data-v="Dominique"><span class="marke-nr">08</span><a class="weiter" href="manager-08.html">Dominique</a></td><td class="l" data-v="Stettlers">Stettlers</td><td data-v="0">0</td><td data-v="2">2</td><td data-v="4">4</td><td data-v="53">53-45-0</td><td class="num" data-v="97.15">97,15</td><td class="num" data-v="92.04">92,04</td><td class="num" data-v="0.5696">57,0 %</td><td data-v="27">27</td><td data-v="5">5</td><td data-v="29">29</td></tr><tr><td class="l name" data-v="Dominik"><span class="marke-nr">03</span><a class="weiter" href="manager-03.html">Dominik</a></td><td class="l" data-v="Dom's hand-picked AP">Dom's hand-picked AP</td><td data-v="0">0</td><td data-v="2">2</td><td data-v="5">5</td><td data-v="51">51-47-0</td><td class="num" data-v="93.52">93,52</td><td class="num" data-v="90.24">90,24</td><td class="num" data-v="0.5102">51,0 %</td><td data-v="52">52</td><td data-v="1">1</td><td data-v="37">37</td></tr><tr><td class="l name" data-v="Tobias"><span class="marke-nr">01</span><a class="weiter" href="manager-01.html">Tobias</a></td><td class="l" data-v="Raging Unicorns">Raging Unicorns</td><td data-v="1">1</td><td data-v="1">1</td><td data-v="5">5</td><td data-v="47">47-50-1</td><td class="num" data-v="91.21">91,21</td><td class="num" data-v="92.3">92,30</td><td class="num" data-v="0.4689">46,9 %</td><td data-v="70">70</td><td data-v="5">5</td><td data-v="52">52</td></tr><tr><td class="l name" data-v="Tanju"><span class="marke-nr">12</span><a class="weiter" href="manager-12.html">Tanju</a></td><td class="l" data-v="Wehntal Cows">Wehntal Cows</td><td data-v="1">1</td><td data-v="3">3</td><td data-v="5">5</td><td data-v="45">45-53-0</td><td class="num" data-v="92.85">92,85</td><td class="num" data-v="95.32">95,32</td><td class="num" data-v="0.5083">50,8 %</td><td data-v="43">43</td><td data-v="3">3</td><td data-v="33">33</td></tr><tr><td class="l name" data-v="Jarno"><span class="marke-nr">05</span><a class="weiter" href="manager-05.html">Jarno</a></td><td class="l" data-v="Fumble Fiesta Zürich">Fumble Fiesta Zürich</td><td data-v="0">0</td><td data-v="0">0</td><td data-v="5">5</td><td data-v="45">45-53-0</td><td class="num" data-v="89.37">89,37</td><td class="num" data-v="90.62">90,62</td><td class="num" data-v="0.462">46,2 %</td><td data-v="19">19</td><td data-v="2">2</td><td data-v="41">41</td></tr><tr><td class="l name" data-v="Matthias"><span class="marke-nr">06</span><a class="weiter" href="manager-06.html">Matthias</a></td><td class="l" data-v="Minnesota youngsters">Minnesota youngsters</td><td data-v="1">1</td><td data-v="1">1</td><td data-v="4">4</td><td data-v="44">44-54-0</td><td class="num" data-v="88.87">88,87</td><td class="num" data-v="96.45">96,45</td><td class="num" data-v="0.4499">45,0 %</td><td data-v="27">27</td><td data-v="2">2</td><td data-v="44">44</td></tr><tr class=me><td class="l name" data-v="Simon"><span class="marke-nr">04</span><a class="weiter" href="manager-04.html">Simon</a></td><td class="l" data-v="FishPig Tackles">FishPig Tackles</td><td data-v="0">0</td><td data-v="1">1</td><td data-v="3">3</td><td data-v="40">40-58-0</td><td class="num" data-v="88.53">88,53</td><td class="num" data-v="95.0">95,00</td><td class="num" data-v="0.4518">45,2 %</td><td data-v="33">33</td><td data-v="11">11</td><td data-v="47">47</td></tr><tr><td class="l name" data-v="Mutzi"><span class="marke-nr">10</span><a class="weiter" href="manager-10.html">Mutzi</a></td><td class="l" data-v="Team Sgt. Hartman">Team Sgt. Hartman</td><td data-v="0">0</td><td data-v="0">0</td><td data-v="2">2</td><td data-v="36">36-61-1</td><td class="num" data-v="81.98">81,98</td><td class="num" data-v="90.03">90,03</td><td class="num" data-v="0.3483">34,8 %</td><td data-v="15">15</td><td data-v="2">2</td><td data-v="13">13</td></tr></tbody></table></div>
-  <p class="n" style="margin:8px 0 0">Ein Klick auf einen Spaltenkopf sortiert nach dieser Spalte, zuerst absteigend, nochmal geklickt aufsteigend; bei Gleichstand gilt die vorgegebene Reihenfolge (nach Siegen, bei Gleichstand nach Punkten für, dann nach dem Namen). Die Reihenfolge ordnet gezählte Grössen und ist keine Bewertung der Manager.</p>
-  <p class="n" style="margin:8px 0 0">Die Spalten im Einzelnen: <b>Titel</b> und <b>Podest</b> 2019 bis 2025, das Podest enthält die Titel; <b>Playoffs</b> von 7 Saisons; <b>Bilanz</b> über alle Saisons als Siege, Niederlagen und Unentschieden; <b>Punkte</b> und <b>Gegenpunkte</b> je Spiel aus 98 Spielen je Manager; <b>All-Play</b>, der Anteil gewonnener Vergleiche: je Woche die eigene Punktzahl gegen die der elf anderen, 1078 Vergleiche je Manager; <b>Waiver</b>-Käufe 2022 bis 2025; <b>Handel</b>sgeschäfte 2019 bis 2025; <b>Drops</b> 2020 bis 2025, also Wechsel gleicher Position.</p>
+  <div class="tablewrap"><table id="uebersicht" data-blaettern="25"><thead><tr><th class="l " data-k="manager" data-a="text">Manager<span class="ri" aria-hidden="true">▾</span><small>mit Teamnummer</small></th><th class="l " data-k="team" data-a="text">Team 2026<span class="ri" aria-hidden="true">▾</span></th><th class="" data-k="titel" data-a="zahl">Titel<span class="ri" aria-hidden="true">▾</span></th><th class="" data-k="podest" data-a="zahl">Podest<span class="ri" aria-hidden="true">▾</span><small>mit Titeln</small></th><th class="" data-k="playoffs" data-a="zahl">Playoffs<span class="ri" aria-hidden="true">▾</span><small>von 7</small></th><th class="sortiert" data-k="bilanz" data-a="zahl" aria-sort="descending">Bilanz<span class="ri" aria-hidden="true">▾</span><small>ewig</small></th><th class="" data-k="pf" data-a="zahl">Punkte<span class="ri" aria-hidden="true">▾</span><small>je Spiel</small></th><th class="" data-k="pa" data-a="zahl">Gegenpunkte<span class="ri" aria-hidden="true">▾</span><small>je Spiel</small></th><th class="" data-k="anteil" data-a="zahl">All-Play<span class="ri" aria-hidden="true">▾</span><small>gegen alle elf</small></th><th class="" data-k="waiver" data-a="zahl">Waiver<span class="ri" aria-hidden="true">▾</span><small>Käufe</small></th><th class="" data-k="handel" data-a="zahl">Handel<span class="ri" aria-hidden="true">▾</span><small>Geschäfte</small></th><th class="" data-k="drops" data-a="zahl">Drops<span class="ri" aria-hidden="true">▾</span><small>gleiche Position</small></th></tr></thead><tbody><tr><td class="l name" data-v="Jake"><span class="marke-nr">11</span><a class="weiter" href="manager-11.html">Jake</a></td><td class="l" data-v="Wakanda Meerkats"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/11.png" alt="" loading="lazy" width="30" height="30"><span>Wakanda Meerkats</span></span></td><td data-v="2">2</td><td data-v="2">2</td><td data-v="5">5</td><td data-v="60">60-38-0</td><td class="num" data-v="97.53">97,53</td><td class="num" data-v="93.03">93,03</td><td class="num" data-v="0.5826">58,3 %</td><td data-v="20">20</td><td data-v="7">7</td><td data-v="40">40</td></tr><tr><td class="l name" data-v="Michael"><span class="marke-nr">07</span><a class="weiter" href="manager-07.html">Michael</a></td><td class="l" data-v="Pietätlosi Pinguin"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/07.png" alt="" loading="lazy" width="30" height="30"><span>Pietätlosi Pinguin</span></span></td><td data-v="1">1</td><td data-v="5">5</td><td data-v="7">7</td><td data-v="56">56-41-1</td><td class="num" data-v="100.14">100,14</td><td class="num" data-v="92.38">92,38</td><td class="num" data-v="0.6044">60,4 %</td><td data-v="37">37</td><td data-v="6">6</td><td data-v="35">35</td></tr><tr><td class="l name" data-v="Cyril"><span class="marke-nr">02</span><a class="weiter" href="manager-02.html">Cyril</a></td><td class="l" data-v="CrapTree Luckers"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/02.png" alt="" loading="lazy" width="30" height="30"><span>CrapTree Luckers</span></span></td><td data-v="0">0</td><td data-v="2">2</td><td data-v="7">7</td><td data-v="55">55-43-0</td><td class="num" data-v="91.42">91,42</td><td class="num" data-v="88.09">88,09</td><td class="num" data-v="0.4898">49,0 %</td><td data-v="46">46</td><td data-v="3">3</td><td data-v="51">51</td></tr><tr><td class="l name" data-v="Samuel"><span class="marke-nr">09</span><a class="weiter" href="manager-09.html">Samuel</a></td><td class="l" data-v="Säm Frän"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/09.png" alt="" loading="lazy" width="30" height="30"><span>Säm Frän</span></span></td><td data-v="1">1</td><td data-v="2">2</td><td data-v="4">4</td><td data-v="54">54-43-1</td><td class="num" data-v="95.15">95,15</td><td class="num" data-v="92.23">92,23</td><td class="num" data-v="0.5543">55,4 %</td><td data-v="19">19</td><td data-v="1">1</td><td data-v="26">26</td></tr><tr><td class="l name" data-v="Dominique"><span class="marke-nr">08</span><a class="weiter" href="manager-08.html">Dominique</a></td><td class="l" data-v="Stettlers"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/08.png" alt="" loading="lazy" width="30" height="30"><span>Stettlers</span></span></td><td data-v="0">0</td><td data-v="2">2</td><td data-v="4">4</td><td data-v="53">53-45-0</td><td class="num" data-v="97.15">97,15</td><td class="num" data-v="92.04">92,04</td><td class="num" data-v="0.5696">57,0 %</td><td data-v="27">27</td><td data-v="5">5</td><td data-v="29">29</td></tr><tr><td class="l name" data-v="Dominik"><span class="marke-nr">03</span><a class="weiter" href="manager-03.html">Dominik</a></td><td class="l" data-v="Dom's hand-picked AP"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/03.png" alt="" loading="lazy" width="30" height="30"><span>Dom's hand-picked AP</span></span></td><td data-v="0">0</td><td data-v="2">2</td><td data-v="5">5</td><td data-v="51">51-47-0</td><td class="num" data-v="93.52">93,52</td><td class="num" data-v="90.24">90,24</td><td class="num" data-v="0.5102">51,0 %</td><td data-v="52">52</td><td data-v="1">1</td><td data-v="37">37</td></tr><tr><td class="l name" data-v="Tobias"><span class="marke-nr">01</span><a class="weiter" href="manager-01.html">Tobias</a></td><td class="l" data-v="Raging Unicorns"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/01.png" alt="" loading="lazy" width="30" height="30"><span>Raging Unicorns</span></span></td><td data-v="1">1</td><td data-v="1">1</td><td data-v="5">5</td><td data-v="47">47-50-1</td><td class="num" data-v="91.21">91,21</td><td class="num" data-v="92.3">92,30</td><td class="num" data-v="0.4689">46,9 %</td><td data-v="70">70</td><td data-v="5">5</td><td data-v="52">52</td></tr><tr><td class="l name" data-v="Tanju"><span class="marke-nr">12</span><a class="weiter" href="manager-12.html">Tanju</a></td><td class="l" data-v="Wehntal Cows"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/12.png" alt="" loading="lazy" width="30" height="30"><span>Wehntal Cows</span></span></td><td data-v="1">1</td><td data-v="3">3</td><td data-v="5">5</td><td data-v="45">45-53-0</td><td class="num" data-v="92.85">92,85</td><td class="num" data-v="95.32">95,32</td><td class="num" data-v="0.5083">50,8 %</td><td data-v="43">43</td><td data-v="3">3</td><td data-v="33">33</td></tr><tr><td class="l name" data-v="Jarno"><span class="marke-nr">05</span><a class="weiter" href="manager-05.html">Jarno</a></td><td class="l" data-v="Fumble Fiesta Zürich"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/05.png" alt="" loading="lazy" width="30" height="30"><span>Fumble Fiesta Zürich</span></span></td><td data-v="0">0</td><td data-v="0">0</td><td data-v="5">5</td><td data-v="45">45-53-0</td><td class="num" data-v="89.37">89,37</td><td class="num" data-v="90.62">90,62</td><td class="num" data-v="0.462">46,2 %</td><td data-v="19">19</td><td data-v="2">2</td><td data-v="41">41</td></tr><tr><td class="l name" data-v="Matthias"><span class="marke-nr">06</span><a class="weiter" href="manager-06.html">Matthias</a></td><td class="l" data-v="Minnesota youngsters"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/06.png" alt="" loading="lazy" width="30" height="30"><span>Minnesota youngsters</span></span></td><td data-v="1">1</td><td data-v="1">1</td><td data-v="4">4</td><td data-v="44">44-54-0</td><td class="num" data-v="88.87">88,87</td><td class="num" data-v="96.45">96,45</td><td class="num" data-v="0.4499">45,0 %</td><td data-v="27">27</td><td data-v="2">2</td><td data-v="44">44</td></tr><tr class=me><td class="l name" data-v="Simon"><span class="marke-nr">04</span><a class="weiter" href="manager-04.html">Simon</a></td><td class="l" data-v="FishPig Tackles"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/04.png" alt="" loading="lazy" width="30" height="30"><span>FishPig Tackles</span></span></td><td data-v="0">0</td><td data-v="1">1</td><td data-v="3">3</td><td data-v="40">40-58-0</td><td class="num" data-v="88.53">88,53</td><td class="num" data-v="95.0">95,00</td><td class="num" data-v="0.4518">45,2 %</td><td data-v="33">33</td><td data-v="11">11</td><td data-v="47">47</td></tr><tr><td class="l name" data-v="Mutzi"><span class="marke-nr">10</span><a class="weiter" href="manager-10.html">Mutzi</a></td><td class="l" data-v="Team Sgt. Hartman"><span class="mitbild team"><img class="av logo" src="bilder/fantasy/10.png" alt="" loading="lazy" width="30" height="30"><span>Team Sgt. Hartman</span></span></td><td data-v="0">0</td><td data-v="0">0</td><td data-v="2">2</td><td data-v="36">36-61-1</td><td class="num" data-v="81.98">81,98</td><td class="num" data-v="90.03">90,03</td><td class="num" data-v="0.3483">34,8 %</td><td data-v="15">15</td><td data-v="2">2</td><td data-v="13">13</td></tr></tbody></table></div>
+  <details class="erkl"><summary>So wird sortiert</summary><div class="erkl-i">Ein Klick auf einen Spaltenkopf sortiert nach dieser Spalte, zuerst absteigend, nochmal geklickt aufsteigend; bei Gleichstand gilt die vorgegebene Reihenfolge (nach Siegen, bei Gleichstand nach Punkten für, dann nach dem Namen). Die Reihenfolge ordnet gezählte Grössen und ist keine Bewertung der Manager.</div></details>
+  <details class="erkl"><summary>Die Spalten im Einzelnen</summary><div class="erkl-i">Die Spalten im Einzelnen: <b>Titel</b> und <b>Podest</b> 2019 bis 2025, das Podest enthält die Titel; <b>Playoffs</b> von 7 Saisons; <b>Bilanz</b> über alle Saisons als Siege, Niederlagen und Unentschieden; <b>Punkte</b> und <b>Gegenpunkte</b> je Spiel aus 98 Spielen je Manager; <b>All-Play</b>, der Anteil gewonnener Vergleiche: je Woche die eigene Punktzahl gegen die der elf anderen, 1078 Vergleiche je Manager; <b>Waiver</b>-Käufe 2022 bis 2025; <b>Handel</b>sgeschäfte 2019 bis 2025; <b>Drops</b> 2020 bis 2025, also Wechsel gleicher Position.</div></details>
 </section>
-<div class="foot">Quelle: die Ergebnisse der Seiten Die ewige Tabelle, Die Liga in Zahlen, Der Waiver-Markt, Die Handelsgeschäfte, Griffe und Fehlgriffe und Die Kader. Seite erzeugt 2026-09-24 13:32 UTC.</div>
+<div class="foot">Quelle: die Ergebnisse der Seiten Die ewige Tabelle, Die Liga in Zahlen, Der Waiver-Markt, Die Handelsgeschäfte, Griffe und Fehlgriffe und Die Kader. Seite erzeugt 2026-09-25 01:01 UTC.</div>
 </main>
 <dialog class="fenster" id="f-seite" aria-labelledby="f-seite-t"><div class="fk"><h3 id="f-seite-t">Was diese Seiten zeigen</h3><button class="zu" type="button" aria-label="Schliessen" title="Schliessen">×</button></div><div class="fi"><h4>Die Seiten</h4><p>Eine Übersicht und je Manager eine Seite mit neun Blöcken. Fast jede Zahl steht schon auf einer anderen Seite dieses Playbooks und wird hier nur zusammengeführt: Bilanz, Erfolge, ewige Kennzahlen, Rekorde und Kopf an Kopf aus der ewigen Tabelle und der Liga in Zahlen, Waiver vom Waiver-Markt, Handel von den Handelsgeschäften, Drops aus den Griffen und Fehlgriffen, der Kader von den Kaderseiten. Jeder Block nennt seinen Zeitraum, denn die Quellen decken verschiedene Jahre ab: Bilanzen 2019 bis 2025, Waiver 2022 bis 2025, Handel 2019 bis 2025, Drops 2020 bis 2025, Kaderstand 2026-09-24.</p><h4>Keine Deutung, nur Zählung</h4><p>Die Seiten zeigen Zahlen je Manager, aber kein Rangbild: bei Waiver, Handel und Drops lässt sich über einzelne Manager nichts belegen, und die Blöcke sagen das jeweils selbst. Kein Vergleich im Sinne von besser oder schlechter, ausser wo er belegt ist (die Gruppen des ewigen Durchschnitts).</p></div></dialog>
 <script>
@@ -350,6 +379,97 @@ document.addEventListener("click", ev => {
 document.querySelectorAll("dialog.fenster").forEach(d => d.addEventListener("close", () => {
   if (!document.querySelector("dialog.fenster[open]")) document.body.classList.remove("fenster-offen");
 }));
+
+function rzSeitenfolge(s, seiten){
+  const zeigen = new Set([1, seiten, s - 1, s, s + 1]);
+  const aus = [];
+  let letzte = 0;
+  for (let i = 1; i <= seiten; i++){
+    if (!zeigen.has(i)) continue;
+    if (i - letzte > 1) aus.push(0);
+    aus.push(i);
+    letzte = i;
+  }
+  return aus;
+}
+function rzBereich(gesamt, n, s){
+  const seiten = Math.max(1, Math.ceil(gesamt / n));
+  s = Math.min(Math.max(Math.floor(Number(s)) || 1, 1), seiten);
+  return {s: s, seiten: seiten, von: gesamt ? (s - 1) * n : 0, bis: Math.min(s * n, gesamt)};
+}
+
+(function(){
+  function eintraege(c){
+    if (c.tagName === "TABLE"){
+      let a = [];
+      for (const b of c.tBodies) a = a.concat(Array.from(b.rows));
+      return a;
+    }
+    return Array.from(c.children);
+  }
+  function zeichnen(c){
+    const n = Number(c.dataset.blaettern) || 25;
+    const alle = eintraege(c);
+    const sicht = alle.filter(x => !x.hidden && !x.hasAttribute("data-aus"));
+    const b = rzBereich(sicht.length, n, c.dataset.seite);
+    c.dataset.seite = b.s;
+    alle.forEach(x => x.classList.remove("rz-weg"));
+    sicht.forEach((x, i) => { if (i < b.von || i >= b.bis) x.classList.add("rz-weg"); });
+    let l = c._rzLeiste;
+    if (!l){
+      l = document.createElement("nav");
+      l.className = "blaettern";
+      l.setAttribute("aria-label", "Seiten");
+      (c.closest(".tablewrap") || c).after(l);
+      c._rzLeiste = l;
+      l.addEventListener("click", ev => {
+        const k = ev.target.closest("button[data-seite]");
+        if (!k || k.disabled) return;
+        c.dataset.seite = k.dataset.seite;
+        zeichnen(c);
+        const oben = (c.closest(".tablewrap") || c).getBoundingClientRect().top;
+        if (oben < 0) (c.closest(".tablewrap") || c).scrollIntoView({block: "start"});
+      });
+    }
+    // Die Leiste wird aus Elementen gebaut, nicht aus HTML-Text: so schreibt das
+    // Skript nie Markup in die Seite, auch dort, wo eine Seite genau das prüft (profil, Sortierung).
+    l.hidden = b.seiten <= 1;
+    l.replaceChildren();
+    if (l.hidden) return;
+    function knopf(seite, text, aus, label){
+      const k = document.createElement("button");
+      k.type = "button";
+      k.dataset.seite = seite;
+      k.textContent = text;
+      if (aus) k.disabled = true;
+      if (label) k.setAttribute("aria-label", label);
+      return k;
+    }
+    const seiten = document.createElement("div");
+    seiten.className = "seiten";
+    seiten.append(knopf(b.s - 1, "‹", b.s <= 1, "zurück"));
+    for (const i of rzSeitenfolge(b.s, b.seiten)){
+      if (!i){ const x = document.createElement("span"); x.textContent = "…"; seiten.append(x); continue; }
+      const k = knopf(i, String(i), false, null);
+      if (i === b.s){ k.className = "hier"; k.setAttribute("aria-current", "page"); }
+      seiten.append(k);
+    }
+    seiten.append(knopf(b.s + 1, "›", b.s >= b.seiten, "weiter"));
+    const lab = document.createElement("span");
+    lab.className = "lab";
+    lab.textContent = `${b.von + 1} bis ${b.bis} von ${sicht.length}`;
+    l.append(seiten, lab);
+  }
+  function einrichten(c){
+    if (c._rz) return;
+    c._rz = true;
+    zeichnen(c);
+    new MutationObserver(() => { c.dataset.seite = 1; zeichnen(c); })
+      .observe(c, {childList: true, subtree: true, attributes: true, attributeFilter: ["hidden", "data-aus"]});
+  }
+  window.rzBlaettern = root => (root || document).querySelectorAll("[data-blaettern]").forEach(einrichten);
+  window.rzBlaettern();
+})();
 
 // Sortieren der Übersicht: das Skript ordnet nur die vorhandenen Zeilen um (appendChild) und
 // schreibt nirgends Inhalt. Ohne Skript steht die Tabelle vollständig und in der vorgegebenen
