@@ -326,10 +326,10 @@
   "einheit": "Depth-Chart-Zeilen",
   "datei": "nfl_teams.json",
   "pfad": "kenn.n_depth_zeilen",
-  "erzeugt_utc": "2026-09-25T00:53:57Z",
+  "erzeugt_utc": "2026-09-29T14:04:30Z",
   "buendel": [
    "20260905-0122-nflverse-parquet-5b1a0a",
-   "20260924-1128-nflverse-schedules-frueh-w03-9c5200"
+   "20260929-1359-nflverse-schedules-di-w03-03981b"
   ],
   "stand": {
    "text": "Saison 2025",
