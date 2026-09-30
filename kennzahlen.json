@@ -405,16 +405,16 @@
   "einheit": "Teams mit eigener Seite",
   "datei": "team_analyzer.json",
   "pfad": "kenn.n_teams",
-  "erzeugt_utc": "2026-09-29T15:14:20Z",
+  "erzeugt_utc": "2026-09-30T14:57:53Z",
   "buendel": [
-   "20260929-1359-nflverse-schedules-di-w03-03981b"
+   "20260930-1443-nflverse-schedules-frueh-w04-c452d8"
   ],
   "stand": {
-   "text": "Kaderstand 2026-09-24",
+   "text": "Kaderstand 2026-09-30",
    "teile": [
     {
-     "text": "Kaderstand 2026-09-24",
-     "wert": "2026-09-24T11:14:55.572Z",
+     "text": "Kaderstand 2026-09-30",
+     "wert": "2026-09-30T14:17:02.212Z",
      "datei": "team_analyzer.json",
      "pfad": "kaderstand_utc",
      "vorwort": "Kaderstand"
