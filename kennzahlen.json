@@ -376,12 +376,12 @@
   "einheit": "Spieler mit Leistungsnote",
   "datei": "spielerwert.json",
   "pfad": "kenn.n_mit_note",
-  "erzeugt_utc": "2026-09-29T15:12:05Z",
+  "erzeugt_utc": "2026-09-30T14:56:54Z",
   "buendel": [
-   "20260924-1114-yahoo-w03-mi-c8c118"
+   "20260930-1417-yahoo-w04-mi-511c12"
   ],
   "stand": {
-   "text": "Leistung 2025 · Kaderstand 2026-09-24",
+   "text": "Leistung 2025 · Kaderstand 2026-09-30",
    "teile": [
     {
      "text": "Leistung 2025",
@@ -391,8 +391,8 @@
      "vorwort": "Leistung"
     },
     {
-     "text": "Kaderstand 2026-09-24",
-     "wert": "2026-09-24T11:14:55.572Z",
+     "text": "Kaderstand 2026-09-30",
+     "wert": "2026-09-30T14:17:02.212Z",
      "datei": "spielerwert.json",
      "pfad": "kaderstand_utc",
      "vorwort": "Kaderstand"
