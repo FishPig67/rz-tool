@@ -4,7 +4,7 @@
   "einheit": "Spieler",
   "datei": "benotung.json",
   "pfad": "n_zeilen",
-  "erzeugt_utc": "2026-10-06T18:37:05Z",
+  "erzeugt_utc": "2026-10-06T21:24:39Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
@@ -15,7 +15,7 @@
    "20261006-1832-nflverse-schedules-di-w04-aa4fa5"
   ],
   "stand": {
-   "text": "Saison 2025",
+   "text": "Saison 2025 · Kaderstand 2026-10-06",
    "teile": [
     {
      "text": "Saison 2025",
@@ -23,6 +23,13 @@
      "datei": "benotung.json",
      "pfad": "fenster.0.saison",
      "vorwort": "Saison"
+    },
+    {
+     "text": "Kaderstand 2026-10-06",
+     "wert": "2026-10-06",
+     "datei": "benotung.json",
+     "pfad": "stichtag_kader",
+     "vorwort": "Kaderstand"
     }
    ]
   }
