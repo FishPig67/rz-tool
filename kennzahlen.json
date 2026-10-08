@@ -263,7 +263,7 @@
   "einheit": "Manager",
   "datei": "manager.json",
   "pfad": "kenn.n_manager",
-  "erzeugt_utc": "2026-10-06T21:35:28Z",
+  "erzeugt_utc": "2026-10-08T20:41:04Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
@@ -273,11 +273,11 @@
    "20260908-2102-rookie-drafts-bild-korr-53dafe",
    "20260911-0553-bruecke-korrektur-9d6d24",
    "20260911-0927-bruecke-ergaenzung-01392e",
-   "20261006-1811-yahoo-w04-di-38293d",
-   "20261006-1832-nflverse-schedules-di-w04-aa4fa5"
+   "20261008-1747-yahoo-w05-mi-cb42a9",
+   "20261008-2032-nflverse-schedules-frueh-w05-3e88b8"
   ],
   "stand": {
-   "text": "Bilanzen 2019 bis 2025 · Waiver 2022 bis 2025 · Drops 2020 bis 2025 · Kaderstand 2026-10-06",
+   "text": "Bilanzen 2019 bis 2025 · Waiver 2022 bis 2025 · Drops 2020 bis 2025 · Kaderstand 2026-10-08",
    "teile": [
     {
      "text": "Bilanzen 2019 bis 2025",
@@ -319,8 +319,8 @@
      "vorwort": "Drops"
     },
     {
-     "text": "Kaderstand 2026-10-06",
-     "wert": "2026-10-06T18:30:11Z",
+     "text": "Kaderstand 2026-10-08",
+     "wert": "2026-10-08T20:23:15Z",
      "datei": "manager.json",
      "pfad": "zeitraeume.kader_stand",
      "vorwort": "Kaderstand"
