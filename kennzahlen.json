@@ -356,7 +356,7 @@
   "einheit": "gewertete Wochen",
   "datei": "saison.json",
   "pfad": "kenn.n_gewertete_wochen",
-  "erzeugt_utc": "2026-10-06T18:39:37+00:00",
+  "erzeugt_utc": "2026-10-08T20:40:52+00:00",
   "buendel": [
    "20260903-2320-yahoo-liga-9d56a2",
    "20260904-1721-yahoo-voll-227e9b",
@@ -364,7 +364,7 @@
    "20260924-1101-yahoo-w02-di-47280a",
    "20260929-1348-yahoo-w03-di-396a00",
    "20261006-1811-yahoo-w04-di-38293d",
-   "20261006-1832-nflverse-schedules-di-w04-aa4fa5"
+   "20261008-2032-nflverse-schedules-frueh-w05-3e88b8"
   ],
   "stand": {
    "text": "Stand 2026-10-06",
