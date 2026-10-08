@@ -219,19 +219,19 @@
   }
  },
  "liga-in-zahlen": {
-  "wert": 215,
+  "wert": 216,
   "einheit": "Kaderplätze",
   "datei": "liga_in_zahlen.json",
   "pfad": "block5.n_kaderplaetze",
-  "erzeugt_utc": "2026-10-06T18:34:42Z",
+  "erzeugt_utc": "2026-10-08T20:33:51Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260911-0553-bruecke-korrektur-9d6d24",
    "20260911-0927-bruecke-ergaenzung-01392e",
-   "20261006-1811-yahoo-w04-di-38293d"
+   "20261008-1747-yahoo-w05-mi-cb42a9"
   ],
   "stand": {
-   "text": "Saisons 2019 bis 2025 · Kaderstand 2026-10-06",
+   "text": "Saisons 2019 bis 2025 · Kaderstand 2026-10-08",
    "teile": [
     {
      "text": "Saisons 2019 bis 2025",
@@ -249,8 +249,8 @@
      "vorwort": "Saisons"
     },
     {
-     "text": "Kaderstand 2026-10-06",
-     "wert": "2026-10-06",
+     "text": "Kaderstand 2026-10-08",
+     "wert": "2026-10-08",
      "datei": "liga_in_zahlen.json",
      "pfad": "schema.stichtag_kader",
      "vorwort": "Kaderstand"
