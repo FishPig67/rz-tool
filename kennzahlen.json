@@ -431,20 +431,20 @@
   }
  },
  "voraussagen": {
-  "wert": 861,
-  "einheit": "Spieler mit Voraussage für Woche 4",
+  "wert": 824,
+  "einheit": "Spieler mit Voraussage für Woche 6",
   "datei": "voraussagen.json",
   "pfad": "kenn.n_mit_voraussage",
-  "erzeugt_utc": "2026-10-11T13:36:38Z",
+  "erzeugt_utc": "2026-10-13T22:03:46Z",
   "buendel": [
-   "20260930-1517-formel-voraussagen-a2ac4b"
+   "20261013-2148-formel-voraussagen-128ad6"
   ],
   "stand": {
-   "text": "Datenstand 2026-09-30",
+   "text": "Datenstand 2026-10-13",
    "teile": [
     {
-     "text": "Datenstand 2026-09-30",
-     "wert": "2026-09-30 16:24:35",
+     "text": "Datenstand 2026-10-13",
+     "wert": "2026-10-13 23:21:58",
      "datei": "voraussagen.json",
      "pfad": "stand_anzeige",
      "vorwort": "Datenstand"
