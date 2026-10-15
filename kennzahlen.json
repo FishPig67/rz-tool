@@ -4,18 +4,18 @@
   "einheit": "Spieler",
   "datei": "benotung.json",
   "pfad": "n_zeilen",
-  "erzeugt_utc": "2026-10-11T13:33:41Z",
+  "erzeugt_utc": "2026-10-15T18:18:17Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-2042-player-ids-zweifach-93d97c",
    "20260911-0553-bruecke-korrektur-9d6d24",
    "20260911-0927-bruecke-ergaenzung-01392e",
-   "20261011-1253-nflverse-schedules-spaet-w05-d7572f",
-   "20261011-1303-yahoo-w05-so-0813e4"
+   "20261015-1711-yahoo-w06-mi-01f2d2",
+   "20261015-1712-nflverse-schedules-frueh-w06-3387b6"
   ],
   "stand": {
-   "text": "Saison 2025 · Kaderstand 2026-10-11",
+   "text": "Saison 2025 · Kaderstand 2026-10-15",
    "teile": [
     {
      "text": "Saison 2025",
@@ -25,8 +25,8 @@
      "vorwort": "Saison"
     },
     {
-     "text": "Kaderstand 2026-10-11",
-     "wert": "2026-10-11",
+     "text": "Kaderstand 2026-10-15",
+     "wert": "2026-10-15",
      "datei": "benotung.json",
      "pfad": "stichtag_kader",
      "vorwort": "Kaderstand"
