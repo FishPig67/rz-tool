@@ -352,11 +352,11 @@
   }
  },
  "saison": {
-  "wert": 5,
+  "wert": 6,
   "einheit": "gewertete Wochen",
   "datei": "saison.json",
   "pfad": "kenn.n_gewertete_wochen",
-  "erzeugt_utc": "2026-10-15T18:23:11+00:00",
+  "erzeugt_utc": "2026-10-24T13:45:40+00:00",
   "buendel": [
    "20260903-2320-yahoo-liga-9d56a2",
    "20260904-1721-yahoo-voll-227e9b",
@@ -365,14 +365,15 @@
    "20260929-1348-yahoo-w03-di-396a00",
    "20261006-1811-yahoo-w04-di-38293d",
    "20261013-2008-yahoo-w05-di-ada8b0",
-   "20261015-1712-nflverse-schedules-frueh-w06-3387b6"
+   "20261022-1309-yahoo-w06-di-77bfb0",
+   "20261024-1316-nflverse-schedules-auto-1a8e0c"
   ],
   "stand": {
-   "text": "Stand 2026-10-13",
+   "text": "Stand 2026-10-22",
    "teile": [
     {
-     "text": "Stand 2026-10-13",
-     "wert": "2026-10-13T20:12:14.558Z",
+     "text": "Stand 2026-10-22",
+     "wert": "2026-10-22T13:12:28.972Z",
      "datei": "saison.json",
      "pfad": "abgriff_utc",
      "vorwort": "Stand"
