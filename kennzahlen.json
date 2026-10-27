@@ -195,22 +195,22 @@
   "einheit": "Plätze in Woche 7",
   "datei": "kader.json",
   "pfad": "kenn.n_kaderplaetze",
-  "erzeugt_utc": "2026-10-25T14:00:59Z",
+  "erzeugt_utc": "2026-10-27T18:10:23Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-2042-player-ids-zweifach-93d97c",
    "20260911-0927-bruecke-ergaenzung-01392e",
    "20261024-2100-bruecke-korrektur-2e0661",
-   "20261025-0630-nflverse-schedules-auto-2a2e17",
-   "20261025-1319-yahoo-w07-so-6b190d"
+   "20261027-0630-nflverse-schedules-auto-e97a18",
+   "20261027-1803-yahoo-w07-di-0cbe88"
   ],
   "stand": {
-   "text": "Kaderstand 2026-10-25",
+   "text": "Kaderstand 2026-10-27",
    "teile": [
     {
-     "text": "Kaderstand 2026-10-25",
-     "wert": "2026-10-25T14:00:43Z",
+     "text": "Kaderstand 2026-10-27",
+     "wert": "2026-10-27T18:10:14Z",
      "datei": "kader.json",
      "pfad": "stand_utc",
      "vorwort": "Kaderstand"
