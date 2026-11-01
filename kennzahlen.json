@@ -195,22 +195,22 @@
   "einheit": "Plätze in Woche 8",
   "datei": "kader.json",
   "pfad": "kenn.n_kaderplaetze",
-  "erzeugt_utc": "2026-10-30T18:49:13Z",
+  "erzeugt_utc": "2026-11-01T17:46:08Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-2042-player-ids-zweifach-93d97c",
    "20260911-0927-bruecke-ergaenzung-01392e",
    "20261024-2100-bruecke-korrektur-2e0661",
-   "20261029-1613-yahoo-w08-mi-83c349",
-   "20261030-0630-nflverse-schedules-auto-d02897"
+   "20261101-0630-nflverse-schedules-auto-8599d9",
+   "20261101-1441-yahoo-w08-so-309867"
   ],
   "stand": {
-   "text": "Kaderstand 2026-10-30",
+   "text": "Kaderstand 2026-11-01",
    "teile": [
     {
-     "text": "Kaderstand 2026-10-30",
-     "wert": "2026-10-30T18:39:31Z",
+     "text": "Kaderstand 2026-11-01",
+     "wert": "2026-11-01T17:46:00Z",
      "datei": "kader.json",
      "pfad": "stand_utc",
      "vorwort": "Kaderstand"
