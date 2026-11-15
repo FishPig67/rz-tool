@@ -191,26 +191,26 @@
   }
  },
  "kader": {
-  "wert": 214,
-  "einheit": "Plätze in Woche 9",
+  "wert": 215,
+  "einheit": "Plätze in Woche 10",
   "datei": "kader.json",
   "pfad": "kenn.n_kaderplaetze",
-  "erzeugt_utc": "2026-11-06T20:11:20Z",
+  "erzeugt_utc": "2026-11-15T14:37:02Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260905-0122-nflverse-parquet-5b1a0a",
    "20260907-2042-player-ids-zweifach-93d97c",
    "20260911-0927-bruecke-ergaenzung-01392e",
    "20261024-2100-bruecke-korrektur-2e0661",
-   "20261106-0630-nflverse-schedules-auto-37eecf",
-   "20261106-1938-yahoo-w09-mi-5d9dde"
+   "20261115-0630-nflverse-schedules-auto-bbfccb",
+   "20261115-1409-yahoo-w10-mi-eb97de"
   ],
   "stand": {
-   "text": "Kaderstand 2026-11-06",
+   "text": "Kaderstand 2026-11-15",
    "teile": [
     {
-     "text": "Kaderstand 2026-11-06",
-     "wert": "2026-11-06T19:54:50Z",
+     "text": "Kaderstand 2026-11-15",
+     "wert": "2026-11-15T14:33:51Z",
      "datei": "kader.json",
      "pfad": "stand_utc",
      "vorwort": "Kaderstand"
