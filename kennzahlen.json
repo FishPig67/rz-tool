@@ -461,7 +461,7 @@
   "einheit": "Waiver-Preise",
   "datei": "waiver_markt.json",
   "pfad": "kern.n_preise",
-  "erzeugt_utc": "2026-11-15T14:34:17Z",
+  "erzeugt_utc": "2026-11-15T14:59:29Z",
   "buendel": [
    "20260904-1721-yahoo-voll-227e9b",
    "20260907-1731-yahoo-chat-15123c"
