@@ -352,11 +352,11 @@
   }
  },
  "saison": {
-  "wert": 9,
+  "wert": 10,
   "einheit": "gewertete Wochen",
   "datei": "saison.json",
   "pfad": "kenn.n_gewertete_wochen",
-  "erzeugt_utc": "2026-11-15T15:04:56+00:00",
+  "erzeugt_utc": "2026-11-17T21:10:50+00:00",
   "buendel": [
    "20260903-2320-yahoo-liga-9d56a2",
    "20260904-1721-yahoo-voll-227e9b",
@@ -368,15 +368,16 @@
    "20261022-1309-yahoo-w06-di-77bfb0",
    "20261027-1803-yahoo-w07-di-0cbe88",
    "20261106-2001-yahoo-w08-di-6727e4",
-   "20261115-0630-nflverse-schedules-auto-bbfccb",
-   "20261115-1445-yahoo-w09-di-165ffc"
+   "20261115-1445-yahoo-w09-di-165ffc",
+   "20261117-0630-nflverse-schedules-auto-561350",
+   "20261117-2030-yahoo-w10-di-129903"
   ],
   "stand": {
-   "text": "Stand 2026-11-15",
+   "text": "Stand 2026-11-17",
    "teile": [
     {
-     "text": "Stand 2026-11-15",
-     "wert": "2026-11-15T14:48:21.071Z",
+     "text": "Stand 2026-11-17",
+     "wert": "2026-11-17T20:33:34.661Z",
      "datei": "saison.json",
      "pfad": "abgriff_utc",
      "vorwort": "Stand"
